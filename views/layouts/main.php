@@ -11,6 +11,10 @@ use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 use yii\helpers\ArrayHelper;
 
+$cookies = Yii::$app->request->cookies;
+$theme = $cookies->getValue('theme_picker', 'name');
+raoul2000\bootswatch\BootswatchAsset::$theme = $theme;
+
 AppAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -32,6 +36,7 @@ AppAsset::register($this);
 			NavBar::begin([
 				'brandLabel' => Yii::$app->name,
 				'brandUrl' => Yii::$app->homeUrl,
+				'renderInnerContainer'=>false,
 				'options' => [
 					'class' => 'navbar-inverse navbar-fixed-top',
 				],
@@ -48,34 +53,38 @@ AppAsset::register($this);
 			$contest = app\models\Contest::findOne(['id'=>$contest_id]);
 			$contest = $contest->name ?? 'No Contest Selected';
 
-
 			echo Nav::widget([
 				'options' => ['class' => 'navbar-nav navbar-left navbar-active'],
 				'items' => [
 					Yii::$app->user->isGuest ? ( ['label'=>'No Contest Selected']) : (['label'=> $contest, 'url' => ['/user/settings']]), 
 				],
 			]);
+
+			echo app\widgets\ThemePicker::widget();
+
 			echo Nav::widget([
 				'options' => ['class' => 'navbar-nav navbar-right'],
 				'items' => [
 					['label' => 'Contest Management', 'visible'=>!Yii::$app->user->isGuest,
 						'items'=> [
 							['label' => 'Launches', 'url' => ['/launch/manage']],
-							['label' => 'Status', 'url' => ['/status/manage']],
-							['label' => 'Tracking', 'url' => ['/track']],
+							['label' => 'Aircraft Status', 'url' => ['/status/manage']],
+							['label' => 'Aircraft Tracking', 'url' => ['/track']],
 							['label' => 'Landouts', 'url' => ['/landout']],
 							['label' => 'Aero Retrieves', 'url' => ['/retrieve/manage']],
 							['label' => 'Accounts', 'url' => ['/transaction/manage']],
-							['label' => 'Prices', 'url' => ['/transaction-type']],
-							['label' => 'Pilots', 'url' => ['/pilot']],
-							['label' => 'Towplanes', 'url' => ['/towplane']],
 						],
 					],
 					['label' => 'Contest Admin', 'visible'=>Yii::$app->user->can('Administrator') or Yii::$app->user->can('Director') ,
 						'items'=> [
+							['label' => 'Setup a Contest', 'url'=>['/site/setup']],
 							['label' => 'Clubs', 'url' => ['/club']],
 							['label' => 'Contests', 'url' => ['/contest']],
 							['label' => 'Default Prices', 'url' => ['/default-type']],
+							['label' => 'Prices', 'url' => ['/transaction-type']],
+							['label' => 'Pilots', 'url' => ['/pilot']],
+							['label' => 'Towplanes', 'url' => ['/towplane']],
+							['label' => 'SMS Messaging', 'url' => ['/sms']],
 						],
 					],
 					['label' => 'User Admin', 'visible'=>Yii::$app->user->can('Administrator'),
@@ -103,7 +112,7 @@ AppAsset::register($this);
 			NavBar::end();
 			?>
 
-			<div class="container">
+			<div class="container-fluid">
 				<?= Breadcrumbs::widget([
 					'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 				]) ?>
@@ -113,7 +122,7 @@ AppAsset::register($this);
 		</div>
 
 		<footer class="footer">
-			<div class="container">
+			<div class="container fluid">
 				<p class="pull-left">&copy; Lyon MacIntyre Ltd <?= date('Y') ?></p>
 
 				<p class="pull-right"><?= Yii::powered() ?></p>

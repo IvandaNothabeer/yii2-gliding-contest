@@ -36,7 +36,7 @@ use richardfan\widget\JSRegister;
 			'url'=>Url::to(['/contest/byclub'])
 		]
 	]);
-
+    
 	?>
 	<div class="form-group">
 		<?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

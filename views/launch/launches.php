@@ -17,9 +17,9 @@ $this->params['breadcrumbs'][] = 'Edit';
 <div class="giiant-crud launch-update">
 
 <h1>
-	<?= '' //Yii::t('models', 'Launch') ?>
+	<?= Yii::t('models', 'Launch List') ?>
 	<small>
-		<?= '' //Html::encode($model->id) ?>
+		<?=  Html::encode($date) ?>
 	</small>
 </h1>
 
@@ -30,31 +30,30 @@ $this->params['breadcrumbs'][] = 'Edit';
 <hr />
 
 <div class ="row" >
-<div class = col-md-1>
-	<h3>Pilots</h3>
-	<div class="panel panel-default" id="pilot_panel">
-		<div class="panel-body"  id="pilot_list">
-			<li class=list-group-item>TT</li>
-			<li class=list-group-item>KT</li>
-			<li class=list-group-item>SW</li>
+	<!-- build Column of Draggable Pilot Registrations -->
+	<div class = col-md-1>
+		<h4>Pilot List</h4>
+		<div class="list-group" id="pilot_list">
+				<?php foreach ($pilots as $pilot) echo "<li class='list-group-item list-group-item-success' id='$pilot->rego_short'>$pilot->rego_short</li>"  ?>
 		</div>
 	</div>
+	<!-- build Columns of Droppable Towplane Registrations -->
+	<?php 
+	$panel_ids = ['#pilot_list'];
+	foreach ($towplanes as $towplane)
+	{
+		$panel_ids[] = "#$towplane->rego"."_panel";
+		
+		echo "<div class='col-md-1'>";
+		echo	"<h4>$towplane->rego</h4>";
+		echo	"<div class='well well-sm' id='$towplane->rego"."_panel'>";
+		echo	"</div>";
+		echo "</div>";
+		
+		
+	}
+	?>
 </div>
-<div class='col-md-1'>
-	<h3>TPO</h3>
-	<div class="panel panel-default" id="tug1-panel">
-		<div class="panel-body">
-		</div>
-	</div>
-</div>
-<div class='col-md-1'>
-	<h3>TZB</h3>
-	<div class="panel panel-default" id="tug2-panel">
-		<div class="panel-body">
-		</div>
-	</div>
-</div>
-
 
 <?php 
 //echo $this->render('_form', [
@@ -64,7 +63,7 @@ $this->params['breadcrumbs'][] = 'Edit';
 ?>
 
 <?= Dragula::widget([
-	'containers' => ['#pilot_list', '#tug1-panel', '#tug2-panel'],
+	'containers' => $panel_ids,
 	'options'    => [
 		//'revertOnSpill' => false,
 		'removeOnSpill' => true,

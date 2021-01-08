@@ -2,7 +2,7 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=gops2',
+    'dsn' => 'mysql:host=localhost;dbname=yii2-gliding-contest',
     'username' => 'developer',
     'password' => 'password',
     'charset' => 'utf8',

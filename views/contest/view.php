@@ -44,17 +44,13 @@ $this->params['breadcrumbs'][] = 'View';
 			<?= Html::a(
 				'<span class="glyphicon glyphicon-pencil"></span> ' . 'Edit',
 				[ 'update', 'id' => $model->id],
-				['class' => 'btn btn-info']
-			) ?>
-
-
+				['class' => 'btn btn-info']) ?>
 
 			<?= Html::a(
 				'<span class="glyphicon glyphicon-plus"></span> ' . 'Import Pilot Entries',
 				['import', 'id' => $model->id],
 				['class' => 'btn btn-success']
 			) ?>
-
 		</div>
 
 		<div class="pull-right">
@@ -76,16 +72,17 @@ $this->params['breadcrumbs'][] = 'View';
 			[
 				'format' => 'html',
 				'attribute' => 'club_id',
-				'value' => ($model->club ?
+				'value' => ($model->club ? 
 					Html::a('<i class="glyphicon glyphicon-list"></i>', ['club/index']).' '.
 					Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->club->name, ['club/view', 'id' => $model->club->id,]).' '.
 					Html::a('<i class="glyphicon glyphicon-paperclip"></i>', ['create', 'Contest'=>['club_id' => $model->club_id]])
-					:
+					: 
 					'<span class="label label-warning">?</span>'),
 			],
 			'name',
 			'start',
 			'end',
+			'igcfiles',
 			'gnz_id',
 		],
 	]); ?>
@@ -93,17 +90,75 @@ $this->params['breadcrumbs'][] = 'View';
 
 	<hr/>
 
-	<?= Html::a(
-		'<span class="glyphicon glyphicon-trash"></span> ' . 'Delete',
-		['delete', 'id' => $model->id],
+	<?= Html::a('<span class="glyphicon glyphicon-trash"></span> ' . 'Delete', ['delete', 'id' => $model->id],
 		[
 			'class' => 'btn btn-danger',
 			'data-confirm' => '' . 'Are you sure to delete this item?' . '',
 			'data-method' => 'post',
-		]
-	); ?>
+	]); ?>
 	<?php $this->endBlock(); ?>
 
+
+
+	<?php $this->beginBlock('Peoples'); ?>
+	<div style='position: relative'>
+		<div style='position:absolute; right: 0px; top: 0px;'>
+			<?= Html::a(
+				'<span class="glyphicon glyphicon-list"></span> ' . 'List All' . ' Peoples',
+				['person/index'],
+				['class'=>'btn text-muted btn-xs']
+			) ?>
+			<?= Html::a(
+				'<span class="glyphicon glyphicon-plus"></span> ' . 'New' . ' People',
+				['person/create', 'Person' => ['contest_id' => $model->id]],
+				['class'=>'btn btn-success btn-xs']
+			); ?>
+		</div>
+	</div>
+	<?php Pjax::begin(['id'=>'pjax-Peoples', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-Peoples ul.pagination a, th a']) ?>
+	<?=
+	'<div class="table-responsive">'
+	. \yii\grid\GridView::widget([
+		'layout' => '{summary}<div class="text-center">{pager}</div>{items}<div class="text-center">{pager}</div>',
+		'dataProvider' => new \yii\data\ActiveDataProvider([
+			'query' => $model->getPeople(),
+			'pagination' => [
+				'pageSize' => 20,
+				'pageParam'=>'page-peoples',
+			]
+		]),
+		'pager'        => [
+			'class'          => yii\widgets\LinkPager::className(),
+			'firstPageLabel' => 'First',
+			'lastPageLabel'  => 'Last'
+		],
+		'columns' => [
+			[
+				'class'      => 'yii\grid\ActionColumn',
+				'template'   => '{view} {update}',
+				'contentOptions' => ['nowrap'=>'nowrap'],
+				'urlCreator' => function ($action, $model, $key, $index) {
+					// using the column name as key, not mapping to 'id' like the standard generator
+					$params = is_array($key) ? $key : [$model->primaryKey()[0] => (string) $key];
+					$params[0] = 'person' . '/' . $action;
+					$params['Person'] = ['contest_id' => $model->primaryKey()[0]];
+					return $params;
+				},
+				'buttons'    => [
+
+				],
+				'controller' => 'person'
+			],
+			'id',
+			'name',
+			'role',
+			'telephone:ntext',
+		]
+	])
+	. '</div>' 
+	?>
+	<?php Pjax::end() ?>
+	<?php $this->endBlock() ?>
 
 
 	<?php $this->beginBlock('Pilots'); ?>
@@ -139,15 +194,6 @@ $this->params['breadcrumbs'][] = 'View';
 			'lastPageLabel'  => 'Last'
 		],
 		'columns' => [
-			'id',
-			'gnz_id',
-			'name',
-			'address1',
-			'address2',
-			'address3',
-			'postcode',
-			'telephone',
-			'rego',
 			[
 				'class'      => 'yii\grid\ActionColumn',
 				'template'   => '{view} {update}',
@@ -164,9 +210,18 @@ $this->params['breadcrumbs'][] = 'View';
 				],
 				'controller' => 'pilot'
 			],
+			'id',
+			'gnz_id',
+			'name',
+			'address1',
+			'address2',
+			'address3',
+			'postcode',
+			'telephone',
+			'rego',
 		]
 	])
-	. '</div>'
+	. '</div>' 
 	?>
 	<?php Pjax::end() ?>
 	<?php $this->endBlock() ?>
@@ -205,15 +260,6 @@ $this->params['breadcrumbs'][] = 'View';
 			'lastPageLabel'  => 'Last'
 		],
 		'columns' => [
-			'id',
-			'rego',
-			'description',
-			'name',
-			'address1',
-			'address2',
-			'address3',
-			'postcode',
-			'telephone',
 			[
 				'class'      => 'yii\grid\ActionColumn',
 				'template'   => '{view} {update}',
@@ -230,9 +276,18 @@ $this->params['breadcrumbs'][] = 'View';
 				],
 				'controller' => 'towplane'
 			],
+			'id',
+			'rego',
+			'description',
+			'name',
+			'address1',
+			'address2',
+			'address3',
+			'postcode',
+			'telephone',
 		]
 	])
-	. '</div>'
+	. '</div>' 
 	?>
 	<?php Pjax::end() ?>
 	<?php $this->endBlock() ?>
@@ -271,11 +326,6 @@ $this->params['breadcrumbs'][] = 'View';
 			'lastPageLabel'  => 'Last'
 		],
 		'columns' => [
-			'id',
-			'name',
-			'description',
-			'price',
-			'credit',
 			[
 				'class'      => 'yii\grid\ActionColumn',
 				'template'   => '{view} {update}',
@@ -292,9 +342,14 @@ $this->params['breadcrumbs'][] = 'View';
 				],
 				'controller' => 'transaction-type'
 			],
+			'id',
+			'name',
+			'description',
+			'price',
+			'credit',
 		]
 	])
-	. '</div>'
+	. '</div>' 
 	?>
 	<?php Pjax::end() ?>
 	<?php $this->endBlock() ?>
@@ -309,6 +364,11 @@ $this->params['breadcrumbs'][] = 'View';
 					'label'   => '<b class=""># '.Html::encode($model->id).'</b>',
 					'content' => $this->blocks['\app\models\Contest'],
 					'active'  => true,
+				],
+				[
+					'content' => $this->blocks['Peoples'],
+					'label'   => '<small>Peoples <span class="badge badge-default">'. $model->getPeople()->count() . '</span></small>',
+					'active'  => false,
 				],
 				[
 					'content' => $this->blocks['Pilots'],

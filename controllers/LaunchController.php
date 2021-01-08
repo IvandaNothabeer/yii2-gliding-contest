@@ -36,7 +36,7 @@ class LaunchController extends \app\controllers\base\LaunchController
 					'rules' => [
 						[
 							'allow' => true,
-							'actions' => ['manage', 'report'],
+							'actions' => ['manage', 'report', 'launches'],
 							'roles' => ['AppLaunchEdit', 'AppLaunchFull']
 						],
 					],
@@ -113,7 +113,8 @@ class LaunchController extends \app\controllers\base\LaunchController
 		return $this->render('manage', ['models' => $models, 'launch_date' => $launch_date, 'towplane_id' => $towplane_id]);	
 	}
 
-	public function actionReport($towplane_id) {
+	public function actionReport($towplane_id) 
+	{
 
 		$towplane =  Towplane::findOne(['id'=>$towplane_id]);
 		if ($towplane === null) {
@@ -170,6 +171,15 @@ class LaunchController extends \app\controllers\base\LaunchController
 
 		// return the pdf output as per the destination setting
 		return $pdf->render(); 
+	}
+	
+	public function actionLaunches($date = null)
+	{
+		is_null($date) ?: $date = date('Y-m-d');
+		$pilots = \app\models\Pilot::find()->orderBy('rego_short')->all();
+		$towplanes = \app\models\Towplane::find()->all();
+		
+		return $this->render('launches', ['date' => $date, 'pilots' => $pilots , 'towplanes' => $towplanes]);
 	}
 
 

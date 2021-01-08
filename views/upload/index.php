@@ -41,42 +41,50 @@ $this->params['breadcrumbs'][] = 'IGC File';
 
 	<div class="row justify-content-center align-items-top">
 		<div class=panel-body>
-
-			<?= $form->field($model, 'date')->widget(DatePicker::className(), 
-				[
-					'type' => DatePicker::TYPE_COMPONENT_PREPEND,
-					'pluginOptions' => [
-						'todayHighlight' => true,
-						'todayBtn' => true,
-						'autoclose'=>true,
-						'format'=>'yyyy-mm-dd',
+			<div class = col-md-3>
+				<?= $form->field($model, 'date')->widget(DatePicker::className(), 
+					[
+						'type' => DatePicker::TYPE_COMPONENT_PREPEND,
+						'pluginOptions' => [
+							'todayHighlight' => true,
+							'todayBtn' => true,
+							'autoclose'=>true,
+							'format'=>'yyyy-mm-dd',
+						]
+				])->label('date'); ?>
+			</div>
+			<div class = col-md-3>
+				<?php 
+				echo $form->field($model, 'contest_id')->dropDownList(
+					\yii\helpers\ArrayHelper::map(\app\models\Contest::findEvery()->all(), 'id', 'name'),
+					[
+						'id' => 'contest_id',
+						'prompt' => 'Select Contest',
+						'disabled' => (isset($relAttributes) && isset($relAttributes['club_id'])),
 					]
-			])->label('date'); ?>
-			<?php 
-			echo $form->field($model, 'contest_id')->dropDownList(
-				\yii\helpers\ArrayHelper::map(\app\models\Contest::findEvery()->all(), 'id', 'name'),
-				[
-					'id' => 'contest_id',
-					'prompt' => 'Select Contest',
-					'disabled' => (isset($relAttributes) && isset($relAttributes['club_id'])),
-				]
-			);
+				);
+				?>
+			</div>
+			<div class = col-md-3>
+				<?php
+				echo $form->field($model, 'pilot_id')->widget(DepDrop::classname(), [
+					'options'=>['id'=>'pilot_id'],
+					//'data' => \yii\helpers\ArrayHelper::map(app\models\Pilot::find()->all(), 'id', 'name'),
+					'pluginOptions'=>[
+						'depends'=>['contest_id'],
+						'placeholder'=> 'Select Pilot ...',
+						'url'=>Url::to(['/upload/pilot-list'])
+					]
+				]);
 
-			echo $form->field($model, 'pilot_id')->widget(DepDrop::classname(), [
-				'options'=>['id'=>'pilot_id'],
-				//'data' => \yii\helpers\ArrayHelper::map(app\models\Pilot::find()->all(), 'id', 'name'),
-				'pluginOptions'=>[
-					'depends'=>['contest_id'],
-					'placeholder'=> 'Select Pilot ...',
-					'url'=>Url::to(['/upload/pilot-list'])
-				]
-			]);
+				?>
+			</div>
+			<div class = col-md-3>
+				<?= $form->field($model, 'file')->fileInput(['class'=>'form-control'])->label('IGC File') ?>
+			</div>
 
-			?>
-			<?= $form->field($model, 'file')->fileInput()->label('IGC File') ?>
-			
 			<?= $form->field($model, 'rego')->hiddenInput(['id'=>'rego'])->label(false)?>
-			
+
 		</div>
 
 	</div>

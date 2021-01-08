@@ -25,15 +25,23 @@ else {
 	<div class="body-content">
 
 		<div class="row align-content-center">
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 				<h2>Launches</h2>
 				<p><a class="btn btn-lg btn-info" href="launch">Todays Launches &raquo;</a></p>
+				<div class="list-group">
+					<?php $launches = \yii\helpers\ArrayHelper::map(\app\models\Launch::find()->where(['=','date',date('Y-m-d')])->all(),'id','pilot.rego_short'); ?>
+					<?php foreach ($launches as $key=>$value) echo  "<li class='list-group-item'>$value</li>"?>
+				</div>
 			</div>
 			<div class="col-lg-2">
 				<h2>Status</h2>
 				<p><a class="btn btn-lg btn-info" href="status/manage">Glider Status &raquo;</a></p>
+				<div class="list-group">
+					<?php $launches = \yii\helpers\ArrayHelper::map(\app\models\Status::find()->all(),'pilot.rego_short', 'status'); ?>
+					<?php foreach ($launches as $key=>$value) echo  "<li class='list-group-item'>$key  -  $value</li>"?>
+				</div>
 			</div>
-			<div class="col-lg-3">
+			<div class="col-lg-2">
 				<h2>Tracking</h2>
 				<p><a class="btn btn-lg btn-info" href="track">Tracking Updates &raquo;</a></p>
 			</div>
