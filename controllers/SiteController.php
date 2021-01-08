@@ -27,6 +27,11 @@ class SiteController extends Controller
 						'allow' => true,
 						'roles' => ['@'],
 					],
+					[
+						'allow' => true,
+						'actions' => ['setup'],
+						'roles' => ['AppContestFull']
+					],
 				],
 			],
 			'verbs' => [
@@ -124,6 +129,11 @@ class SiteController extends Controller
 	public function actionAbout()
 	{
 		return $this->render('about');
+	}
+
+	public function actionSetup()
+	{
+		return $this->render('setup');
 	}
 
 }

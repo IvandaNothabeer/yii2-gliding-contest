@@ -18,6 +18,7 @@ use Yii;
  * @property string $igcfiles
  *
  * @property \app\models\Club $club
+ * @property \app\models\Person[] $people
  * @property \app\models\Pilot[] $pilots
  * @property \app\models\Towplane[] $towplanes
  * @property \app\models\TransactionType[] $transactionTypes
@@ -69,11 +70,33 @@ abstract class Contest extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'gnz_id' => 'GNZ Contest ID',
+            'name' => 'Contest Name',
+            'start' => 'Start Date',
+            'end' => 'End Date',
+            'igcfiles' => 'IGC Uploads Directory',
+        ]);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getClub()
     {
         return $this->hasOne(\app\models\Club::className(), ['id' => 'club_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPeople()
+    {
+        return $this->hasMany(\app\models\Person::className(), ['contest_id' => 'id']);
     }
 
     /**

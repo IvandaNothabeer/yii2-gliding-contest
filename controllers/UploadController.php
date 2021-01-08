@@ -82,7 +82,7 @@ class UploadController extends Controller
 			$parents = $_POST['depdrop_parents'];
 			if ($parents != null) {
 				$contest_id = $parents[0];
-				$contests = ArrayHelper::map(Pilot::findEvery()->where(['contest_id'=>$contest_id])->all(),'id', 'rego_short');
+				$contests = ArrayHelper::map(Pilot::findEvery()->where(['contest_id'=>$contest_id])->orderBy('rego_short ASC')->all(),'id', 'rego_short');
 				foreach ($contests as $key=>$value) $out[]= ['id'=>$key,'name'=>$value]; 
 				return ['output'=>$out, 'selected'=>''];
 			}

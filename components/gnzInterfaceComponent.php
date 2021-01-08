@@ -26,7 +26,7 @@ class gnzInterfaceComponent extends Component
 
 	public function getContestList()
 	{
-		DebugBreak();
+		//DebugBreak();
 		$client = new Client(['baseUrl'=> $this->baseUrl]);
 		$response = $client->createRequest()
 		->setMethod('GET')

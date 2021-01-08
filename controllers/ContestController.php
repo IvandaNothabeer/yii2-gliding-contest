@@ -26,11 +26,11 @@ class ContestController extends \app\controllers\base\ContestController
 					'rules' => [
 						[
 							'allow' => true,
-							'actions' => ['import', 'byclub'],
+							'actions' => ['import', 'byclub' ],
 							'roles' => ['AppContestEdit', 'AppContestFull']
 						],
-												[
-						'allow' => true,
+						[
+							'allow' => true,
 							'actions' => ['byclub'],
 							'roles' => ['@']
 						],
@@ -92,7 +92,6 @@ class ContestController extends \app\controllers\base\ContestController
 		return $this->redirect(Url::previous());
 
 	}
-
 
 	public function actionByclub() {
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
