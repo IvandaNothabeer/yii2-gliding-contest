@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "10faab58ab5c4d23c411853b43bc11ad",
+    "content-hash": "fdb9dff0a86ab75dcd3ebfae66385200",
     "packages": [
         {
             "name": "2amigos/yii2-selectize-widget",
@@ -151,6 +151,65 @@
             "time": "2020-04-05T11:59:36+00:00"
         },
         {
+            "name": "bizley/migration",
+            "version": "4.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bizley/yii2-migration.git",
+                "reference": "5a56ba76cd6a7398f4115cc0d4d38a0752f67217"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bizley/yii2-migration/zipball/5a56ba76cd6a7398f4115cc0d4d38a0752f67217",
+                "reference": "5a56ba76cd6a7398f4115cc0d4d38a0752f67217",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "ext-pdo": "*",
+                "php": ">=7.2",
+                "yiisoft/yii2": "^2.0.19"
+            },
+            "require-dev": {
+                "infection/infection": "*",
+                "phpstan/phpstan": "*",
+                "phpunit/phpunit": "^8.5",
+                "roave/security-advisories": "dev-master"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "bizley\\migration\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Paweł Bizley Brzozowski",
+                    "email": "pawel@positive.codes"
+                }
+            ],
+            "description": "Migration generator for Yii 2.",
+            "keywords": [
+                "console",
+                "generator",
+                "migrate",
+                "migration",
+                "updater",
+                "yii2"
+            ],
+            "funding": [
+                {
+                    "url": "https://github.com/sponsors/bizley",
+                    "type": "github"
+                }
+            ],
+            "time": "2020-12-19T14:33:02+00:00"
+        },
+        {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
             "source": {
@@ -215,7 +274,7 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {

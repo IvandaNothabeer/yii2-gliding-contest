@@ -36,7 +36,7 @@ class LaunchController extends \app\controllers\base\LaunchController
 					'rules' => [
 						[
 							'allow' => true,
-							'actions' => ['manage', 'report', 'launches'],
+							'actions' => ['manage', 'report', 'launches', 'add-launch', 'remove-launch'],
 							'roles' => ['AppLaunchEdit', 'AppLaunchFull']
 						],
 					],
@@ -85,7 +85,7 @@ class LaunchController extends \app\controllers\base\LaunchController
 			'query' => $query,
 		]);
 		$models = $dataProvider->getModels();
-
+ 
 		$request = Yii::$app->getRequest();
 		if ($request->isPost)  {
 
@@ -172,14 +172,29 @@ class LaunchController extends \app\controllers\base\LaunchController
 		// return the pdf output as per the destination setting
 		return $pdf->render(); 
 	}
-	
+
 	public function actionLaunches($date = null)
 	{
-		is_null($date) ?: $date = date('Y-m-d');
+		!is_null($date) ?: $date = date('Y-m-d');
 		$pilots = \app\models\Pilot::find()->orderBy('rego_short')->all();
 		$towplanes = \app\models\Towplane::find()->all();
-		
-		return $this->render('launches', ['date' => $date, 'pilots' => $pilots , 'towplanes' => $towplanes]);
+        $launches = Launch::findAll(['date'=>$date]);
+		return $this->render('launches', ['date' => $date, 'pilots' => $pilots , 'towplanes' => $towplanes, 'launches' => $launches]);
+	}
+
+	public function actionAddLaunch ($towplane, $pilot)
+	{
+		$launch = new Launch;
+		$launch->towplane_id = $towplane;
+		$launch->pilot_id = $pilot;
+		$launch->date = date('Y-m-d');
+		return $launch->save();	
+	}
+
+	public function actionRemoveLaunch ($towplane, $pilot)
+	{
+		$launch = Launch::findOne(['towplane_id'=>$towplane, 'pilot_id'=>$pilot, 'date'=>date('Y-m-d')]);
+		return $launch->delete();	
 	}
 
 

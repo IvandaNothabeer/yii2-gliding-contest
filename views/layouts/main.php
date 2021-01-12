@@ -55,8 +55,9 @@ AppAsset::register($this);
 
 			echo Nav::widget([
 				'options' => ['class' => 'navbar-nav navbar-left navbar-active'],
+				'encodeLabels' => false,
 				'items' => [
-					Yii::$app->user->isGuest ? ( ['label'=>'No Contest Selected']) : (['label'=> $contest, 'url' => ['/user/settings']]), 
+					Yii::$app->user->isGuest ? ( ['label'=>'No Contest Selected']) : (['label'=> "<span class='btn btn-success navbar-btn' style='margin-top:0px; margin-bottom:0px; padding-top:0px; padding-bottom:0px'> $contest </span>", 'url' => ['/user/settings']]), 
 				],
 			]);
 
@@ -83,6 +84,7 @@ AppAsset::register($this);
 							['label' => 'Default Prices', 'url' => ['/default-type']],
 							['label' => 'Prices', 'url' => ['/transaction-type']],
 							['label' => 'Pilots', 'url' => ['/pilot']],
+							['label' => 'People', 'url' => ['/person']],
 							['label' => 'Towplanes', 'url' => ['/towplane']],
 							['label' => 'SMS Messaging', 'url' => ['/sms']],
 						],
@@ -112,7 +114,7 @@ AppAsset::register($this);
 			NavBar::end();
 			?>
 
-			<div class="container-fluid">
+			<div class="container-fluid" style="padding-top:70px">
 				<?= Breadcrumbs::widget([
 					'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
 				]) ?>

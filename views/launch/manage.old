@@ -61,7 +61,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 	</div>
 
 	<div class="row justify-content-center align-items-top">
-    
+
 		<?php 
 		echo TabularInput::widget([
 			'id'						=>'multiple-input',
@@ -102,9 +102,9 @@ $this->params['breadcrumbs'][] = 'Manage';
 				],
 			],
 		]);
-            
+
 		?>
-         
+
 
 		<?= Html::submitButton('Update', ['class' => 'btn btn-success']); ?>
 

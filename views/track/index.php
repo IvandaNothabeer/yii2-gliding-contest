@@ -99,6 +99,7 @@ $this->params['breadcrumbs'][] = 'Updates';
 								$utc_offset =  date('Z') / 3600;
 								$style = [];
 								$ts = date('Y-m-d H:i:s' , strtotime($utc_offset. ' hours', strtotime($model['thetime'])));
+								if ($ts < date('Y-m-d H:i:s',strtotime('-15 mins'))) $style = ['style' => 'background-color:cyan'];
 								if ($ts < date('Y-m-d H:i:s',strtotime('-1 hours'))) $style = ['style' => 'background-color:orange'];
 								if ($ts < date('Y-m-d H:i:s',strtotime('-2 hours'))) $style = ['style' => 'background-color:red'];
 								return $style;
@@ -149,18 +150,8 @@ $this->params['breadcrumbs'][] = 'Updates';
 					//	'label' => 'Update Interval',
 					//],
 					'status' => [
-						'type' => TabularForm::INPUT_RAW,
-						'value' => function ($model, $key, $index, $widget) {
-							date_default_timezone_set('Pacific/Auckland');
-							$utc_offset =  date('Z') / 3600;
-							$ts = date('Y-m-d H:i:s' , strtotime($utc_offset. ' hours', strtotime(@$model['thetime']))); 
-							$status = 'OK';
-							if (@$model['alt']-@$model['gl'] < 10) $status = "Height";
-							if (@$model['speed'] < 10) $status = 'Speed';
-							if ($ts < date('Y-m-d H:i:s',strtotime('-15 mins'))) $status = 'Slow Update';
-							if ($ts < date('Y-m-d H:i:s',strtotime('-2 hours'))) $status = 'No Update';
-							return $status;
-						}
+						'type' => TabularForm::INPUT_STATIC,
+						'label' =>'Status',
 					],
 				],
 			]); 

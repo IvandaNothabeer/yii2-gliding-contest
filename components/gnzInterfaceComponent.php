@@ -210,6 +210,17 @@ class gnzInterfaceComponent extends Component
 				//$data[$track['aircraft']['contest_id']] = $track['points'][0];
 				$point = $track['points'][0];
 				$point['rego'] = $track['aircraft']['contest_id'];
+
+				$utc_offset =  date('Z') / 3600;
+				$ts = date('Y-m-d H:i:s' , strtotime($utc_offset. ' hours', strtotime($point['thetime']))); 
+				$status = 'OK';
+				if ($point['alt']- $point['gl'] < 10) $status = "Height";
+				if ($point['speed'] < 10) $status = 'Speed';
+				if ($ts < date('Y-m-d H:i:s',strtotime('-15 mins'))) $status = 'Slow Update';
+				if ($ts < date('Y-m-d H:i:s',strtotime('-2 hours'))) $status = 'No Update';
+
+				$point['status'] = $status;
+				
 				$data[]=$point;
 			}
 
