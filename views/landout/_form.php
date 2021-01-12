@@ -457,13 +457,17 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 		opentopomap: L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
 			maxZoom: 17,
 			attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+		}),		
+		satellite: L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Powered by Esri Source: Esri, DigitalGlobe, GeoEye, Earthstar Geographics, CNES/Airbus DS, USDA, USGS, AeroGRID, IGN, and the GIS User Community'
 		})
 	};
 
 	var layersControl = L.control.layers({
 		'Street Map': mapLayers.streetmap,
 		'Terrain': mapLayers.terrain,
-		'Topology': mapLayers.opentopomap
+		'Topology': mapLayers.opentopomap,
+		'Satellite': mapLayers.satellite
 	});
 
 	mapLayers.terrain.addTo(map);

@@ -19,7 +19,7 @@ class ThemePicker extends \yii\base\Widget {
             } else {
                 $themeName = \Yii::$app->getRequest()->getCookies()->getValue('theme_picker');
             }
-
+            
             $dropdown = '<select id="theme_picker" class="navbar-text navbar-right" name="theme_picker" onchange="this.form.submit()">';
             $dropdown .= '<option value="">' . \Yii::t('theme_picker', 'Choose a theme') . ' </option>';
             foreach ($themes as $theme) {

@@ -125,7 +125,9 @@ class SmsController extends Controller
     {
     	
     	$contest = Contest::findOne(['id'=>$contest_id]);
-		$contacts = ArrayHelper::map($contest->pilots, 'name', 'telephone');
+		$pilots = ArrayHelper::map($contest->pilots, 'name', 'telephone');
+		$people = ArrayHelper::map($contest->people, 'name', 'telephone');
+		$contacts = array_merge($pilots,$people);
 		    	
 		$list_id = Yii::$app->sms->createList($contest->name);
 		Yii::$app->sms->createContacts($list_id, $contacts);

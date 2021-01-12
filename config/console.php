@@ -106,6 +106,9 @@ $config = [
 				'Da\User\Migration',
 			],
 		],
+		        'migration' => [
+            'class' => 'bizley\migration\controllers\MigrationController',
+        ],
 	],
 ];
 
