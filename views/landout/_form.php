@@ -103,7 +103,7 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 				<?='<label class="control-label">Name</label>' ?>
 				<?= Html::textInput('pilot_name','',['id'=>'landout-pilot_name','class'=>'form-control']) ?>
 			</div>
-			<div class="col-md-3">
+			<div class="col-md-3" style="z-index:999">
 				<?php
 				echo $form->field($model, 'date')->widget(DatePicker::classname(), [
 					'type' => DatePicker::TYPE_COMPONENT_PREPEND,

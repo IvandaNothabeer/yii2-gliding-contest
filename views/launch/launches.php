@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = 'Edit';
 
 		echo "<div class='col-md-1'>";
 		echo	"<h4>$towplane->rego</h4>";
-		echo	"<div class='well' style='min-height:45px; padding:0px;'  id='$towplane->rego' data-towplane='$towplane->id' >";
+		echo	"<div class='well' style='min-height:45px; padding:0px; background-color:#808080'  id='$towplane->rego' data-towplane='$towplane->id' >";
 		foreach ($launches as $launch) 
 			if  ($launch->towplane_id == $towplane->id) echo "<li class='list-group-item list-group-item-success'  data-pilot='$launch->pilot_id'>".$launch->pilot->rego_short."</li>" ;
 			echo	"</div>";
