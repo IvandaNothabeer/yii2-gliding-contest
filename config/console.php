@@ -106,9 +106,11 @@ $config = [
 				'Da\User\Migration',
 			],
 		],
-		        'migration' => [
-            'class' => 'bizley\migration\controllers\MigrationController',
-        ],
+		'migration' => [
+			'class' => 'bizley\migration\controllers\MigrationController',
+			'excludeTables' => ['auth_assignment', 'auth_item', 'auth_item_child', 'auth_rule'],
+			'skipMigrations' => ['Person_access']
+		],
 	],
 ];
 

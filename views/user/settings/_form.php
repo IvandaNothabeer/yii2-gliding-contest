@@ -26,7 +26,7 @@ use richardfan\widget\JSRegister;
 			'disabled' => (isset($relAttributes) && isset($relAttributes['club_id'])),
 		]
 	);
-	
+
 	echo $form->field($model, 'contest_id')->widget(DepDrop::classname(), [
 		'options'=>['id'=>'contest_id'],
 		'data' => \yii\helpers\ArrayHelper::map(app\models\Contest::find()->all(), 'id', 'name'),
@@ -36,12 +36,18 @@ use richardfan\widget\JSRegister;
 			'url'=>Url::to(['/contest/byclub'])
 		]
 	]);
-    
+
 	?>
+
 	<div class="form-group">
 		<?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
 	</div>
 
 	<?php ActiveForm::end(); ?>
+
+
+	<?= yii\helpers\Html::label('Display Theme') ?>
+	<?= app\widgets\ThemePicker::widget(); ?>
+
 
 </div>

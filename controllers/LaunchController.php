@@ -188,6 +188,11 @@ class LaunchController extends \app\controllers\base\LaunchController
 		$launch->towplane_id = $towplane;
 		$launch->pilot_id = $pilot;
 		$launch->date = date('Y-m-d');
+		
+		$status = \app\models\Status::findOne(['pilot_id'=>$pilot]);
+		$status->status = \app\models\Status::STATUS_LAUNCHED;
+		$status->save(false);
+		
 		return $launch->save();	
 	}
 
