@@ -29,7 +29,7 @@ else {
 		<div class="row align-content-center">
 			<div class="col-lg-2">
 				<h2>Launches</h2>
-				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/launch/manage') ?>">Todays Launches &raquo;</a></p>
+				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/launch/create') ?>">Todays Launches &raquo;</a></p>
 				<div class="list-group">
 					<?php $launches = \yii\helpers\ArrayHelper::map(\app\models\Launch::find()->where(['date' => date('Y-m-d')])->all(),'id','pilot.rego_short'); ?>
 					<?php foreach ($launches as $key=>$value) echo  "<li class='list-group-item'>$value</li>"?>
