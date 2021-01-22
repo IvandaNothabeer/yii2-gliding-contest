@@ -13,6 +13,8 @@ use Yii;
  * @property integer $pilot_id
  * @property integer $type_id
  * @property string $details
+ * @property integer $quantity
+ * @property string $item_price
  * @property string $amount
  * @property string $date
  *
@@ -41,9 +43,9 @@ abstract class Transaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pilot_id', 'type_id', 'amount', 'date'], 'required'],
-            [['pilot_id', 'type_id'], 'integer'],
-            [['amount'], 'number'],
+            [['pilot_id', 'type_id', 'item_price', 'amount', 'date'], 'required'],
+            [['pilot_id', 'type_id', 'quantity'], 'integer'],
+            [['item_price', 'amount'], 'number'],
             [['date'], 'safe'],
             [['details'], 'string', 'max' => 80],
             [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::className(), 'targetAttribute' => ['pilot_id' => 'id']],
@@ -61,7 +63,9 @@ abstract class Transaction extends \yii\db\ActiveRecord
             'pilot_id' => 'Pilot',
             'type_id' => 'Transaction Type',
             'details' => 'Details',
-            'amount' => 'Amount',
+            'quantity' => 'Quantity',
+            'item_price' => 'Item Price',
+            'amount' => 'Total Price',
             'date' => 'Date',
         ];
     }

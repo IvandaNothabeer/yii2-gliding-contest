@@ -15,8 +15,7 @@ use yii\helpers\StringHelper;
 
 <div class="transaction-form">
 
-    <?php $form = ActiveForm::begin(
-    [
+    <?php $form = ActiveForm::begin([
     'id' => 'Transaction',
     'layout' => 'horizontal',
     'enableClientValidation' => true,
@@ -32,7 +31,7 @@ use yii\helpers\StringHelper;
              ],
          ],
     ]
-);
+    );
     ?>
 
     <div class="">
@@ -61,11 +60,17 @@ $form->field($model, 'type_id')->dropDownList(
     ]
 ); ?>
 
+<!-- attribute item_price -->
+			<?= $form->field($model, 'item_price')->textInput(['maxlength' => true]) ?>
+
 <!-- attribute amount -->
 			<?= $form->field($model, 'amount')->textInput(['maxlength' => true]) ?>
 
 <!-- attribute date -->
 			<?= $form->field($model, 'date')->textInput() ?>
+
+<!-- attribute quantity -->
+			<?= $form->field($model, 'quantity')->textInput() ?>
 
 <!-- attribute details -->
 			<?= $form->field($model, 'details')->textInput(['maxlength' => true]) ?>
@@ -74,9 +79,9 @@ $form->field($model, 'type_id')->dropDownList(
         
         <?=
     Tabs::widget(
-        [
+                 [
                     'encodeLabels' => false,
-                    'items' => [
+                    'items' => [ 
                         [
     'label'   => Yii::t('models', 'Transaction'),
     'content' => $this->blocks['main'],
@@ -97,7 +102,7 @@ $form->field($model, 'type_id')->dropDownList(
         'id' => 'save-' . $model->formName(),
         'class' => 'btn btn-success'
         ]
-    );
+        );
         ?>
 
         <?php ActiveForm::end(); ?>

@@ -97,10 +97,12 @@ $this->params['breadcrumbs'][] = 'View';
         :
         '<span class="label label-warning">?</span>'),
 ],
-        'amount',
         'date',
         'details',
-    ],
+        'quantity',
+        'item_price',
+        'amount',
+            ],
     ]); ?>
 
     

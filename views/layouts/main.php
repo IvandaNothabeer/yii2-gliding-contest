@@ -61,8 +61,6 @@ AppAsset::register($this);
 				],
 			]);
 
-			echo app\widgets\ThemePicker::widget();
-
 			echo Nav::widget([
 				'options' => ['class' => 'navbar-nav navbar-right'],
 				'items' => [

@@ -11,7 +11,6 @@ use richardfan\widget\JSRegister;
 
 $this->title = Yii::t('models', 'Launch');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'Launch'), 'url' => ['index']];
-//$this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Edit';
 ?>
 <div class="giiant-crud launch-update">
@@ -23,10 +22,6 @@ $this->params['breadcrumbs'][] = 'Edit';
 	</small>
 </h1>
 
-<div class="crud-navigation">
-	<?= '' //Html::a('<span class="glyphicon glyphicon-file"></span> ' . 'View', ['view', 'id' => $model->id], ['class' => 'btn btn-default']) ?>
-</div>
-
 <hr />
 
 <div class ="row" >
@@ -37,6 +32,9 @@ $this->params['breadcrumbs'][] = 'Edit';
 			<!-- standard HTML attribute : id = Glider Rego, Additional HTML data- element : data-pilot = $pilot-id  -->
 			<?php foreach ($pilots as $pilot) echo "<li class='list-group-item list-group-item-success' id='$pilot->rego_short' data-pilot='$pilot->id'>$pilot->rego_short</li>"  ?>
 		</div>
+	</div>
+	<div class = col-md-1>
+
 	</div>
 	<!-- build Columns of Droppable Towplane Registrations -->
 	<?php 
@@ -57,13 +55,6 @@ $this->params['breadcrumbs'][] = 'Edit';
 	}
 	?>
 </div>
-
-<?php 
-//echo $this->render('_form', [
-//'model' => $model,
-//]);
-
-?>
 
 <?php JSRegister::begin(); ?>
 
