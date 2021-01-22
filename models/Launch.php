@@ -49,6 +49,8 @@ class Launch extends BaseLaunch
 			$transaction->pilot_id = $this->pilot_id;	
 			$transaction->type_id = $code->id;
 			$transaction->details = $code->description;
+			$transaction->quantity = 1;
+			$transaction->item_price = $code->price;
 			$transaction->amount = $code->price;
 			$transaction->date = $this->date;
 			$transaction->save(false);

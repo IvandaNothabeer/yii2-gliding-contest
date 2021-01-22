@@ -57,9 +57,9 @@ $this->params['breadcrumbs'][] = 'Manage';
 					'class'=>'form-control',
 			])
 			?>
-		</div>
+		</div>        
 	</div>
-
+    
 	<div class="row justify-content-center align-items-top">
     
 		<?php 

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 
 use yii\bootstrap\ActiveForm;
+use yii\bootstrap\ActiveField;
 use unclead\multipleinput\TabularInput;
 use unclead\multipleinput\MultipleInput;
 use yii\widgets\Pjax;
@@ -51,11 +52,12 @@ $this->params['breadcrumbs'][] = 'Manage';
 		</div>
 		<div class="col-md-6">
 			<div class="pull-right">
-                <h2></h2>
+				<h2></h2>
+				<?= Html::submitButton('Confirm and Update Account', ['class' => 'btn btn-success']); ?>
 				<?= Html::a(
 					'<span class="glyphicon glyphicon-copy"></span> ' . 'Prepare Invoice',
 					['report', 'pilot_id' => $pilot_id],
-					['class' => 'btn btn-success']
+					['class' => 'btn btn-primary']
 				) ?>
 			</div>
 		</div>
@@ -116,12 +118,16 @@ $this->params['breadcrumbs'][] = 'Manage';
 							'style' => 'width: 15%;',
 						],
 						'options' => [
-							'onchange' =>' 
+							'onchange' =>'
+							var qty = 0; 
 							$.post("get-detail?id=" + $(this).val(), function(data){
 							console.log(data);
+							qty = $("#quantity-{multiple_index_t0}").val();
+							console.log(qty);
 							$("#details-{multiple_index_t0}").val(data.detail);
-							$("#transaction-{multiple_index_t0}-amount-disp").val(data.price);
-							$("#transaction-{multiple_index_t0}-amount").val(data.price);
+							$("#item_price-{multiple_index_t0}").val(data.price);
+							$("#transaction-{multiple_index_t0}-amount-disp").val(data.price * qty);
+							$("#transaction-{multiple_index_t0}-amount").val(data.price * qty);
 							},"json");
 							'
 						]
@@ -129,14 +135,57 @@ $this->params['breadcrumbs'][] = 'Manage';
 					],
 					[
 						'name' => 'details',
+						'title' => 'Details',
 						'type' =>  \unclead\multipleinput\MultipleInputColumn::TYPE_TEXT_INPUT,
 						'options' => [
 							'id' => 'details-{multiple_index_t0}',
+						],
+						'columnOptions' => [
+							'style' => 'width: 30%;',
+						]
+					],
+					[
+						'name' => 'quantity',
+						'title' => 'Qty',
+						'type' =>  \unclead\multipleinput\MultipleInputColumn::TYPE_TEXT_INPUT,
+						'defaultValue' => 1,
+						'options' => [
+							'id' => 'quantity-{multiple_index_t0}',
+							'type' => 'number',
+							'min' => 0,
+							'onchange' => '
+							var price = $("#item_price-{multiple_index_t0}").val();
+							var qty = $("#quantity-{multiple_index_t0}").val(); 
+							$("#transaction-{multiple_index_t0}-amount-disp").val(price * qty);
+							$("#transaction-{multiple_index_t0}-amount").val(price * qty);
+							',
+						],
+						'columnOptions' => [
+							'style' => 'width: 7%;',
+						]
+					],
+					[
+						'name' => 'item_price',
+						'title' => 'Item Price',
+						'type' =>  \unclead\multipleinput\MultipleInputColumn::TYPE_TEXT_INPUT,
+						'defaultValue' => 0,
+						'options' => [
+							'id' => 'item_price-{multiple_index_t0}',
+							'type' => 'number',
+							'onchange' => '
+							var price = $("#item_price-{multiple_index_t0}").val();
+							var qty = $("#quantity-{multiple_index_t0}").val(); 
+							$("#transaction-{multiple_index_t0}-amount-disp").val(price * qty);
+							$("#transaction-{multiple_index_t0}-amount").val(price * qty);
+							',
+						],
+						'columnOptions' => [
+							'style' => 'width: 15%;',
 						]
 					],
 					[
 						'name' => 'amount',
-						'title' => 'amount',
+						'title' => 'Total Price',
 						'type' =>  NumberControl::className(),
 						'defaultValue' => 0,
 						'options' => [
@@ -158,7 +207,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 
 		</div>
 
-		<?= Html::submitButton('Update', ['class' => 'btn btn-success']); ?>
+		<?= Html::submitButton('Confirm and Update Account', ['class' => 'btn btn-success']); ?>
 
 	</div>
 	<?php   

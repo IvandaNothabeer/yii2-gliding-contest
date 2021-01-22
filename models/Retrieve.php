@@ -45,6 +45,8 @@ class Retrieve extends BaseRetrieve
 			$transaction->pilot_id = $this->pilot_id;	
 			$transaction->type_id = $code->id;
 			$transaction->details = $code->description. ' - Duration : '. $this->duration . ' mins';
+			$transaction->quantity = 1;
+			$transaction->item_price = $this->price;
 			$transaction->amount = $this->price;
 			$transaction->date = $this->date;
 			$transaction->save(false);
