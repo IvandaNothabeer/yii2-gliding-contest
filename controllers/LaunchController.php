@@ -68,6 +68,35 @@ class LaunchController extends \app\controllers\base\LaunchController
 		]);
 	}
 
+	/**
+	* Creates a new Launch model.
+	* If creation is successful, the browser will be redirected to the 'view' page.
+	* @return mixed
+	*/
+	public function actionCreate()
+	{
+		$model = new Launch;
+
+		try {
+			if ($model->load($_POST) && $model->save()) {
+				Yii::$app->session->setFlash('success', $model->pilot->rego_short.' Launched Behind '.$model->towplane->rego);
+				if ($model->date==date('Y-m-d'))
+				{
+					$status = \app\models\Status::findOne(['pilot_id'=>$model->pilot]);
+					$status->status = \app\models\Status::STATUS_LAUNCHED;
+					$status->save(false);
+				}
+				return $this->redirect(['create', 'model' => new Launch]);
+			} elseif (!\Yii::$app->request->isPost) {
+				$model->load($_GET);
+			}
+		} catch (\Exception $e) {
+			$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+			$model->addError('_exception', $msg);
+		}
+		return $this->render('create', ['model' => $model]);
+	}
+
 	public function actionManage ($launch_date = null, $towplane_id = null)
 	{
 
@@ -85,7 +114,7 @@ class LaunchController extends \app\controllers\base\LaunchController
 			'query' => $query,
 		]);
 		$models = $dataProvider->getModels();
- 
+
 		$request = Yii::$app->getRequest();
 		if ($request->isPost)  {
 
@@ -178,7 +207,7 @@ class LaunchController extends \app\controllers\base\LaunchController
 		!is_null($date) ?: $date = date('Y-m-d');
 		$pilots = \app\models\Pilot::find()->orderBy('rego_short')->all();
 		$towplanes = \app\models\Towplane::find()->all();
-        $launches = Launch::findAll(['date'=>$date]);
+		$launches = Launch::findAll(['date'=>$date]);
 		return $this->render('launches', ['date' => $date, 'pilots' => $pilots , 'towplanes' => $towplanes, 'launches' => $launches]);
 	}
 
@@ -188,11 +217,11 @@ class LaunchController extends \app\controllers\base\LaunchController
 		$launch->towplane_id = $towplane;
 		$launch->pilot_id = $pilot;
 		$launch->date = date('Y-m-d');
-		
+
 		$status = \app\models\Status::findOne(['pilot_id'=>$pilot]);
 		$status->status = \app\models\Status::STATUS_LAUNCHED;
 		$status->save(false);
-		
+
 		return $launch->save();	
 	}
 
