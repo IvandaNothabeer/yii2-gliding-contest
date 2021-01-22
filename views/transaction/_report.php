@@ -25,59 +25,59 @@ use kartik\grid\GridView;
 		<?php $this->beginBody() ?>
 		<div class="container">
 			<div class="body-content">
-                <table width="100%" align="MIDDLE">
-                   <tr>
-                      <td>
-                         <h3><?= $contest->name ?></h3>
-                      </td>
-                      <td>
-                         <h3> Invoice To: </h3>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>
-                         <h3><?= $club->name ?></h3>
-                      </td>
-                      <td>
-                         <h3><?= $pilot->name ?></h3>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>
-                         <p><?= $club->address1 ?></p>
-                      </td>
-                      <td>
-                         <p><?= $pilot->address1 ?></p>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>
-                         <p><?= $club->address2 ?></p>
-                      </td>
-                      <td>
-                         <p><?= $pilot->address2 ?></p>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>
-                         <p><?= $club->address3 ?></p>
-                      </td>
-                      <td>
-                         <p><?= $pilot->address3 ?></p>
-                      </td>
-                   </tr>
-                   <tr>
-                      <td>
-                         <p><?= $club->postcode ?></p>
-                      </td>
-                      <td>
-                         <p><?= $pilot->postcode ?></p>
-                      </td>
-                   </tr>
-                </table>
-                
-				
-				
+				<table width="100%" align="MIDDLE">
+					<tr>
+						<td>
+							<h3><?= $contest->name ?></h3>
+						</td>
+						<td>
+							<h3> Invoice To: </h3>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<h3><?= $club->name ?></h3>
+						</td>
+						<td>
+							<h3><?= $pilot->name ?></h3>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p><?= $club->address1 ?></p>
+						</td>
+						<td>
+							<p><?= $pilot->address1 ?></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p><?= $club->address2 ?></p>
+						</td>
+						<td>
+							<p><?= $pilot->address2 ?></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p><?= $club->address3 ?></p>
+						</td>
+						<td>
+							<p><?= $pilot->address3 ?></p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<p><?= $club->postcode ?></p>
+						</td>
+						<td>
+							<p><?= $pilot->postcode ?></p>
+						</td>
+					</tr>
+				</table>
+
+
+
 				<p></p>
 				<p></p>
 
@@ -104,6 +104,8 @@ use kartik\grid\GridView;
 								'pageSummary' => 'Total Due',
 							],
 							'details',
+							'quantity',
+							'item_price',
 							//'amount',
 							[
 								'class' => \kartik\grid\DataColumn::className(),

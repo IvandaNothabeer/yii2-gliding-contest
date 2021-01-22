@@ -13,27 +13,29 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="giiant-crud launch-create">
 
-    <h1>
-        <?= Yii::t('models', 'Launch') ?>
-        <small>
-                        <?= Html::encode($model->id) ?>
-        </small>
-    </h1>
+	<h1>
+		<?= Yii::t('models', 'Launch') ?>
+		<small>
+			<?= Html::encode($model->id) ?>
+		</small>
+	</h1>
 
-    <div class="clearfix crud-navigation">
-        <div class="pull-left">
-            <?=             Html::a(
-    'Cancel',
-    \yii\helpers\Url::previous(),
-    ['class' => 'btn btn-default']
-) ?>
-        </div>
-    </div>
+	<div class="clearfix crud-navigation">
+		<div class="pull-left">
+			<?= ''
+			//            Html::a(
+			//	'Cancel',
+			//	\yii\helpers\Url::previous(),
+			//	['class' => 'btn btn-default']
+			//)
+			?>
+		</div>
+	</div>
 
-    <hr />
+	<hr />
 
-    <?= $this->render('_form', [
-    'model' => $model,
-    ]); ?>
+	<?= $this->render('_form', [
+		'model' => $model,
+	]); ?>
 
 </div>

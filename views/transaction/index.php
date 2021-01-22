@@ -147,10 +147,12 @@ if (\Yii::$app->user->can('app_transaction_create', ['route' => true])) {
                 },
                 'format' => 'raw',
             ],
-            'amount',
             'date',
             'details',
-                [
+            'quantity',
+            'item_price',
+            'amount',
+                            [
             'class' => 'yii\grid\ActionColumn',
             'template' => $actionColumnTemplateString,
             'buttons' => [

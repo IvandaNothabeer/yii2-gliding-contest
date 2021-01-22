@@ -12,60 +12,60 @@ use app\models\Transaction as TransactionModel;
 */
 class Transaction extends TransactionModel
 {
-/**
-* @inheritdoc
-*/
-public function rules()
-{
-return [
-[['id', 'pilot_id', 'type_id'], 'integer'],
-            [['details', 'date'], 'safe'],
-            [['amount'], 'number'],
-];
-}
+	/**
+	* @inheritdoc
+	*/
+	public function rules()
+	{
+		return [
+			[['id', 'pilot_id', 'type_id', 'quantity'], 'integer'],
+			[['details', 'date'], 'safe'],
+			[['amount', 'item_price'], 'number'],
+		];
+	}
 
-/**
-* @inheritdoc
-*/
-public function scenarios()
-{
-// bypass scenarios() implementation in the parent class
-return Model::scenarios();
-}
+	/**
+	* @inheritdoc
+	*/
+	public function scenarios()
+	{
+		// bypass scenarios() implementation in the parent class
+		return Model::scenarios();
+	}
 
-/**
-* Creates data provider instance with search query applied
-*
-* @param array $params
-*
-* @return ActiveDataProvider
-*/
-public function search($params)
-{
-$query = TransactionModel::find();
+	/**
+	* Creates data provider instance with search query applied
+	*
+	* @param array $params
+	*
+	* @return ActiveDataProvider
+	*/
+	public function search($params)
+	{
+		$query = TransactionModel::find();
 
-$dataProvider = new ActiveDataProvider([
-'query' => $query,
-]);
+		$dataProvider = new ActiveDataProvider([
+			'query' => $query,
+		]);
 
-$this->load($params);
+		$this->load($params);
 
-if (!$this->validate()) {
-// uncomment the following line if you do not want to any records when validation fails
-// $query->where('0=1');
-return $dataProvider;
-}
+		if (!$this->validate()) {
+			// uncomment the following line if you do not want to any records when validation fails
+			// $query->where('0=1');
+			return $dataProvider;
+		}
 
-$query->andFilterWhere([
-            'id' => $this->id,
-            'pilot_id' => $this->pilot_id,
-            'type_id' => $this->type_id,
-            'amount' => $this->amount,
-            'date' => $this->date,
-        ]);
+		$query->andFilterWhere([
+			'id' => $this->id,
+			'pilot_id' => $this->pilot_id,
+			'type_id' => $this->type_id,
+			'amount' => $this->amount,
+			'date' => $this->date,
+		]);
 
-        $query->andFilterWhere(['like', 'details', $this->details]);
+		$query->andFilterWhere(['like', 'details', $this->details]);
 
-return $dataProvider;
-}
+		return $dataProvider;
+	}
 }
