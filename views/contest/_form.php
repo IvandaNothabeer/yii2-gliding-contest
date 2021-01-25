@@ -64,6 +64,37 @@ use yii\helpers\StringHelper;
 		</p>
 		<?php $this->endBlock(); ?>
 
+		<?php $this->beginBlock('help'); ?>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 col-sm-2 col-12">
+					<div class="card h-100">
+						<h3 class="card-title">How to Copy the Contest Trace Files to the Scoring Computer</h3>
+						<div class="text-center">
+							<a href="https://winscp.net/eng/download.php" target="_blank" class="btn btn-primary">Download WinSCP</a>
+						</div>
+						<div class="text-left">
+						<ul>
+							<li>Download and Install WinSCP version 5.17.9 or Later</li>
+							<li>Run WinSCP</li>
+							<li>Log In to a New Site .... Hostname = <?= yii\helpers\Url::base(true)?> ,   Port = 22,   Username = igcfiles , password = igcfiles</li>
+							<li>Browse to the "Local" directory on the Scoring Computer where the IGC files are received</li>
+							<li>Browse to the "Remote" directory on the Contest Server where the IGC files are uploaded (igcfiles / &ltyour contest&gt>)</li>
+							<li>Commands -&gt Static Custom Commands -&gt Keep Local Directory Up to Date</li>
+							<li>Any new IGC Trace files will be copied to the scoring computer every 30 seconds</li>
+						</ul>
+						</div>
+						<div class=text-center>
+							<a href="https://winscp.net/eng/docs/library_example_keep_local_directory_up_to_date#options" target="_blank" class="btn btn-primary">WinSCP Script Details</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<?php $this->endBlock(); ?>
 		<?=
 		Tabs::widget(
 			[
@@ -73,6 +104,10 @@ use yii\helpers\StringHelper;
 						'label'   => Yii::t('models', 'Contest'),
 						'content' => $this->blocks['main'],
 						'active'  => true,
+					],
+					[
+						'label'   => 'Help',
+						'content' => $this->blocks['help'],
 					],
 				]
 			]
