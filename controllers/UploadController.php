@@ -63,7 +63,10 @@ class UploadController extends Controller
 				$filename = $y . $m . $d . 'G' . $model->rego . '1' . '.igc';
 
 				if ($model->file->saveAs("/var/sftp/igcfiles/$contest->igcfiles/" . $filename))
-					\Yii::$app->getSession()->setFlash('success', "Sucess : Uploaded Contest Trace for Aircraft : $model->rego on Date : $model->date");
+				{
+					
+					\Yii::$app->getSession()->setFlash('success', "Sucess : Uploaded Contest Trace for Aircraft : $model->rego on Date : $model->date to Contest : $contest->name");
+				}
 				else
 					\Yii::$app->getSession()->setFlash('error', 'Uh Oh: Something went wrong trying to upload file '. $filename);
 			}

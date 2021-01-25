@@ -77,6 +77,7 @@ class Contest extends BaseContest
 		// make the uploads directory
 
 		@mkdir("/var/sftp/igcfiles/$this->igcfiles", 0777, true);
+		chmod("/var/sftp/igcfiles/$this->igcfiles", 0777);
 
 	}
 
