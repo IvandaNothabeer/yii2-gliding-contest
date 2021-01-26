@@ -35,7 +35,8 @@
         "kartik-v/yii2-editable": "@dev",
         "raoul2000/yii2-bootswatch-asset": "*",
         "e-frank/yii2-dragula": "dev-master",
-        "bizley/migration": "^4.1"
+        "bizley/migration": "^4.1",
+        "kartik-v/bootstrap-fileinput": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

@@ -10,6 +10,7 @@ use kartik\widgets\DatePicker;
 use kartik\widgets\DepDrop;
 use yii\helpers\Url;
 use richardfan\widget\JSRegister;
+use kartik\file\FileInput;
 
 /**
 * @var yii\web\View $this
@@ -41,7 +42,7 @@ $this->params['breadcrumbs'][] = 'IGC File';
 
 	<div class="row justify-content-center align-items-top">
 		<div class=panel-body>
-			<div class = col-md-3>
+			<div class = col-md-2>
 				<?= $form->field($model, 'date')->widget(DatePicker::className(), 
 					[
 						'type' => DatePicker::TYPE_COMPONENT_PREPEND,
@@ -65,7 +66,7 @@ $this->params['breadcrumbs'][] = 'IGC File';
 				);
 				?>
 			</div>
-			<div class = col-md-3>
+			<div class = col-md-2>
 				<?php
 				echo $form->field($model, 'pilot_id')->widget(DepDrop::classname(), [
 					'options'=>['id'=>'pilot_id'],
@@ -80,9 +81,33 @@ $this->params['breadcrumbs'][] = 'IGC File';
 				?>
 			</div>
 			<div class = col-md-3>
-				<?= $form->field($model, 'file')->fileInput(['class'=>'form-control'])->label('IGC File') ?>
+				<?= '' //$form->field($model, 'file')->fileInput(['class'=>'form-control'])->label('IGC File') ?>
+				<?php
+
+				echo $form->field($model, 'file')->widget(FileInput::classname(), [
+					//'options' => ['accept' => 'image/*'],
+					'pluginOptions'=>[
+						'allowedFileExtensions'=>['igc'],
+						'showUpload' => false,
+						'showPreview' => false,
+					],
+				]);   
+				?>
+
 			</div>
 
+
+			<div class = col-md-1>
+				<?= Html::label('Confirm') ?>
+				<?= Html::submitButton(
+					'<span class="glyphicon glyphicon-check"></span> Upload File',
+					[
+						'id' => 'save-' . $model->formName(),
+						'class' => 'btn btn-success'
+					]
+				);
+				?>
+			</div>
 			<?= $form->field($model, 'rego')->hiddenInput(['id'=>'rego'])->label(false)?>
 
 		</div>
