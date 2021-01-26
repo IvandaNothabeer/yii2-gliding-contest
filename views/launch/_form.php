@@ -48,7 +48,7 @@ use kartik\date\DatePicker;
 				\yii\helpers\ArrayHelper::map(app\models\Towplane::find()->all(), 'id', 'rego'),
 				[
 					'prompt' => 'Select',
-					'disabled' => (isset($relAttributes) && isset($relAttributes['towplane_id'])),
+					'disabled' => (isset($relAttributes) && isset($relAttributes['towplane_id']))||!$model->isNewRecord,
 				]
 			); ?>
 
@@ -58,7 +58,7 @@ use kartik\date\DatePicker;
 				\yii\helpers\ArrayHelper::map(app\models\Pilot::find()->all(), 'id', 'rego_short'),
 				[
 					'prompt' => 'Select',
-					'disabled' => (isset($relAttributes) && isset($relAttributes['pilot_id'])),
+					'disabled' => (isset($relAttributes) && isset($relAttributes['pilot_id']))||!$model->isNewRecord,
 				]
 			); ?>
 

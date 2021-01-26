@@ -56,7 +56,7 @@ $form->field($model, 'type_id')->dropDownList(
     \yii\helpers\ArrayHelper::map(app\models\TransactionType::find()->all(), 'id', 'name'),
     [
         'prompt' => 'Select',
-        'disabled' => (isset($relAttributes) && isset($relAttributes['type_id'])),
+        'disabled' => (isset($relAttributes) && isset($relAttributes['type_id']))||!$model->isNewRecord,
     ]
 ); ?>
 

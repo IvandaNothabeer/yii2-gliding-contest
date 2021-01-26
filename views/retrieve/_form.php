@@ -46,7 +46,7 @@ $form->field($model, 'towplane_id')->dropDownList(
     \yii\helpers\ArrayHelper::map(app\models\Towplane::find()->all(), 'id', 'name'),
     [
         'prompt' => 'Select',
-        'disabled' => (isset($relAttributes) && isset($relAttributes['towplane_id'])),
+        'disabled' => (isset($relAttributes) && isset($relAttributes['towplane_id']))||!$model->isNewRecord,
     ]
 ); ?>
 

@@ -159,7 +159,20 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 							},
 							'contentOptions' => ['nowrap'=>'nowrap']
 						],
-						'date',
+						[
+							'attribute'=>'date',
+							'value' =>'date',
+							'filter'=>DatePicker::widget([
+								'model' => $searchModel,
+								'attribute'=>'date',
+								'pluginOptions' => [
+									'autoclose' => true,
+									'todayHighlight' => true,
+									'todayBtn' => true,
+									'format' => 'yyyy-mm-dd'
+								]
+							])       
+						],
 						[
 							'class' => yii\grid\DataColumn::className(),
 							'attribute' => 'pilot_id',
