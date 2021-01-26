@@ -44,7 +44,7 @@ class Status extends StatusModel
 		$query = Status::find();
 
 		$dataProvider = new ActiveDataProvider([
-			'query' => $query->indexBy('id'),
+			'query' => $query->indexBy('id')->joinWith('pilot')->orderBy(['rego_short'=> 'ASC']),
 		]);
 
 		$this->load($params);

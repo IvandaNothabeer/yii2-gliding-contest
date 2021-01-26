@@ -61,7 +61,7 @@ class StatusController extends \app\controllers\base\StatusController
 			$status->time = date ('H:i:s');
 			$status->save();
 
-			$this->redirect('index');
+			$this->redirect('manage');
 		}
 
 	}
