@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fdb9dff0a86ab75dcd3ebfae66385200",
+    "content-hash": "182d36113d3f4b13072b20e96d802746",
     "packages": [
         {
             "name": "2amigos/yii2-selectize-widget",
@@ -1164,18 +1164,19 @@
         },
         {
             "name": "kartik-v/bootstrap-fileinput",
-            "version": "v5.1.2",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/bootstrap-fileinput.git",
-                "reference": "05aabc0a6037b6c35e64e4762d1a037cc91cfff0"
+                "reference": "be1432169a4ad391b3873e435ef1e8759bfbcafc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/05aabc0a6037b6c35e64e4762d1a037cc91cfff0",
-                "reference": "05aabc0a6037b6c35e64e4762d1a037cc91cfff0",
+                "url": "https://api.github.com/repos/kartik-v/bootstrap-fileinput/zipball/be1432169a4ad391b3873e435ef1e8759bfbcafc",
+                "reference": "be1432169a4ad391b3873e435ef1e8759bfbcafc",
                 "shasum": ""
             },
+            "default-branch": true,
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1213,13 +1214,17 @@
                 "progress",
                 "upload"
             ],
+            "support": {
+                "issues": "https://github.com/kartik-v/bootstrap-fileinput/issues",
+                "source": "https://github.com/kartik-v/bootstrap-fileinput/tree/v5.1.4"
+            },
             "funding": [
                 {
                     "url": "https://opencollective.com/bootstrap-fileinput",
                     "type": "open_collective"
                 }
             ],
-            "time": "2020-07-15T11:34:24+00:00"
+            "time": "2021-01-12T11:13:43+00:00"
         },
         {
             "name": "kartik-v/bootstrap-popover-x",
@@ -8688,104 +8693,6 @@
             "time": "2020-07-08T17:02:28+00:00"
         },
         {
-            "name": "yii2mod/yii2-enum",
-            "version": "1.7.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yii2mod/yii2-enum.git",
-                "reference": "7af030e19636ece5fd0adb5d6012d2b03fa63895"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yii2mod/yii2-enum/zipball/7af030e19636ece5fd0adb5d6012d2b03fa63895",
-                "reference": "7af030e19636ece5fd0adb5d6012d2b03fa63895",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6",
-                "yiisoft/yii2": "*"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.0"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "yii2mod\\enum\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dmitry Semenov",
-                    "email": "disemx@gmail.com"
-                },
-                {
-                    "name": "Igor Chepurnoi",
-                    "email": "igorzfort@gmail.com"
-                }
-            ],
-            "description": "Yii2 Enumerable helpers",
-            "keywords": [
-                "enumerable helper",
-                "yii2",
-                "yii2 enum"
-            ],
-            "time": "2017-04-19T22:06:46+00:00"
-        },
-        {
-            "name": "yii2mod/yii2-settings",
-            "version": "2.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/yii2mod/yii2-settings.git",
-                "reference": "a336b5a38143999f275f023702790b3838acc214"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/yii2mod/yii2-settings/zipball/a336b5a38143999f275f023702790b3838acc214",
-                "reference": "a336b5a38143999f275f023702790b3838acc214",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0",
-                "yii2mod/yii2-editable": "*",
-                "yii2mod/yii2-enum": "*",
-                "yiisoft/yii2": "~2.0.10"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.0",
-                "phpunit/phpunit": "^7.3"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "yii2mod\\settings\\": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Igor Chepurnoi",
-                    "email": "chepurnoi.igor@gmail.com"
-                }
-            ],
-            "description": "Yii2 Settings Module",
-            "keywords": [
-                "Settings",
-                "config",
-                "storage",
-                "yii2"
-            ],
-            "time": "2018-08-20T19:39:14+00:00"
-        },
-        {
             "name": "yiisoft/yii2-debug",
             "version": "2.1.13",
             "source": {
@@ -8903,7 +8810,8 @@
         "kartik-v/yii2-datecontrol": 20,
         "kartik-v/yii2-mpdf": 20,
         "kartik-v/yii2-editable": 20,
-        "e-frank/yii2-dragula": 20
+        "e-frank/yii2-dragula": 20,
+        "kartik-v/bootstrap-fileinput": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
@@ -8911,5 +8819,5 @@
         "php": ">=5.6.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

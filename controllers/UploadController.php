@@ -13,6 +13,7 @@ use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
 use app\models\Contest;
 use app\models\Pilot;
+use app\components\igcFileHelper;
 
 class UploadController extends Controller
 {
@@ -60,11 +61,22 @@ class UploadController extends Controller
 				$m = $alphabet[(int)substr($model->date,5,2)];
 				$d = $alphabet[(int)substr($model->date,8,2)];
 
-				$filename = $y . $m . $d . 'G' . $model->rego . '1' . '.igc';
+				$filename = $y . $m . $d . 'G' . $model->rego;
+
+				$existing_files = \yii\helpers\FileHelper::findFiles("/var/sftp/igcfiles/$contest->igcfiles/", 
+					[
+						'only'=>["$filename*.igc"], 
+						'recursive'=>FALSE, 
+						'caseSensitive'=>false,
+				]);
+
+				$filenum = count($existing_files) + 1;
+
+				$filename .=  $filenum . '.igc';
 
 				if ($model->file->saveAs("/var/sftp/igcfiles/$contest->igcfiles/" . $filename))
 				{
-					
+
 					\Yii::$app->getSession()->setFlash('success', "Sucess : Uploaded Contest Trace for Aircraft : $model->rego on Date : $model->date to Contest : $contest->name");
 				}
 				else
