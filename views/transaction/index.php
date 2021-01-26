@@ -3,11 +3,12 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
+use kartik\date\DatePicker;
 
 /**
 * @var yii\web\View $this
 * @var yii\data\ActiveDataProvider $dataProvider
-    * @var app\models\search\Transaction $searchModel
+* @var app\models\search\Transaction $searchModel
 */
 
 $this->title = Yii::t('models', 'Transactions');
@@ -20,162 +21,175 @@ $this->params['breadcrumbs'][] = $this->title;
 $actionColumnTemplates = [];
 
 if (\Yii::$app->user->can('app_transaction_view', ['route' => true])) {
-    $actionColumnTemplates[] = '{view}';
+	$actionColumnTemplates[] = '{view}';
 }
 
 if (\Yii::$app->user->can('app_transaction_update', ['route' => true])) {
-    $actionColumnTemplates[] = '{update}';
+	$actionColumnTemplates[] = '{update}';
 }
 
 if (\Yii::$app->user->can('app_transaction_delete', ['route' => true])) {
-    $actionColumnTemplates[] = '{delete}';
+	$actionColumnTemplates[] = '{delete}';
 }
 if (isset($actionColumnTemplates)) {
-    $actionColumnTemplate = implode(' ', $actionColumnTemplates);
-    $actionColumnTemplateString = $actionColumnTemplate;
+	$actionColumnTemplate = implode(' ', $actionColumnTemplates);
+	$actionColumnTemplateString = $actionColumnTemplate;
 } else {
-    Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']);
-    $actionColumnTemplateString = "{view} {update} {delete}";
+	Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']);
+	$actionColumnTemplateString = "{view} {update} {delete}";
 }
 $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTemplateString.'</div>';
 ?>
 <div class="giiant-crud transaction-index">
 
-    <?php
-//             echo $this->render('_search', ['model' =>$searchModel]);
-        ?>
+	<?php
+	//             echo $this->render('_search', ['model' =>$searchModel]);
+	?>
 
-    
-    <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
-    <h1>
-        <?= Yii::t('models', 'Transactions') ?>
-        <small>
-            List
-        </small>
-    </h1>
-    <div class="clearfix crud-navigation">
-<?php
-if (\Yii::$app->user->can('app_transaction_create', ['route' => true])) {
-            ?>
-        <div class="pull-left">
-            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-        </div>
-<?php
-        }
-?>
-        <div class="pull-right">
+	<?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
-                                                                                                                                        
-            <?=
-            \yii\bootstrap\ButtonDropdown::widget(
-                [
-            'id' => 'giiant-relations',
-            'encodeLabel' => false,
-            'label' => '<span class="glyphicon glyphicon-paperclip"></span> ' . 'Relations',
-            'dropdown' => [
-            'options' => [
-            'class' => 'dropdown-menu-right'
-            ],
-            'encodeLabels' => false,
-            'items' => [
-            [
-                'url' => ['launch/index'],
-                'label' => '<i class="glyphicon glyphicon-arrow-right"></i> ' . Yii::t('models', 'Launch'),
-            ],
-                                [
-                'url' => ['retrieve/index'],
-                'label' => '<i class="glyphicon glyphicon-arrow-right"></i> ' . Yii::t('models', 'Retrieve'),
-            ],
-                                [
-                'url' => ['pilot/index'],
-                'label' => '<i class="glyphicon glyphicon-arrow-left"></i> ' . Yii::t('models', 'Pilot'),
-            ],
-                                [
-                'url' => ['transaction-type/index'],
-                'label' => '<i class="glyphicon glyphicon-arrow-left"></i> ' . Yii::t('models', 'Transaction Type'),
-            ],
-                    
-]
-            ],
-            'options' => [
-            'class' => 'btn-default'
-            ]
-            ]
-            );
-            ?>
-        </div>
-    </div>
+	<h1>
+		<?= Yii::t('models', 'Transactions') ?>
+		<small>
+			List
+		</small>
+	</h1>
+	<div class="clearfix crud-navigation">
+		<?php
+		if (\Yii::$app->user->can('app_transaction_create', ['route' => true])) {
+		?>
+			<div class="pull-left">
+				<?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+			</div>
+		<?php
+		}
+		?>
+		<div class="pull-right">
 
-    <hr />
 
-    <div class="table-responsive">
-        <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'pager' => [
-        'class' => yii\widgets\LinkPager::className(),
-        'firstPageLabel' => 'First',
-        'lastPageLabel' => 'Last',
-        ],
-                    'filterModel' => $searchModel,
-                'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
-        'headerRowOptions' => ['class'=>'x'],
-        'columns' => [
-                    // generated by schmunk42\giiant\generators\crud\providers\core\RelationProvider::columnFormat
-            [
-                'class' => yii\grid\DataColumn::className(),
-                'attribute' => 'pilot_id',
-                'value' => function ($model) {
-                    if ($rel = $model->pilot) {
-                        return Html::a($rel->name, ['pilot/view', 'id' => $rel->id,], ['data-pjax' => 0]);
-                    } else {
-                        return '';
-                    }
-                },
-                'format' => 'raw',
-            ],
-            // generated by schmunk42\giiant\generators\crud\providers\core\RelationProvider::columnFormat
-            [
-                'class' => yii\grid\DataColumn::className(),
-                'attribute' => 'type_id',
-                'value' => function ($model) {
-                    if ($rel = $model->type) {
-                        return Html::a($rel->name, ['transaction-type/view', 'id' => $rel->id,], ['data-pjax' => 0]);
-                    } else {
-                        return '';
-                    }
-                },
-                'format' => 'raw',
-            ],
-            'date',
-            'details',
-            'quantity',
-            'item_price',
-            'amount',
-                            [
-            'class' => 'yii\grid\ActionColumn',
-            'template' => $actionColumnTemplateString,
-            'buttons' => [
-                'view' => function ($url, $model, $key) {
-                    $options = [
-                        'title' => Yii::t('cruds', 'View'),
-                        'aria-label' => Yii::t('cruds', 'View'),
-                        'data-pjax' => '0',
-                    ];
-                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
-                }
-            ],
-            'urlCreator' => function ($action, $model, $key, $index) {
-                // using the column name as key, not mapping to 'id' like the standard generator
-                $params = is_array($key) ? $key : [$model->primaryKey()[0] => (string) $key];
-                $params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id . '/' . $action : $action;
-                return Url::toRoute($params);
-            },
-            'contentOptions' => ['nowrap'=>'nowrap']
-        ],
-        ]
-        ]); ?>
-    </div>
+			<?=
+			\yii\bootstrap\ButtonDropdown::widget(
+				[
+					'id' => 'giiant-relations',
+					'encodeLabel' => false,
+					'label' => '<span class="glyphicon glyphicon-paperclip"></span> ' . 'Relations',
+					'dropdown' => [
+						'options' => [
+							'class' => 'dropdown-menu-right'
+						],
+						'encodeLabels' => false,
+						'items' => [
+							[
+								'url' => ['launch/index'],
+								'label' => '<i class="glyphicon glyphicon-arrow-right"></i> ' . Yii::t('models', 'Launch'),
+							],
+							[
+								'url' => ['retrieve/index'],
+								'label' => '<i class="glyphicon glyphicon-arrow-right"></i> ' . Yii::t('models', 'Retrieve'),
+							],
+							[
+								'url' => ['pilot/index'],
+								'label' => '<i class="glyphicon glyphicon-arrow-left"></i> ' . Yii::t('models', 'Pilot'),
+							],
+							[
+								'url' => ['transaction-type/index'],
+								'label' => '<i class="glyphicon glyphicon-arrow-left"></i> ' . Yii::t('models', 'Transaction Type'),
+							],
+
+						]
+					],
+					'options' => [
+						'class' => 'btn-default'
+					]
+				]
+			);
+			?>
+		</div>
+	</div>
+
+	<hr />
+
+	<div class="table-responsive">
+		<?= GridView::widget([
+			'dataProvider' => $dataProvider,
+			'pager' => [
+				'class' => yii\widgets\LinkPager::className(),
+				'firstPageLabel' => 'First',
+				'lastPageLabel' => 'Last',
+			],
+			'filterModel' => $searchModel,
+			'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
+			'headerRowOptions' => ['class'=>'x'],
+			'columns' => [
+				// generated by schmunk42\giiant\generators\crud\providers\core\RelationProvider::columnFormat
+				[
+					'class' => yii\grid\DataColumn::className(),
+					'attribute' => 'pilot_id',
+					'value' => function ($model) {
+						if ($rel = $model->pilot) {
+							return Html::a($rel->name, ['pilot/view', 'id' => $rel->id,], ['data-pjax' => 0]);
+						} else {
+							return '';
+						}
+					},
+					'format' => 'raw',
+				],
+				// generated by schmunk42\giiant\generators\crud\providers\core\RelationProvider::columnFormat
+				[
+					'class' => yii\grid\DataColumn::className(),
+					'attribute' => 'type_id',
+					'value' => function ($model) {
+						if ($rel = $model->type) {
+							return Html::a($rel->name, ['transaction-type/view', 'id' => $rel->id,], ['data-pjax' => 0]);
+						} else {
+							return '';
+						}
+					},
+					'format' => 'raw',
+				],
+				[
+					'attribute'=>'date',
+					'value' =>'date',
+					'filter'=>DatePicker::widget([
+						'model' => $searchModel,
+						'attribute'=>'date',
+						'pluginOptions' => [
+							'autoclose' => true,
+							'todayHighlight' => true,
+							'todayBtn' => true,
+							'format' => 'yyyy-mm-dd'
+						]
+					])       
+				],
+				'details',
+				'quantity',
+				'item_price',
+				'amount',
+				[
+					'class' => 'yii\grid\ActionColumn',
+					'template' => $actionColumnTemplateString,
+					'buttons' => [
+						'view' => function ($url, $model, $key) {
+							$options = [
+								'title' => Yii::t('cruds', 'View'),
+								'aria-label' => Yii::t('cruds', 'View'),
+								'data-pjax' => '0',
+							];
+							return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
+						}
+					],
+					'urlCreator' => function ($action, $model, $key, $index) {
+						// using the column name as key, not mapping to 'id' like the standard generator
+						$params = is_array($key) ? $key : [$model->primaryKey()[0] => (string) $key];
+						$params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id . '/' . $action : $action;
+						return Url::toRoute($params);
+					},
+					'contentOptions' => ['nowrap'=>'nowrap']
+				],
+			]
+		]); ?>
+	</div>
 
 </div>
 

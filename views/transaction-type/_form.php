@@ -46,12 +46,12 @@ $form->field($model, 'contest_id')->dropDownList(
     \yii\helpers\ArrayHelper::map(app\models\Contest::find()->all(), 'id', 'name'),
     [
         'prompt' => 'Select',
-        'disabled' => (isset($relAttributes) && isset($relAttributes['contest_id'])),
+        'disabled' => (isset($relAttributes) && isset($relAttributes['contest_id']))||!$model->isNewRecord,
     ]
 ); ?>
 
 <!-- attribute name -->
-			<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+			<?= $form->field($model, 'name')->textInput(['maxlength' => true, 'disabled'=>!$model->isNewRecord]) ?>
 
 <!-- attribute description -->
 			<?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>

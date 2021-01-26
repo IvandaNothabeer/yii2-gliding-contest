@@ -15,78 +15,78 @@ use yii\helpers\StringHelper;
 
 <div class="default-type-form">
 
-    <?php $form = ActiveForm::begin([
-    'id' => 'DefaultType',
-    'layout' => 'horizontal',
-    'enableClientValidation' => true,
-    'errorSummaryCssClass' => 'error-summary alert alert-danger',
-    'fieldConfig' => [
-             'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
-             'horizontalCssClasses' => [
-                 'label' => 'col-sm-2',
-                 #'offset' => 'col-sm-offset-4',
-                 'wrapper' => 'col-sm-8',
-                 'error' => '',
-                 'hint' => '',
-             ],
-         ],
-    ]
-    );
-    ?>
+	<?php $form = ActiveForm::begin([
+		'id' => 'DefaultType',
+		'layout' => 'horizontal',
+		'enableClientValidation' => true,
+		'errorSummaryCssClass' => 'error-summary alert alert-danger',
+		'fieldConfig' => [
+			'template' => "{label}\n{beginWrapper}\n{input}\n{hint}\n{error}\n{endWrapper}",
+			'horizontalCssClasses' => [
+				'label' => 'col-sm-2',
+				#'offset' => 'col-sm-offset-4',
+				'wrapper' => 'col-sm-8',
+				'error' => '',
+				'hint' => '',
+			],
+		],
+		]
+	);
+	?>
 
-    <div class="">
-        <?php $this->beginBlock('main'); ?>
+	<div class="">
+		<?php $this->beginBlock('main'); ?>
 
-        <p>
-            
+		<p>
 
-<!-- attribute name -->
-			<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-<!-- attribute description -->
+			<!-- attribute name -->
+			<?= $form->field($model, 'name')->textInput(['maxlength' => true, 'disabled'=>!$model->isNewRecord]) ?>
+
+			<!-- attribute description -->
 			<?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
-<!-- attribute credit -->
-			<?=                         $form->field($model, 'credit')->dropDownList(
-                            \app\models\DefaultType::optscredit()
-                        ); ?>
+			<!-- attribute credit -->
+			<?=  $form->field($model, 'credit')->dropDownList(
+				\app\models\DefaultType::optscredit()
+			); ?>
 
-<!-- attribute price -->
+			<!-- attribute price -->
 			<?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
-        </p>
-        <?php $this->endBlock(); ?>
-        
-        <?=
-    Tabs::widget(
-                 [
-                    'encodeLabels' => false,
-                    'items' => [ 
-                        [
-    'label'   => Yii::t('models', 'DefaultType'),
-    'content' => $this->blocks['main'],
-    'active'  => true,
-],
-                    ]
-                 ]
-    );
-    ?>
-        <hr/>
+		</p>
+		<?php $this->endBlock(); ?>
 
-        <?php echo $form->errorSummary($model); ?>
+		<?=
+		Tabs::widget(
+			[
+				'encodeLabels' => false,
+				'items' => [ 
+					[
+						'label'   => Yii::t('models', 'DefaultType'),
+						'content' => $this->blocks['main'],
+						'active'  => true,
+					],
+				]
+			]
+		);
+		?>
+		<hr/>
 
-        <?= Html::submitButton(
-        '<span class="glyphicon glyphicon-check"></span> ' .
-        ($model->isNewRecord ? 'Create' : 'Save'),
-        [
-        'id' => 'save-' . $model->formName(),
-        'class' => 'btn btn-success'
-        ]
-        );
-        ?>
+		<?php echo $form->errorSummary($model); ?>
 
-        <?php ActiveForm::end(); ?>
+		<?= Html::submitButton(
+			'<span class="glyphicon glyphicon-check"></span> ' .
+			($model->isNewRecord ? 'Create' : 'Save'),
+			[
+				'id' => 'save-' . $model->formName(),
+				'class' => 'btn btn-success'
+			]
+		);
+		?>
 
-    </div>
+		<?php ActiveForm::end(); ?>
+
+	</div>
 
 </div>
 

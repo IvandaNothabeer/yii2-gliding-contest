@@ -21,7 +21,13 @@ $this->params['breadcrumbs'][] = $this->title;
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<?php $contests = \yii\helpers\ArrayHelper::map(\app\models\Contest::findEvery()->all(),'id','name'); ?>
-					<?php foreach ($contests as $key=>$value) echo ($key == \yii::$app->user->identity->profile->contest_id) ? "<li class='list-group-item active'>$value</li>" : "<li class='list-group-item'>$value</li>"?>
+					<?php 
+					foreach ($contests as $key=>$value){ 
+						echo ($key == \yii::$app->user->identity->profile->contest_id)
+						? "<a href=".Url::toRoute(['/contest/update', 'id'=>$key])." class='list-group-item active list-group-item-action'>$value</a>" 
+						: "<li class='list-group-item'>$value</li>";
+					}
+					?>
 				</div>
 			</div>
 		</div>
@@ -30,8 +36,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/transaction-type') ?>">Setup the Prices &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<?php $prices = \yii\helpers\ArrayHelper::map(\app\models\TransactionType::find()->all(),'name','price'); ?>
-					<?php foreach ($prices as $key=>$value) echo "<li class='list-group-item'>$key  - $ $value</li>" ?>
+					<?php $prices = \yii\helpers\ArrayHelper::map(\app\models\TransactionType::find()->all(),'name','price', 'id'); ?>
+					<?php 
+					foreach ($prices as $key=>$value)
+						echo "<a href=".Url::toRoute(['/transaction-type/update', 'id'=>$key])." class='list-group-item list-group-item-action'>".key($value)." - $".array_shift($value)."</a>";  
+					?>
 				</div>
 			</div>
 		</div>
@@ -40,8 +49,11 @@ $this->params['breadcrumbs'][] = $this->title;
 			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/towplane/create') ?>">Setup the Towplanes &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<?php $towplanes = \yii\helpers\ArrayHelper::map(\app\models\Towplane::find()->all(),'rego','name'); ?>
-					<?php foreach ($towplanes as $key=>$value) echo "<li class='list-group-item'>$key  -  $value</li>" ?>
+					<?php $towplanes = \yii\helpers\ArrayHelper::map(\app\models\Towplane::find()->all(),'rego','name', 'id'); ?>
+					<?php 
+					foreach ($towplanes as $key=>$value)
+						echo "<a href=".Url::toRoute(['/towplane/update', 'id'=>$key])." class='list-group-item list-group-item-action'>".key($value)." - ".array_shift($value)."</a>";  
+					?>
 				</div>
 			</div>
 		</div>
@@ -50,8 +62,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['/contest/import', 'id'=>\yii::$app->user->identity->profile->contest_id]) ?>">Import the Pilot Entries &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<?php $pilots = \yii\helpers\ArrayHelper::map(\app\models\Pilot::find()->all(),'rego_short','name'); ?>
-					<?php foreach ($pilots as $key=>$value) echo "<li class='list-group-item'>$key  -  $value</li>" ?>
+					<?php $pilots = \yii\helpers\ArrayHelper::map(\app\models\Pilot::find()->all(),'rego_short','name', 'id'); ?>
+					<?php foreach ($pilots as $key=>$value) 
+						echo "<a href=".Url::toRoute(['/pilot/update', 'id'=>$key])." class='list-group-item list-group-item-action'>".key($value)." - ".array_shift($value)."</a>";  
+					?>
 				</div>
 			</div>
 		</div>
@@ -60,8 +74,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['/person/create', 'Person' => ['contest_id'=>\yii::$app->user->identity->profile->contest_id]]) ?>">Add Extra People &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<?php $people = \yii\helpers\ArrayHelper::map(\app\models\Person::find()->all(),'role','name'); ?>
-					<?php foreach ($people as $key=>$value) echo "<li class='list-group-item'>$key  -  $value</li>" ?>
+					<?php $people = \yii\helpers\ArrayHelper::map(\app\models\Person::find()->all(),'role','name', 'id'); ?>
+					<?php foreach ($people as $key=>$value) 
+						echo "<a href=".Url::toRoute(['/person/update', 'id'=>$key])." class='list-group-item list-group-item-action'>".key($value)." - ".array_shift($value)."</a>";  
+					?>
 				</div>
 			</div>
 		</div>
