@@ -10,7 +10,7 @@ use yii\grid\GridView;
 * @var app\models\search\DefaultType $searchModel
 */
 
-$this->title = Yii::t('models', 'Default Types');
+$this->title = Yii::t('models', 'Default Prices');
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -49,9 +49,9 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	<?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
 	<h1>
-		<?= Yii::t('models', 'Default Types') ?>
+		<?= Yii::t('models', 'Default Prices') ?>
 		<small>
-			List
+			For all New Contests
 		</small>
 	</h1>
 	<div class="clearfix crud-navigation">
