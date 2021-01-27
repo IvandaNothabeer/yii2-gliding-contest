@@ -19,7 +19,7 @@ public function rules()
 {
 return [
 [['id', 'credit'], 'integer'],
-            [['code', 'description'], 'safe'],
+            [['name', 'description'], 'safe'],
 ];
 }
 

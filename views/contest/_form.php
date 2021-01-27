@@ -47,7 +47,7 @@ use yii\helpers\StringHelper;
 				\yii\helpers\ArrayHelper::map(app\models\Club::find()->all(), 'id', 'name'),
 				[
 					'prompt' => 'Select',
-					'disabled' => (isset($relAttributes) && isset($relAttributes['club_id'])),
+					'disabled' => (isset($relAttributes) && isset($relAttributes['club_id']))||!$model->isNewRecord,
 				]
 			); ?>
 			<?=
@@ -55,7 +55,7 @@ use yii\helpers\StringHelper;
 				Yii::$app->gnz->getContestList(),
 				[
 					'prompt' => 'Select',
-					'disabled' => (isset($relAttributes) && isset($relAttributes['gnz_id'])),
+					'disabled' => (isset($relAttributes) && isset($relAttributes['gnz_id']))||!$model->isNewRecord,
 				]
 			); ?>
 
