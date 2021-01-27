@@ -31,4 +31,10 @@ class DefaultType extends BaseDefaultType
             ]
         );
     }
+    
+    public function beforeDelete()
+    {
+    	if ($this->name == 'LAUNCH' || $this->name == 'RETRIEVE') return false;
+		return parent::beforeDelete();
+    }
 }

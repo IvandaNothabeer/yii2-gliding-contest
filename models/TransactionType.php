@@ -51,4 +51,10 @@ class TransactionType extends BaseTransactionType
 		//return parent::find();
 	}
 
+	public function beforeDelete()
+	{
+		if ($this->name == 'LAUNCH' || $this->name == 'RETRIEVE') return false;
+		return parent::beforeDelete();
+	}
+
 }
