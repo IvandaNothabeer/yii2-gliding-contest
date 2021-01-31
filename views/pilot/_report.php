@@ -33,7 +33,7 @@ use kartik\grid\GridView;
 						'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
 						'headerRowOptions' => ['class'=>'x'],
 						'options' => ['style' => 'font-size:10px;'],
-						'showPageSummary' => true,
+						'showPageSummary' => false,
 						'columns' => [
 							'rego_short',
 							'name',
