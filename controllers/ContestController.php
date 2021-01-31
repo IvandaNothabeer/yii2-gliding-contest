@@ -84,7 +84,9 @@ class ContestController extends \app\controllers\base\ContestController
 					$model = new Pilot;
 					$model->attributes = $pilot;
 					$model->contest_id = $id;
-					$model->save();
+					if (!$model->save()){
+						foreach($model->errors as $e) \Yii::$app->session->addFlash('error', "$model->name : ". implode(' ',$e));	
+					}
 				}
 			}
 		}

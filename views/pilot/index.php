@@ -61,6 +61,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			<div class="pull-left">
 				<?= Html::a('<span class="glyphicon glyphicon-retweet"></span> ' . 'Import Pilot Entries', ['/contest/import', 'id'=>\yii::$app->user->identity->profile->contest_id], ['class' => 'btn btn-success']) ?>
 				<?= Html::a('<span class="glyphicon glyphicon-phone"></span> ' . 'Setup SMS Contacts', ['/sms/sms-synch', 'contest_id'=>\yii::$app->user->identity->profile->contest_id], ['class' => 'btn btn-danger']) ?>
+				<?= Html::a('<span class="glyphicon glyphicon-copy"></span> ' . 'print Pilot List', ['report'], ['class' => 'btn btn-primary']) ?>
 			</div>
 		<?php
 		}
