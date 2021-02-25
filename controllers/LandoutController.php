@@ -35,7 +35,7 @@ class LandoutController extends \app\controllers\base\LandoutController
 					'rules' => [
 						[
 							'allow' => true,
-							'actions' => ['pilot', 'get-all', 'waypoint', 'report'],
+							'actions' => ['pilot', 'get-all', 'waypoint', 'report', 'getposition'],
 							'roles' => ['@']
 						],
 						//[
@@ -71,6 +71,30 @@ class LandoutController extends \app\controllers\base\LandoutController
 		]);
 	}
 
+	/**
+	* Creates a new Landout model.
+	* If creation is successful, the browser will be redirected to the 'view' page.
+	* @return mixed
+	*/
+	public function actionCreate()
+	{
+		$model = new Landout;
+		$model->populateRelation('pilot', new \app\models\Pilot); // Populate related Record
+
+		try {
+			if ($model->load($_POST) && $model->save()) {
+				return $this->redirect(['view', 'id' => $model->id]);
+			} elseif (!\Yii::$app->request->isPost) {
+				$model->load($_GET);
+			}
+		} catch (\Exception $e) {
+			$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+			$model->addError('_exception', $msg);
+		}
+		return $this->render('create', ['model' => $model]);
+	}
+
+
 	public function actionPilot($id)
 	{
 		return $this->asJson(Pilot::findOne($id));
@@ -86,6 +110,24 @@ class LandoutController extends \app\controllers\base\LandoutController
 		$wp = Yii::$app->gnz->getWaypointDetails($id);
 		$wp['lat'] = substr_replace($wp['lat'], ':', 3, 0);
 		$wp['long'] = substr_replace($wp['long'], ':', 3, 0);
+		return $this->asJson($wp);
+
+	}
+
+	public function actionGetposition($id='')
+	{
+        $wp = [];
+		$tracks = Yii::$app->gnz->getAllTracks(date('Ymd'), 1);
+		foreach ($tracks as $track)
+		{
+			if (@$track['aircraft']['contest_id']==$id){
+				$wp['lat'] = $track['points'][0]['lat'];
+				$wp['long'] = $track['points'][0]['lng'];;
+				return $this->asJson($wp);				
+			}	
+		} 
+		$wp['lat']=0;
+		$wp['long']=0;
 		return $this->asJson($wp);
 
 	}
