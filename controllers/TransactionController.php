@@ -39,7 +39,7 @@ class TransactionController extends \app\controllers\base\TransactionController
 					'rules' => [
 						[
 							'allow' => true,
-							'actions' => ['manage', 'table', 'report', 'batch-update'],
+							'actions' => ['manage', 'table', 'report', 'batch-update', 'setup'],
 							'roles' => ['AppTransactionEdit', 'AppTransactionFull']
 						],
 						[
@@ -105,7 +105,33 @@ class TransactionController extends \app\controllers\base\TransactionController
 
 	}
 
+	public function actionSetup ($contest_id=null)
+	{
 
+		$pilots = Pilot::find()->all();
+		$types = TransactionType::find()->andWhere(['credit'=>'Debit'])->andWhere(['not in', 'name', ['RETRIEVE', 'LAUNCH']])->all();
+
+		foreach ($pilots as $pilot)
+		{
+			$transactions = ArrayHelper::getColumn($pilot->transactions,'type_id');
+			foreach($types as $type){
+				if (!in_array($type->id, $transactions )){
+					$new = new Transaction;
+					$new->pilot_id = $pilot->id;
+					$new->type_id = $type->id;
+					$new->date = date('Y-m-d');
+					$new->details = $type->description;
+					$new->quantity = 0;
+					$new->item_price = $type->price;
+					$new->amount = 0;
+					$new->save(false);
+				}
+			}
+		}
+		
+		return $this->redirect(Yii::$app->request->referrer);
+			
+	}
 
 	public function actionReport($pilot_id) {
 
