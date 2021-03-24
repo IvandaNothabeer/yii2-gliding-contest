@@ -56,7 +56,7 @@ class ContestController extends \app\controllers\base\ContestController
 				$model->name = $gnz['name'];
 				$model->start = $gnz['start_date'];
 				$model->end = $gnz['end_date'];
-				if ($model->save()) return $this->redirect(['view', 'id' => $model->id]);
+				if ($model->save()) return $this->redirect(['site/setup']);
 			} elseif (!\Yii::$app->request->isPost) {
 				$model->load($_GET);
 			}
