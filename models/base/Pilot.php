@@ -10,14 +10,9 @@ use Yii;
  * This is the base-model class for table "pilots".
  *
  * @property integer $id
+ * @property integer $person_id
  * @property integer $contest_id
  * @property integer $gnz_id
- * @property string $name
- * @property string $address1
- * @property string $address2
- * @property string $address3
- * @property string $postcode
- * @property string $telephone
  * @property string $rego
  * @property string $rego_short
  * @property string $entry_date
@@ -29,6 +24,7 @@ use Yii;
  * @property \app\models\Landout[] $landouts
  * @property \app\models\Launch[] $launches
  * @property \app\models\Contest $contest
+ * @property \app\models\Person $person
  * @property \app\models\Retrieve[] $retrieves
  * @property \app\models\Transaction[] $transactions
  * @property string $aliasModel
@@ -52,16 +48,16 @@ abstract class Pilot extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['contest_id', 'name', 'address1', 'rego', 'rego_short', 'entry_date'], 'required'],
-            [['contest_id', 'gnz_id'], 'integer'],
+            [['person_id', 'contest_id'], 'required'],
+            [['person_id', 'contest_id', 'gnz_id'], 'integer'],
             [['entry_date'], 'safe'],
-            [['name', 'address1', 'address2', 'address3', 'trailer', 'crew'], 'string', 'max' => 80],
-            [['postcode'], 'string', 'max' => 12],
-            [['telephone', 'crew_phone'], 'string', 'max' => 16],
             [['rego'], 'string', 'max' => 6],
             [['rego_short'], 'string', 'max' => 2],
+            [['trailer', 'crew'], 'string', 'max' => 80],
             [['plate'], 'string', 'max' => 10],
-            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::className(), 'targetAttribute' => ['contest_id' => 'id']]
+            [['crew_phone'], 'string', 'max' => 16],
+            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::class, 'targetAttribute' => ['contest_id' => 'id']],
+            [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Person::class, 'targetAttribute' => ['person_id' => 'id']]
         ];
     }
 
@@ -72,14 +68,9 @@ abstract class Pilot extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'person_id' => 'Pilot ID',
             'contest_id' => 'Contest ID',
             'gnz_id' => 'GNZ Pilot ID',
-            'name' => 'Name',
-            'address1' => 'Address Line 1',
-            'address2' => 'Address Line 2',
-            'address3' => 'Address Line 3',
-            'postcode' => 'Post Code',
-            'telephone' => 'Telephone',
             'rego' => 'Glider Registration',
             'rego_short' => 'Glider Contest ID',
             'entry_date' => 'Entry Date',
@@ -95,7 +86,7 @@ abstract class Pilot extends \yii\db\ActiveRecord
      */
     public function getLandouts()
     {
-        return $this->hasMany(\app\models\Landout::className(), ['pilot_id' => 'id']);
+        return $this->hasMany(\app\models\Landout::class, ['pilot_id' => 'id']);
     }
 
     /**
@@ -103,7 +94,7 @@ abstract class Pilot extends \yii\db\ActiveRecord
      */
     public function getLaunches()
     {
-        return $this->hasMany(\app\models\Launch::className(), ['pilot_id' => 'id']);
+        return $this->hasMany(\app\models\Launch::class, ['pilot_id' => 'id']);
     }
 
     /**
@@ -111,7 +102,15 @@ abstract class Pilot extends \yii\db\ActiveRecord
      */
     public function getContest()
     {
-        return $this->hasOne(\app\models\Contest::className(), ['id' => 'contest_id']);
+        return $this->hasOne(\app\models\Contest::class, ['id' => 'contest_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPerson()
+    {
+        return $this->hasOne(\app\models\Person::class, ['id' => 'person_id']);
     }
 
     /**
@@ -119,7 +118,7 @@ abstract class Pilot extends \yii\db\ActiveRecord
      */
     public function getRetrieves()
     {
-        return $this->hasMany(\app\models\Retrieve::className(), ['pilot_id' => 'id']);
+        return $this->hasMany(\app\models\Retrieve::class, ['pilot_id' => 'id']);
     }
 
     /**
@@ -127,7 +126,7 @@ abstract class Pilot extends \yii\db\ActiveRecord
      */
     public function getTransactions()
     {
-        return $this->hasMany(\app\models\Transaction::className(), ['pilot_id' => 'id']);
+        return $this->hasMany(\app\models\Transaction::class, ['person_id' => 'id']);
     }
 
 

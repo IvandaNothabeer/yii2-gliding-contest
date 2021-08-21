@@ -42,9 +42,9 @@ abstract class Launch extends \yii\db\ActiveRecord
             [['towplane_id', 'pilot_id', 'date'], 'required'],
             [['towplane_id', 'pilot_id', 'transaction_id'], 'integer'],
             [['date'], 'safe'],
-            [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::className(), 'targetAttribute' => ['pilot_id' => 'id']],
-            [['towplane_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Towplane::className(), 'targetAttribute' => ['towplane_id' => 'id']],
-            [['transaction_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Transaction::className(), 'targetAttribute' => ['transaction_id' => 'id']]
+            [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::class, 'targetAttribute' => ['pilot_id' => 'id']],
+            [['towplane_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Towplane::class, 'targetAttribute' => ['towplane_id' => 'id']],
+            [['transaction_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Transaction::class, 'targetAttribute' => ['transaction_id' => 'id']]
         ];
     }
 
@@ -63,11 +63,24 @@ abstract class Launch extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'towplane_id' => 'Towplane',
+            'pilot_id' => 'Glider',
+            'date' => 'Launch Date',
+            'transaction_id' => 'Account Transaction ID',
+        ]);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getPilot()
     {
-        return $this->hasOne(\app\models\Pilot::className(), ['id' => 'pilot_id']);
+        return $this->hasOne(\app\models\Pilot::class, ['id' => 'pilot_id']);
     }
 
     /**
@@ -75,7 +88,7 @@ abstract class Launch extends \yii\db\ActiveRecord
      */
     public function getTowplane()
     {
-        return $this->hasOne(\app\models\Towplane::className(), ['id' => 'towplane_id']);
+        return $this->hasOne(\app\models\Towplane::class, ['id' => 'towplane_id']);
     }
 
     /**
@@ -83,7 +96,7 @@ abstract class Launch extends \yii\db\ActiveRecord
      */
     public function getTransaction()
     {
-        return $this->hasOne(\app\models\Transaction::className(), ['id' => 'transaction_id']);
+        return $this->hasOne(\app\models\Transaction::class, ['id' => 'transaction_id']);
     }
 
 

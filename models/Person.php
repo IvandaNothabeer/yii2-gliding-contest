@@ -44,7 +44,7 @@ class Person extends BasePerson
 			$contest = \yii::$app->user->identity->profile->contest_id;
 		}
 
-		return parent::find()->andWhere(['contest_id' => $contest]);
+		return parent::find()->andWhere(['persons.contest_id' => $contest]);
 
 	}
 

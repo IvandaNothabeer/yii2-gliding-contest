@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = 'View';
     'attribute' => 'pilot_id',
     'value' => ($model->pilot ? 
         Html::a('<i class="glyphicon glyphicon-list"></i>', ['pilot/index']).' '.
-        Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->pilot->name, ['pilot/view', 'id' => $model->pilot->id,]).' '.
+        Html::a('<i class="glyphicon glyphicon-circle-arrow-right"></i> '.$model->pilot->person->name, ['pilot/view', 'id' => $model->pilot->id,]).' '.
         Html::a('<i class="glyphicon glyphicon-paperclip"></i>', ['create', 'Retrieve'=>['pilot_id' => $model->pilot_id]])
         : 
         '<span class="label label-warning">?</span>'),

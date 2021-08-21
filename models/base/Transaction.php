@@ -10,7 +10,7 @@ use Yii;
  * This is the base-model class for table "transactions".
  *
  * @property integer $id
- * @property integer $pilot_id
+ * @property integer $person_id
  * @property integer $type_id
  * @property string $details
  * @property integer $quantity
@@ -20,7 +20,7 @@ use Yii;
  *
  * @property \app\models\Launch[] $launches
  * @property \app\models\Retrieve[] $retrieves
- * @property \app\models\Pilot $pilot
+ * @property \app\models\Person $person
  * @property \app\models\TransactionType $type
  * @property string $aliasModel
  */
@@ -43,13 +43,13 @@ abstract class Transaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pilot_id', 'type_id', 'item_price', 'amount', 'date'], 'required'],
-            [['pilot_id', 'type_id', 'quantity'], 'integer'],
+            [['person_id', 'type_id', 'item_price', 'amount', 'date'], 'required'],
+            [['person_id', 'type_id', 'quantity'], 'integer'],
             [['item_price', 'amount'], 'number'],
             [['date'], 'safe'],
             [['details'], 'string', 'max' => 80],
-            [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::className(), 'targetAttribute' => ['pilot_id' => 'id']],
-            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\TransactionType::className(), 'targetAttribute' => ['type_id' => 'id']]
+            [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Person::class, 'targetAttribute' => ['person_id' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\TransactionType::class, 'targetAttribute' => ['type_id' => 'id']]
         ];
     }
 
@@ -60,7 +60,7 @@ abstract class Transaction extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'pilot_id' => 'Pilot',
+            'person_id' => 'Person',
             'type_id' => 'Transaction Type',
             'details' => 'Details',
             'quantity' => 'Quantity',
@@ -71,11 +71,27 @@ abstract class Transaction extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'person_id' => 'Person',
+            'type_id' => 'Transaction Type',
+            'details' => 'Details',
+            'quantity' => 'Quantity',
+            'item_price' => 'Item Price',
+            'amount' => 'Total Price',
+            'date' => 'Date',
+        ]);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getLaunches()
     {
-        return $this->hasMany(\app\models\Launch::className(), ['transaction_id' => 'id']);
+        return $this->hasMany(\app\models\Launch::class, ['transaction_id' => 'id']);
     }
 
     /**
@@ -83,15 +99,15 @@ abstract class Transaction extends \yii\db\ActiveRecord
      */
     public function getRetrieves()
     {
-        return $this->hasMany(\app\models\Retrieve::className(), ['transaction_id' => 'id']);
+        return $this->hasMany(\app\models\Retrieve::class, ['transaction_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPilot()
+    public function getPerson()
     {
-        return $this->hasOne(\app\models\Pilot::className(), ['id' => 'pilot_id']);
+        return $this->hasOne(\app\models\Person::class, ['id' => 'person_id']);
     }
 
     /**
@@ -99,7 +115,7 @@ abstract class Transaction extends \yii\db\ActiveRecord
      */
     public function getType()
     {
-        return $this->hasOne(\app\models\TransactionType::className(), ['id' => 'type_id']);
+        return $this->hasOne(\app\models\TransactionType::class, ['id' => 'type_id']);
     }
 
 

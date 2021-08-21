@@ -16,17 +16,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1>
         <?= Yii::t('models', 'Pilot') ?>
         <small>
-                        <?= Html::encode($model->name) ?>
+                        <?= Html::encode($model->id) ?>
         </small>
     </h1>
 
     <div class="clearfix crud-navigation">
         <div class="pull-left">
             <?=             Html::a(
-    'Cancel',
-    \yii\helpers\Url::previous(),
-    ['class' => 'btn btn-default']
-) ?>
+            'Cancel',
+            \yii\helpers\Url::previous(),
+            ['class' => 'btn btn-default']) ?>
         </div>
     </div>
 

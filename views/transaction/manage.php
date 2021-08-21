@@ -42,10 +42,10 @@ $this->params['breadcrumbs'][] = 'Manage';
 
 	<div class="row justify-content-center align-items-top">
 		<div class="col-md-6">
-			<?= Html::label('Pilot') ?>
-			<?= Html::dropDownList('pilot_id', $pilot_id, yii\helpers\ArrayHelper::map(app\models\Pilot::find()->all(), 'id', 'name'),
+			<?= Html::label('Person') ?>
+			<?= Html::dropDownList('person_id', $person_id, yii\helpers\ArrayHelper::map(app\models\Person::find()->all(), 'id', 'name'),
 				[
-					'id'=>'pilot',
+					'id'=>'person',
 					'class'=>'form-control',
 			])
 			?>
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 				<?= Html::submitButton('Confirm and Update Account', ['class' => 'btn btn-success']); ?>
 				<?= Html::a(
 					'<span class="glyphicon glyphicon-copy"></span> ' . 'Prepare Invoice',
-					['report', 'pilot_id' => $pilot_id],
+					['report', 'person_id' => $person_id],
 					['class' => 'btn btn-primary']
 				) ?>
 			</div>
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 				'models'					=> $models,
 				'addButtonPosition'			=> TabularInput::POS_FOOTER,
 				//'cloneButton'				=> true,
-				'modelClass'				=> \app\models\Transaction::className(),
+				'modelClass'				=> \app\models\Transaction::class,
 				'min'						=> 0,
 				'allowEmptyList'			=> true,
 				'form'						=> $form,
@@ -92,14 +92,14 @@ $this->params['breadcrumbs'][] = 'Manage';
 						'type' =>  \unclead\multipleinput\MultipleInputColumn::TYPE_HIDDEN_INPUT,
 					],
 					[
-						'name' => 'pilot_id',
+						'name' => 'person_id',
 						'type' =>  \unclead\multipleinput\MultipleInputColumn::TYPE_HIDDEN_INPUT,
-						'defaultValue' => $pilot_id,
+						'defaultValue' => $person_id,
 					],
 					[
 						'name'  => 'date',
 						'title' => 'Date',
-						'type'  => DatePicker::className(),
+						'type'  => DatePicker::class,
 						'defaultValue' => date ('Y-m-d'),
 						'options' => [
 							'pluginOptions' => [
@@ -186,7 +186,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 					[
 						'name' => 'amount',
 						'title' => 'Total Price',
-						'type' =>  NumberControl::className(),
+						'type' =>  NumberControl::class,
 						'defaultValue' => 0,
 						'options' => [
 							'id' => 'amount-{multiple_index_t0}',
@@ -222,9 +222,9 @@ $this->params['breadcrumbs'][] = 'Manage';
 <?php JSRegister::begin(); ?>
 <script>
 
-	$("#pilot").on('change', function(){
-		var pilot  = $("#pilot").val();
-		location.href = "manage?pilot_id="+pilot;
+	$("#person").on('change', function(){
+		var person  = $("#person").val();
+		location.href = "manage?person_id="+person;
 	});
 
 </script>

@@ -9,7 +9,7 @@ use yii\helpers\Html;
 
 $this->title = Yii::t('models', 'Pilot');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'Pilot'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => (string)$model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Edit';
 ?>
 <div class="giiant-crud pilot-update">
@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = 'Edit';
     <h1>
         <?= Yii::t('models', 'Pilot') ?>
         <small>
-                        <?= Html::encode($model->name) ?>
+                        <?= Html::encode($model->id) ?>
         </small>
     </h1>
 

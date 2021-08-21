@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = 'View';
         ]
     ]),
     'pager'        => [
-        'class'          => yii\widgets\LinkPager::className(),
+        'class'          => yii\widgets\LinkPager::class,
         'firstPageLabel' => 'First',
         'lastPageLabel'  => 'Last'
     ],

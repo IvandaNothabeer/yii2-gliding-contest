@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Contest;
+use app\models\Person;
 use app\models\Pilot;
 use yii\helpers\Url;
 use yii\filters\AccessControl;
@@ -22,7 +23,7 @@ class ContestController extends \app\controllers\base\ContestController
 			parent::behaviors(),
 			[
 				'access' => [
-					'class' => AccessControl::className(),
+					'class' => AccessControl::class,
 					'rules' => [
 						[
 							'allow' => true,
@@ -79,13 +80,24 @@ class ContestController extends \app\controllers\base\ContestController
 
 		if ($pilots){
 			foreach ($pilots as $pilot){
-				$model = Pilot::find()->where(['contest_id'=>$id, 'gnz_id'=>$pilot['gnz_id']])->one();
+				$model = Person::find()->joinWith(['pilots'])->where(['persons.contest_id'=>$id, 'pilots.gnz_id'=>$pilot['gnz_id']])->one();
 				if (!$model){
-					$model = new Pilot;
+					$model = new Person;
 					$model->attributes = $pilot;
+					$model->role = Person::ROLE_PILOT;
 					$model->contest_id = $id;
 					if (!$model->save()){
 						foreach($model->errors as $e) \Yii::$app->session->addFlash('error', "$model->name : ". implode(' ',$e));	
+					}
+					else{
+						$person_id = $model->id;
+						$model = new Pilot;
+						$model->attributes = $pilot;
+						$model->person_id = $person_id;
+						$model->contest_id = $id;
+						if (!$model->save()){
+							foreach($model->errors as $e) \Yii::$app->session->addFlash('error', "$model->rego : ". implode(' ',$e));	
+						}	
 					}
 				}
 			}

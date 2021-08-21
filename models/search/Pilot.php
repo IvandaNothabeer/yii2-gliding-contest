@@ -18,8 +18,8 @@ class Pilot extends PilotModel
 public function rules()
 {
 return [
-[['id', 'contest_id', 'gnz_id'], 'integer'],
-            [['name', 'address1', 'address2', 'address3', 'postcode', 'telephone', 'rego', 'rego_short', 'entry_date', 'trailer', 'plate', 'crew', 'crew_phone'], 'safe'],
+[['id', 'person_id', 'contest_id', 'gnz_id'], 'integer'],
+            [['rego', 'rego_short', 'entry_date', 'trailer', 'plate', 'crew', 'crew_phone'], 'safe'],
 ];
 }
 
@@ -57,18 +57,13 @@ return $dataProvider;
 
 $query->andFilterWhere([
             'id' => $this->id,
+            'person_id' => $this->person_id,
             'contest_id' => $this->contest_id,
             'gnz_id' => $this->gnz_id,
             'entry_date' => $this->entry_date,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'address1', $this->address1])
-            ->andFilterWhere(['like', 'address2', $this->address2])
-            ->andFilterWhere(['like', 'address3', $this->address3])
-            ->andFilterWhere(['like', 'postcode', $this->postcode])
-            ->andFilterWhere(['like', 'telephone', $this->telephone])
-            ->andFilterWhere(['like', 'rego', $this->rego])
+        $query->andFilterWhere(['like', 'rego', $this->rego])
             ->andFilterWhere(['like', 'rego_short', $this->rego_short])
             ->andFilterWhere(['like', 'trailer', $this->trailer])
             ->andFilterWhere(['like', 'plate', $this->plate])

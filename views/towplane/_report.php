@@ -92,7 +92,7 @@ use kartik\grid\GridView;
 							'date',
 							/*
 							[
-								'class' => \kartik\grid\DataColumn::className(),
+								'class' => \kartik\grid\DataColumn::class,
 								'attribute' => 'type_id',
 								'value' => function ($model) {
 									if ($rel = $model->type) {
@@ -109,7 +109,7 @@ use kartik\grid\GridView;
 							'pilot.name',
 							//'amount',
 							//[
-							//	'class' => \kartik\grid\DataColumn::className(),
+							//	'class' => \kartik\grid\DataColumn::class,
 							//	'attribute' => 'amount',
 							//	'pageSummary' => function ($summary, $data, $widget) { return '$ '.@number_format($summary,2); },
 							//	'pageSummaryFunc' => Gridview::F_SUM,

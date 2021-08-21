@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 	echo TabularInput::widget([
 		'models' => $models,
 		'addButtonPosition'			=> TabularInput::POS_HEADER,
-		'modelClass'				=> \app\models\Item::className(),
+		'modelClass'				=> \app\models\Item::class,
 		'min'						=> 0,
 		'allowEmptyList'			=> true,
 		'attributeOptions' => [

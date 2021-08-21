@@ -58,7 +58,7 @@ use kartik\time\TimePicker;
 
 			<!-- attribute date -->
 				<?php
-				echo $form->field($model, 'date')->widget(DatePicker::classname(), [
+				echo $form->field($model, 'date')->widget(DatePicker::class, [
 					'type' => DatePicker::TYPE_COMPONENT_PREPEND,
 					'pluginOptions' => [
 						'autoclose' => true,
@@ -71,7 +71,7 @@ use kartik\time\TimePicker;
 
 			<!-- attribute time -->
 						<?php
-						echo $form->field($model, 'time')->widget(TimePicker::classname(), [
+						echo $form->field($model, 'time')->widget(TimePicker::class, [
 							'pluginOptions' => [
 								'autoclose' => true,
 								'defaultTime' => false,

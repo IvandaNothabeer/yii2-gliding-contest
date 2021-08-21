@@ -100,7 +100,7 @@ $this->params['breadcrumbs'][] = 'View';
 
 
 
-	<?php $this->beginBlock('Peoples'); ?>
+	<?php $this->beginBlock('People'); ?>
 	<div style='position: relative'>
 		<div style='position:absolute; right: 0px; top: 0px;'>
 			<?= Html::a(
@@ -128,7 +128,7 @@ $this->params['breadcrumbs'][] = 'View';
 			]
 		]),
 		'pager'        => [
-			'class'          => yii\widgets\LinkPager::className(),
+			'class'          => yii\widgets\LinkPager::class,
 			'firstPageLabel' => 'First',
 			'lastPageLabel'  => 'Last'
 		],
@@ -189,7 +189,7 @@ $this->params['breadcrumbs'][] = 'View';
 			]
 		]),
 		'pager'        => [
-			'class'          => yii\widgets\LinkPager::className(),
+			'class'          => yii\widgets\LinkPager::class,
 			'firstPageLabel' => 'First',
 			'lastPageLabel'  => 'Last'
 		],
@@ -210,15 +210,11 @@ $this->params['breadcrumbs'][] = 'View';
 				],
 				'controller' => 'pilot'
 			],
-			'id',
-			'gnz_id',
-			'name',
-			'address1',
-			'address2',
-			'address3',
-			'postcode',
-			'telephone',
+			//'id',
+			//'gnz_id',
 			'rego',
+			'person.name',
+			'entry_date',
 		]
 	])
 	. '</div>' 
@@ -255,7 +251,7 @@ $this->params['breadcrumbs'][] = 'View';
 			]
 		]),
 		'pager'        => [
-			'class'          => yii\widgets\LinkPager::className(),
+			'class'          => yii\widgets\LinkPager::class,
 			'firstPageLabel' => 'First',
 			'lastPageLabel'  => 'Last'
 		],
@@ -321,7 +317,7 @@ $this->params['breadcrumbs'][] = 'View';
 			]
 		]),
 		'pager'        => [
-			'class'          => yii\widgets\LinkPager::className(),
+			'class'          => yii\widgets\LinkPager::class,
 			'firstPageLabel' => 'First',
 			'lastPageLabel'  => 'Last'
 		],
@@ -366,8 +362,8 @@ $this->params['breadcrumbs'][] = 'View';
 					'active'  => true,
 				],
 				[
-					'content' => $this->blocks['Peoples'],
-					'label'   => '<small>Peoples <span class="badge badge-default">'. $model->getPeople()->count() . '</span></small>',
+					'content' => $this->blocks['People'],
+					'label'   => '<small>People <span class="badge badge-default">'. $model->getPeople()->count() . '</span></small>',
 					'active'  => false,
 				],
 				[

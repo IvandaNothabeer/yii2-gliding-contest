@@ -51,7 +51,7 @@ abstract class TransactionType extends \yii\db\ActiveRecord
             [['credit'], 'string'],
             [['name'], 'string', 'max' => 12],
             [['description'], 'string', 'max' => 80],
-            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::className(), 'targetAttribute' => ['contest_id' => 'id']],
+            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::class, 'targetAttribute' => ['contest_id' => 'id']],
             ['credit', 'in', 'range' => [
                     self::CREDIT_DEBIT,
                     self::CREDIT_CREDIT,
@@ -80,7 +80,7 @@ abstract class TransactionType extends \yii\db\ActiveRecord
      */
     public function getContest()
     {
-        return $this->hasOne(\app\models\Contest::className(), ['id' => 'contest_id']);
+        return $this->hasOne(\app\models\Contest::class, ['id' => 'contest_id']);
     }
 
     /**
@@ -88,7 +88,7 @@ abstract class TransactionType extends \yii\db\ActiveRecord
      */
     public function getTransactions()
     {
-        return $this->hasMany(\app\models\Transaction::className(), ['type_id' => 'id']);
+        return $this->hasMany(\app\models\Transaction::class, ['type_id' => 'id']);
     }
 
 

@@ -64,8 +64,8 @@ else {
 				<h2>Accounts</h2>
 				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/transaction/manage') ?>">Accounts &raquo;</a></p>
 				<div class="list-group">
-					<?php $accounts = \yii\helpers\ArrayHelper::map(\app\models\Pilot::find()->orderBy('rego_short')->all(),'id', 'name'); ?>
-					<?php foreach ($accounts as $key=>$value) echo  "<a href=".Url::toRoute(['/transaction/manage', 'pilot_id'=>$key])." class='list-group-item list-group-item-action'>$value</a>"?>
+					<?php $accounts = \yii\helpers\ArrayHelper::map(\app\models\Person::find()->orderBy('name')->all(),'id', 'name'); ?>
+					<?php foreach ($accounts as $key=>$value) echo  "<a href=".Url::toRoute(['/transaction/manage', 'person_id'=>$key])." class='list-group-item list-group-item-action'>$value</a>"?>
 				</div>
 			</div>
 		</div>

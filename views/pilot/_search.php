@@ -19,23 +19,13 @@ use yii\widgets\ActiveForm;
 
     		<?= $form->field($model, 'id') ?>
 
+		<?= $form->field($model, 'person_id') ?>
+
 		<?= $form->field($model, 'contest_id') ?>
 
 		<?= $form->field($model, 'gnz_id') ?>
 
-		<?= $form->field($model, 'name') ?>
-
-		<?= $form->field($model, 'address1') ?>
-
-		<?php // echo $form->field($model, 'address2') ?>
-
-		<?php // echo $form->field($model, 'address3') ?>
-
-		<?php // echo $form->field($model, 'postcode') ?>
-
-		<?php // echo $form->field($model, 'telephone') ?>
-
-		<?php // echo $form->field($model, 'rego') ?>
+		<?= $form->field($model, 'rego') ?>
 
 		<?php // echo $form->field($model, 'rego_short') ?>
 

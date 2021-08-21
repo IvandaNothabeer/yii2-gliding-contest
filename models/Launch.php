@@ -46,7 +46,7 @@ class Launch extends BaseLaunch
 		$code = \app\models\TransactionType::findOne(['name'=>'LAUNCH']);
 
 		if ($code){
-			$transaction->pilot_id = $this->pilot_id;	
+			$transaction->person_id = $this->pilot->person_id;	
 			$transaction->type_id = $code->id;
 			$transaction->details = $code->description;
 			$transaction->quantity = 1;

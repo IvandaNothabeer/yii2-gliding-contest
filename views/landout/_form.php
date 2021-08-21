@@ -100,14 +100,14 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 				); ?>
 			</div>
 			<div class="col-md-3">
-				<?= $form->field($model->pilot,'name') ?>
+				<?= $form->field($model->pilot->person,'name')->hint(false) ?>
 			</div>
 			<div class="col-md-2">
-				<?= $form->field($model->pilot,'telephone') ?>
+				<?= $form->field($model->pilot->person,'telephone')->hint(false) ?>
 			</div>
 			<div class="col-md-2" style="z-index:999">
 				<?php
-				echo $form->field($model, 'date')->widget(DatePicker::classname(), [
+				echo $form->field($model, 'date')->widget(DatePicker::class, [
 					'type' => DatePicker::TYPE_COMPONENT_PREPEND,
 					'pluginOptions' => [
 						'autoclose' => true,
@@ -120,7 +120,7 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 			</div>
 			<div class="col-md-2">
 				<?php
-				echo $form->field($model, 'landed_at')->widget(TimePicker::classname(), [
+				echo $form->field($model, 'landed_at')->widget(TimePicker::class, [
 					'pluginOptions' => [
 						'autoclose' => true,
 						'defaultTime' => 'current',
@@ -221,7 +221,7 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 				<div class="row">
 					<div class="col-md-6">
 						<?php
-						echo $form->field($model, 'departed_at')->widget(TimePicker::classname(), [
+						echo $form->field($model, 'departed_at')->widget(TimePicker::class, [
 							'pluginOptions' => [
 								'autoclose' => true,
 								'defaultTime' => false,
@@ -233,7 +233,7 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 					</div>
 					<div class="col-md-6">
 						<?php
-						echo $form->field($model, 'returned_at')->widget(TimePicker::classname(), [
+						echo $form->field($model, 'returned_at')->widget(TimePicker::class, [
 							'pluginOptions' => [
 								'autoclose' => true,
 								'defaultTime' => false,
@@ -280,8 +280,8 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 			url: 'pilot',
 			data: {id: $('#landout-pilot_id').val()},
 			success: function(data) {
-				$('#pilot-name').val(data['name']);
-				$('#pilot-telephone').val(data['telephone']);
+				$('#person-name').val(data['name']);
+				$('#person-telephone').val(data['telephone']);
 				$('#landout-crew').val(data['crew']);
 				$('#landout-crew_phone').val(data['crew_phone']);
 				$('#landout-trailer').val(data['trailer']);

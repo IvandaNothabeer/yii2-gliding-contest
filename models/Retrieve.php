@@ -42,7 +42,7 @@ class Retrieve extends BaseRetrieve
 
 		$code = \app\models\TransactionType::findOne(['name'=>'RETRIEVE']);
 		if ($code) {
-			$transaction->pilot_id = $this->pilot_id;	
+			$transaction->person_id = $this->pilot->person_id;	
 			$transaction->type_id = $code->id;
 			$transaction->details = $code->description. ' - Duration : '. $this->duration . ' mins';
 			$transaction->quantity = 1;

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /**
 * @var yii\web\View $this
 * @var yii\data\ActiveDataProvider $dataProvider
-* @var app\models\search\Person $searchModel
+    * @var app\models\search\Person $searchModel
 */
 
 $this->title = Yii::t('models', 'People');
@@ -20,142 +20,148 @@ $this->params['breadcrumbs'][] = $this->title;
 $actionColumnTemplates = [];
 
 if (\Yii::$app->user->can('app_person_view', ['route' => true])) {
-	$actionColumnTemplates[] = '{view}';
+    $actionColumnTemplates[] = '{view}';
 }
 
 if (\Yii::$app->user->can('app_person_update', ['route' => true])) {
-	$actionColumnTemplates[] = '{update}';
+    $actionColumnTemplates[] = '{update}';
 }
 
 if (\Yii::$app->user->can('app_person_delete', ['route' => true])) {
-	$actionColumnTemplates[] = '{delete}';
+    $actionColumnTemplates[] = '{delete}';
 }
 if (isset($actionColumnTemplates)) {
-	$actionColumnTemplate = implode(' ', $actionColumnTemplates);
-	$actionColumnTemplateString = $actionColumnTemplate;
+$actionColumnTemplate = implode(' ', $actionColumnTemplates);
+    $actionColumnTemplateString = $actionColumnTemplate;
 } else {
-	Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']);
-	$actionColumnTemplateString = "{view} {update} {delete}";
+Yii::$app->view->params['pageButtons'] = Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']);
+    $actionColumnTemplateString = "{view} {update} {delete}";
 }
 $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTemplateString.'</div>';
 ?>
 <div class="giiant-crud person-index">
 
-	<?php
-	//             echo $this->render('_search', ['model' =>$searchModel]);
-	?>
+    <?php
+//             echo $this->render('_search', ['model' =>$searchModel]);
+        ?>
 
+    
+    <?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
-	<?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
+    <h1>
+        <?= Yii::t('models', 'People') ?>
+        <small>
+            List
+        </small>
+    </h1>
+    <div class="clearfix crud-navigation">
+<?php
+if(\Yii::$app->user->can('app_person_create', ['route' => true])){
+?>
+        <div class="pull-left">
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
+        </div>
+<?php
+}
+?>
+        <div class="pull-right">
 
-	<h1>
-		<?= Yii::t('models', 'People') ?>
-		<small>
-			List
-		</small>
-	</h1>
-	<div class="clearfix crud-navigation">
-		<?php
-		if(\Yii::$app->user->can('app_person_create', ['route' => true])){
-		?>
-			<div class="pull-left">
-				<?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'New', ['create'], ['class' => 'btn btn-success']) ?>
-			</div>
-		<?php
-		}
-		?>
-		<div class="pull-right">
+                                                                                
+            <?= 
+            \yii\bootstrap\ButtonDropdown::widget(
+            [
+            'id' => 'giiant-relations',
+            'encodeLabel' => false,
+            'label' => '<span class="glyphicon glyphicon-paperclip"></span> ' . 'Relations',
+            'dropdown' => [
+            'options' => [
+            'class' => 'dropdown-menu-right'
+            ],
+            'encodeLabels' => false,
+            'items' => [
+            [
+                'url' => ['contest/index'],
+                'label' => '<i class="glyphicon glyphicon-arrow-left"></i> ' . Yii::t('models', 'Contest'),
+            ],
+                                [
+                'url' => ['pilot/index'],
+                'label' => '<i class="glyphicon glyphicon-arrow-right"></i> ' . Yii::t('models', 'Pilot'),
+            ],
+                    
+]
+            ],
+            'options' => [
+            'class' => 'btn-default'
+            ]
+            ]
+            );
+            ?>
+        </div>
+    </div>
 
+    <hr />
 
-			<?= 
-			\yii\bootstrap\ButtonDropdown::widget(
-				[
-					'id' => 'giiant-relations',
-					'encodeLabel' => false,
-					'label' => '<span class="glyphicon glyphicon-paperclip"></span> ' . 'Relations',
-					'dropdown' => [
-						'options' => [
-							'class' => 'dropdown-menu-right'
-						],
-						'encodeLabels' => false,
-						'items' => [
-							[
-								'url' => ['contest/index'],
-								'label' => '<i class="glyphicon glyphicon-arrow-left"></i> ' . Yii::t('models', 'Contest'),
-							],
-
-						]
-					],
-					'options' => [
-						'class' => 'btn-default'
-					]
-				]
-			);
-			?>
-		</div>
-	</div>
-
-	<hr />
-
-	<div class="table-responsive">
-		<?= GridView::widget([
-			'dataProvider' => $dataProvider,
-			'pager' => [
-				'class' => yii\widgets\LinkPager::className(),
-				'firstPageLabel' => 'First',
-				'lastPageLabel' => 'Last',
+    <div class="table-responsive">
+        <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'pager' => [
+        'class' => yii\widgets\LinkPager::class,
+        'firstPageLabel' => 'First',
+        'lastPageLabel' => 'Last',
+        ],
+                    'filterModel' => $searchModel,
+                'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
+        'headerRowOptions' => ['class'=>'x'],
+        'columns' => [
+                [
+            'class' => 'yii\grid\ActionColumn',
+            'template' => $actionColumnTemplateString,
+            'buttons' => [
+                'view' => function ($url, $model, $key) {
+                    $options = [
+                        'title' => Yii::t('cruds', 'View'),
+                        'aria-label' => Yii::t('cruds', 'View'),
+                        'data-pjax' => '0',
+                    ];
+                    return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
+                }
+            ],
+            'urlCreator' => function($action, $model, $key, $index) {
+                // using the column name as key, not mapping to 'id' like the standard generator
+                $params = is_array($key) ? $key : [$model->primaryKey()[0] => (string) $key];
+                $params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id . '/' . $action : $action;
+                return Url::toRoute($params);
+            },
+            'contentOptions' => ['nowrap'=>'nowrap']
+        ],
+			// generated by schmunk42\giiant\generators\crud\providers\core\RelationProvider::columnFormat
+			[
+			    'class' => yii\grid\DataColumn::class,
+			    'attribute' => 'contest_id',
+			    'value' => function ($model) {
+			        if ($rel = $model->contest) {
+			            return Html::a($rel->name, ['contest/view', 'id' => $rel->id,], ['data-pjax' => 0]);
+			        } else {
+			            return '';
+			        }
+			    },
+			    'format' => 'raw',
 			],
-			'filterModel' => $searchModel,
-			'tableOptions' => ['class' => 'table table-striped table-bordered table-hover'],
-			'headerRowOptions' => ['class'=>'x'],
-			'columns' => [
-				// generated by schmunk42\giiant\generators\crud\providers\core\RelationProvider::columnFormat
-				//[
-				//	'class' => yii\grid\DataColumn::className(),
-				//	'attribute' => 'contest_id',
-				//	'value' => function ($model) {
-				//		if ($rel = $model->contest) {
-				//			return Html::a($rel->name, ['contest/view', 'id' => $rel->id,], ['data-pjax' => 0]);
-				//		} else {
-				//			return '';
-				//		}
-				//	},
-				//	'format' => 'raw',
-				//],
-				[
-					'class' => yii\grid\DataColumn::className(),
-					'attribute' => 'name',
-					'value' => function ($model) {
-						return Html::a($model->name, ['view', 'id' => $model->id,], ['data-pjax' => 0]);
-					},
-					'format' => 'raw',
-				],
-				'telephone:ntext',
-				'role',
-				[
-					'class' => 'yii\grid\ActionColumn',
-					'template' => $actionColumnTemplateString,
-					'buttons' => [
-						'view' => function ($url, $model, $key) {
-							$options = [
-								'title' => Yii::t('cruds', 'View'),
-								'aria-label' => Yii::t('cruds', 'View'),
-								'data-pjax' => '0',
-							];
-							return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, $options);
-						}
-					],
-					'urlCreator' => function($action, $model, $key, $index) {
-						// using the column name as key, not mapping to 'id' like the standard generator
-						$params = is_array($key) ? $key : [$model->primaryKey()[0] => (string) $key];
-						$params[0] = \Yii::$app->controller->id ? \Yii::$app->controller->id . '/' . $action : $action;
-						return Url::toRoute($params);
-					},
-					'contentOptions' => ['nowrap'=>'nowrap']
-				],
-			]
-		]); ?>
-	</div>
+			'name',
+			[
+			                'attribute'=>'role',
+			                'value' => function ($model) {
+			                    return \app\models\Person::getRoleValueLabel($model->role);
+			                }    
+			            ],
+			'telephone:ntext',
+			'address1',
+			'address2',
+			'address3',
+			/*'postcode',*/
+                ]
+        ]); ?>
+    </div>
 
 </div>
 

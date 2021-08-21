@@ -49,7 +49,7 @@ abstract class Contest extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 80],
             [['igcfiles'], 'string', 'max' => 12],
             [['name'], 'unique'],
-            [['club_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Club::className(), 'targetAttribute' => ['club_id' => 'id']]
+            [['club_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Club::class, 'targetAttribute' => ['club_id' => 'id']]
         ];
     }
 
@@ -88,7 +88,7 @@ abstract class Contest extends \yii\db\ActiveRecord
      */
     public function getClub()
     {
-        return $this->hasOne(\app\models\Club::className(), ['id' => 'club_id']);
+        return $this->hasOne(\app\models\Club::class, ['id' => 'club_id']);
     }
 
     /**
@@ -96,7 +96,7 @@ abstract class Contest extends \yii\db\ActiveRecord
      */
     public function getPeople()
     {
-        return $this->hasMany(\app\models\Person::className(), ['contest_id' => 'id']);
+        return $this->hasMany(\app\models\Person::class, ['contest_id' => 'id']);
     }
 
     /**
@@ -104,7 +104,7 @@ abstract class Contest extends \yii\db\ActiveRecord
      */
     public function getPilots()
     {
-        return $this->hasMany(\app\models\Pilot::className(), ['contest_id' => 'id']);
+        return $this->hasMany(\app\models\Pilot::class, ['contest_id' => 'id']);
     }
 
     /**
@@ -112,7 +112,7 @@ abstract class Contest extends \yii\db\ActiveRecord
      */
     public function getTowplanes()
     {
-        return $this->hasMany(\app\models\Towplane::className(), ['contest_id' => 'id']);
+        return $this->hasMany(\app\models\Towplane::class, ['contest_id' => 'id']);
     }
 
     /**
@@ -120,7 +120,7 @@ abstract class Contest extends \yii\db\ActiveRecord
      */
     public function getTransactionTypes()
     {
-        return $this->hasMany(\app\models\TransactionType::className(), ['contest_id' => 'id']);
+        return $this->hasMany(\app\models\TransactionType::class, ['contest_id' => 'id']);
     }
 
 
