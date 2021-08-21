@@ -62,7 +62,7 @@ abstract class Landout extends \yii\db\ActiveRecord
             [['trailer', 'crew'], 'string', 'max' => 80],
             [['plate'], 'string', 'max' => 10],
             [['crew_phone'], 'string', 'max' => 16],
-            [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::className(), 'targetAttribute' => ['pilot_id' => 'id']],
+            [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::class, 'targetAttribute' => ['pilot_id' => 'id']],
             ['status', 'in', 'range' => [
                     self::STATUS_AWAITING_CREW,
                     self::STATUS_CREW_DEPARTED,
@@ -101,7 +101,7 @@ abstract class Landout extends \yii\db\ActiveRecord
      */
     public function getPilot()
     {
-        return $this->hasOne(\app\models\Pilot::className(), ['id' => 'pilot_id']);
+        return $this->hasOne(\app\models\Pilot::class, ['id' => 'pilot_id']);
     }
 
 

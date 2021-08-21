@@ -27,7 +27,7 @@ use richardfan\widget\JSRegister;
 		]
 	);
 
-	echo $form->field($model, 'contest_id')->widget(DepDrop::classname(), [
+	echo $form->field($model, 'contest_id')->widget(DepDrop::class, [
 		'options'=>['id'=>'contest_id'],
 		'data' => \yii\helpers\ArrayHelper::map(app\models\Contest::find()->all(), 'id', 'name'),
 		'pluginOptions'=>[

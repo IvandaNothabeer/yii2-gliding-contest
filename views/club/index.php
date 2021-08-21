@@ -101,7 +101,7 @@ if (\Yii::$app->user->can('app_club_create', ['route' => true])) {
         <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'pager' => [
-        'class' => yii\widgets\LinkPager::className(),
+        'class' => yii\widgets\LinkPager::class,
         'firstPageLabel' => 'First',
         'lastPageLabel' => 'Last',
         ],

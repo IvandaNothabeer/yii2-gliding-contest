@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 			'id'						=>'multiple-input',
 			'models'					=> $models,
 			'addButtonPosition'			=> TabularInput::POS_FOOTER,
-			'modelClass'				=> \app\models\Retrieve::className(),
+			'modelClass'				=> \app\models\Retrieve::class,
 			'min'						=> 0,
 			'allowEmptyList'			=> true,
 			'attributeOptions' => [
@@ -102,7 +102,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 				[
 					'name' => 'duration',
 					'title' => 'Duration (Mins)',
-					'type' =>  NumberControl::className(),
+					'type' =>  NumberControl::class,
 					'defaultValue' => 0,
 					'options' => [
 						'maskedInputOptions' => [
@@ -115,7 +115,7 @@ $this->params['breadcrumbs'][] = 'Manage';
 				[
 					'name' => 'price',
 					'title' => 'Cost',
-					'type' =>  NumberControl::className(),
+					'type' =>  NumberControl::class,
 					'defaultValue' => 0,
 					'options' => [
 						'maskedInputOptions' => [

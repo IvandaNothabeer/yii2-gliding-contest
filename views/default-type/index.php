@@ -97,7 +97,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 		<?= GridView::widget([
 			'dataProvider' => $dataProvider,
 			'pager' => [
-				'class' => yii\widgets\LinkPager::className(),
+				'class' => yii\widgets\LinkPager::class,
 				'firstPageLabel' => 'First',
 				'lastPageLabel' => 'Last',
 			],
@@ -106,7 +106,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 			'headerRowOptions' => ['class'=>'x'],
 			'columns' => [
 				[
-					'class' => yii\grid\DataColumn::className(),
+					'class' => yii\grid\DataColumn::class,
 					'attribute' => 'name',
 					'value' => function ($model) {
 						return Html::a($model->name, ['view', 'id' => $model->id,], ['data-pjax' => 0]);

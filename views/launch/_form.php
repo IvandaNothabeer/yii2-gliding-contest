@@ -66,7 +66,7 @@ use kartik\date\DatePicker;
 			<?php $model->date = $model->date ?? date('Y-m-d') ?>
 			<?= '' //$form->field($model, 'date')->textInput() ?>
 			<?php
-			echo $form->field($model, 'date')->widget(DatePicker::classname(), [
+			echo $form->field($model, 'date')->widget(DatePicker::class, [
 				'type' => DatePicker::TYPE_COMPONENT_PREPEND,
 				'pluginOptions' => [
 					'autoclose' => true,

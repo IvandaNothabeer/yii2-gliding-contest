@@ -6,6 +6,7 @@ use app\models\Landout;
 use app\models\search\LandoutSearch as LandoutSearch;
 use yii\data\ActiveDataProvider; 
 use yii\base\Model;
+use app\models\Person;
 use app\models\Pilot;
 use yii\helpers\Url;
 use yii\filters\AccessControl;
@@ -31,7 +32,7 @@ class LandoutController extends \app\controllers\base\LandoutController
 			parent::behaviors(),
 			[
 				'access' => [
-					'class' => AccessControl::className(),
+					'class' => AccessControl::class,
 					'rules' => [
 						[
 							'allow' => true,
@@ -79,7 +80,9 @@ class LandoutController extends \app\controllers\base\LandoutController
 	public function actionCreate()
 	{
 		$model = new Landout;
+		$model->date = date('Y-m-d');
 		$model->populateRelation('pilot', new \app\models\Pilot); // Populate related Record
+		$model->populateRelation('person', new \app\models\Person); // Populate related Record
 
 		try {
 			if ($model->load($_POST) && $model->save()) {
@@ -97,7 +100,9 @@ class LandoutController extends \app\controllers\base\LandoutController
 
 	public function actionPilot($id)
 	{
-		return $this->asJson(Pilot::findOne($id));
+		$pilot = Pilot::findOne($id);
+		$person = Person::findOne(['id'=>$pilot->person_id]);
+		return $this->asJson(array_merge($pilot->attributes, $person->attributes));
 	}
 
 	public function actionGetAll($date)

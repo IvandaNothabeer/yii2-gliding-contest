@@ -22,7 +22,7 @@ class ItemController extends \yii\rest\ActiveController
 			parent::behaviors(),
 			[
 				'access' => [
-					'class' => AccessControl::className(),
+					'class' => AccessControl::class,
 					'rules' => [
 						[
 							'allow' => true,

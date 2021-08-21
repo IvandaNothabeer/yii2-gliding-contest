@@ -81,6 +81,20 @@ abstract class Status extends \yii\db\ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'id' => 'ID',
+            'pilot_id' => 'Pilot',
+            'status' => 'Status',
+            'date' => 'Date',
+            'time' => 'Time',
+        ]);
+    }
+
 
     
     /**

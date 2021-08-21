@@ -23,7 +23,7 @@ class TransactionTypeController extends \app\controllers\base\TransactionTypeCon
 			parent::behaviors(),
 			[
 				'access' => [
-					'class' => AccessControl::className(),
+					'class' => AccessControl::class,
 					'rules' => [
 						[
 							'allow' => true,

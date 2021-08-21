@@ -4,7 +4,7 @@ namespace app\controllers;
 
 use app\models\Transaction;
 use app\models\TransactionType;
-use app\models\Pilot;
+use app\models\Person;
 use app\models\Contest;
 use app\models\Club;
 use app\models\search\Transaction as TransactionSearch;
@@ -35,7 +35,7 @@ class TransactionController extends \app\controllers\base\TransactionController
 			parent::behaviors(),
 			[
 				'access' => [
-					'class' => AccessControl::className(),
+					'class' => AccessControl::class,
 					'rules' => [
 						[
 							'allow' => true,
@@ -54,16 +54,16 @@ class TransactionController extends \app\controllers\base\TransactionController
 
 	}
 
-	public function actionManage ($pilot_id=null)
+	public function actionManage ($person_id=null)
 	{
 
-		if (is_null($pilot_id))
+		if (is_null($person_id))
 		{
-			$pilot = \app\models\Pilot::find()->one(); 
-			$pilot_id = $pilot->id ?? 0;
+			$person = \app\models\Person::find()->one(); 
+			$person_id = $person->id ?? 0;
 		}
 
-		$query = Transaction::find()->where(['pilot_id'=>$pilot_id]);
+		$query = Transaction::find()->where(['person_id'=>$person_id]);
 
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
@@ -83,16 +83,16 @@ class TransactionController extends \app\controllers\base\TransactionController
 
 			// Save the new Transaction models
 			if (Model::loadMultiple($models, Yii::$app->request->post()) && Model::validateMultiple($models)) {
-				Transaction::deleteAll('pilot_id='.$pilot_id);
+				Transaction::deleteAll('person_id='.$person_id);
 				foreach ($models as $model) {
-					$model->save(false);
+					$model->save(true);
 				}
 				Yii::$app->session->addFlash('success', 'Updated Transaction List');
 				return $this->refresh();
 			}
 			else{
 				if (empty(Yii::$app->request->post('Transaction', []))){
-					Transaction::deleteAll('pilot_id='.$pilot_id);
+					Transaction::deleteAll('person_id='.$person_id);
 					Yii::$app->session->addFlash('success', 'Removed All Transactions');
 					return $this->refresh();
 				}
@@ -101,23 +101,23 @@ class TransactionController extends \app\controllers\base\TransactionController
 
 		}
 
-		return $this->render('manage', ['models' => $models, 'pilot_id' => $pilot_id]);	
+		return $this->render('manage', ['models' => $models, 'person_id' => $person_id]);	
 
 	}
 
 	public function actionSetup ($contest_id=null)
 	{
 
-		$pilots = Pilot::find()->all();
+		$persons = Person::find()->all();
 		$types = TransactionType::find()->andWhere(['credit'=>'Debit'])->andWhere(['not in', 'name', ['RETRIEVE', 'LAUNCH']])->all();
 
-		foreach ($pilots as $pilot)
+		foreach ($persons as $person)
 		{
-			$transactions = ArrayHelper::getColumn($pilot->transactions,'type_id');
+			$transactions = ArrayHelper::getColumn($person->transactions,'type_id');
 			foreach($types as $type){
 				if (!in_array($type->id, $transactions )){
 					$new = new Transaction;
-					$new->pilot_id = $pilot->id;
+					$new->person_id = $person->id;
 					$new->type_id = $type->id;
 					$new->date = date('Y-m-d');
 					$new->details = $type->description;
@@ -133,10 +133,10 @@ class TransactionController extends \app\controllers\base\TransactionController
 			
 	}
 
-	public function actionReport($pilot_id) {
+	public function actionReport($person_id) {
 
-		$pilot =  Pilot::findOne(['id'=>$pilot_id]);
-		if ($pilot === null) {
+		$person =  Person::findOne(['id'=>$person_id]);
+		if ($person === null) {
 			throw new \yii\web\NotFoundHttpException;
 
 		}
@@ -145,7 +145,7 @@ class TransactionController extends \app\controllers\base\TransactionController
 
 		$searchModel  = new TransactionSearch;
 
-		$query = Transaction::find()->where(['pilot_id'=>$pilot_id]);
+		$query = Transaction::find()->where(['person_id'=>$person_id]);
 		$dataProvider = new ActiveDataProvider([
 			'query' => $query,
 			'pagination' => false,
@@ -157,7 +157,7 @@ class TransactionController extends \app\controllers\base\TransactionController
 		$content =   $this->renderPartial('_report', [
 			'dataProvider' => $dataProvider,
 			'searchModel' => $searchModel,
-			'pilot' => $pilot,
+			'person' => $person,
 			'contest' => $contest,
 			'club' => $club,
 		]);	

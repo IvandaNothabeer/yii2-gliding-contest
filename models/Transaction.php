@@ -40,11 +40,11 @@ class Transaction extends BaseTransaction
 
 	public static function find(){
 
-		$pilots = \yii\helpers\ArrayHelper::getColumn(\app\models\Pilot::find()->asArray()->all(),'id');
+		$persons = \yii\helpers\ArrayHelper::getColumn(\app\models\Person::find()->asArray()->all(),'id');
 		if (\Yii::$app->request->isConsoleRequest)
 			return parent::find();
 		//if (!\Yii::$app->user->can('Administrator')) 
-		return parent::find()->andWhere(['pilot_id' => $pilots]);
+		return parent::find()->andWhere(['person_id' => $persons]);
 		//return parent::find();
 	}
 

@@ -33,7 +33,7 @@ class TowplaneController extends \app\controllers\base\TowplaneController
 			parent::behaviors(),
 			[
 				'access' => [
-					'class' => AccessControl::className(),
+					'class' => AccessControl::class,
 					'rules' => [
 						[
 							'allow' => true,

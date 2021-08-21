@@ -18,7 +18,7 @@ class Transaction extends TransactionModel
 	public function rules()
 	{
 		return [
-			[['id', 'pilot_id', 'type_id', 'quantity'], 'integer'],
+			[['id', 'person_id', 'type_id', 'quantity'], 'integer'],
 			[['details', 'date'], 'safe'],
 			[['amount', 'item_price'], 'number'],
 		];
@@ -58,7 +58,7 @@ class Transaction extends TransactionModel
 
 		$query->andFilterWhere([
 			'id' => $this->id,
-			'pilot_id' => $this->pilot_id,
+			'person_id' => $this->person_id,
 			'type_id' => $this->type_id,
 			'amount' => $this->amount,
 			'date' => $this->date,

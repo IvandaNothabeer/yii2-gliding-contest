@@ -39,7 +39,7 @@ use kartik\grid\GridView;
 							<h3><?= $club->name ?></h3>
 						</td>
 						<td>
-							<h3><?= $pilot->name ?></h3>
+							<h3><?= $person->name ?></h3>
 						</td>
 					</tr>
 					<tr>
@@ -47,7 +47,7 @@ use kartik\grid\GridView;
 							<p><?= $club->address1 ?></p>
 						</td>
 						<td>
-							<p><?= $pilot->address1 ?></p>
+							<p><?= $person->address1 ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -55,7 +55,7 @@ use kartik\grid\GridView;
 							<p><?= $club->address2 ?></p>
 						</td>
 						<td>
-							<p><?= $pilot->address2 ?></p>
+							<p><?= $person->address2 ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -63,7 +63,7 @@ use kartik\grid\GridView;
 							<p><?= $club->address3 ?></p>
 						</td>
 						<td>
-							<p><?= $pilot->address3 ?></p>
+							<p><?= $person->address3 ?></p>
 						</td>
 					</tr>
 					<tr>
@@ -71,7 +71,7 @@ use kartik\grid\GridView;
 							<p><?= $club->postcode ?></p>
 						</td>
 						<td>
-							<p><?= $pilot->postcode ?></p>
+							<p><?= $person->postcode ?></p>
 						</td>
 					</tr>
 				</table>
@@ -91,7 +91,7 @@ use kartik\grid\GridView;
 						'columns' => [
 							'date',
 							[
-								'class' => \kartik\grid\DataColumn::className(),
+								'class' => \kartik\grid\DataColumn::class,
 								'attribute' => 'type_id',
 								'value' => function ($model) {
 									if ($rel = $model->type) {
@@ -108,7 +108,7 @@ use kartik\grid\GridView;
 							'item_price',
 							//'amount',
 							[
-								'class' => \kartik\grid\DataColumn::className(),
+								'class' => \kartik\grid\DataColumn::class,
 								'attribute' => 'amount',
 								'pageSummary' => function ($summary, $data, $widget) { return '$ '.@number_format($summary,2); },
 								'pageSummaryFunc' => Gridview::F_SUM,

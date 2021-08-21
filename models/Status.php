@@ -50,6 +50,6 @@ class Status extends BaseStatus
 	*/
 	public function getPilot()
 	{
-		return $this->hasOne(\app\models\Pilot::className(), ['id' => 'pilot_id']);
+		return $this->hasOne(\app\models\Pilot::class, ['id' => 'pilot_id']);
 	}
 }

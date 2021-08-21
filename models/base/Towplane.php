@@ -50,7 +50,7 @@ abstract class Towplane extends \yii\db\ActiveRecord
             [['description', 'name', 'address1', 'address2', 'address3'], 'string', 'max' => 80],
             [['postcode'], 'string', 'max' => 8],
             [['telephone'], 'string', 'max' => 12],
-            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::className(), 'targetAttribute' => ['contest_id' => 'id']]
+            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::class, 'targetAttribute' => ['contest_id' => 'id']]
         ];
     }
 
@@ -74,11 +74,29 @@ abstract class Towplane extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'contest_id' => 'Contest',
+            'rego' => 'Towplane Registration',
+            'description' => 'Description',
+            'name' => 'Name',
+            'address1' => 'Address Line 1',
+            'address2' => 'Address Line 2',
+            'address3' => 'Address Line 3',
+            'postcode' => 'Post Code',
+            'telephone' => 'Phone',
+        ]);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getLaunches()
     {
-        return $this->hasMany(\app\models\Launch::className(), ['towplane_id' => 'id']);
+        return $this->hasMany(\app\models\Launch::class, ['towplane_id' => 'id']);
     }
 
     /**
@@ -86,7 +104,7 @@ abstract class Towplane extends \yii\db\ActiveRecord
      */
     public function getRetrieves()
     {
-        return $this->hasMany(\app\models\Retrieve::className(), ['towplane_id' => 'id']);
+        return $this->hasMany(\app\models\Retrieve::class, ['towplane_id' => 'id']);
     }
 
     /**
@@ -94,7 +112,7 @@ abstract class Towplane extends \yii\db\ActiveRecord
      */
     public function getContest()
     {
-        return $this->hasOne(\app\models\Contest::className(), ['id' => 'contest_id']);
+        return $this->hasOne(\app\models\Contest::class, ['id' => 'contest_id']);
     }
 
 

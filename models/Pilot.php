@@ -45,7 +45,7 @@ class Pilot extends BasePilot
 			$contest = \yii::$app->user->identity->profile->contest_id;
 		}
 
-		return parent::find()->andWhere(['contest_id' => $contest]);
+		return parent::find()->andWhere(['pilots.contest_id' => $contest]);
 
 	}
 
@@ -59,7 +59,7 @@ class Pilot extends BasePilot
 	*/
 	public function getStatus()
 	{
-		return $this->hasOne(\app\models\Status::className(), ['pilot_id' => 'id']);
+		return $this->hasOne(\app\models\Status::class, ['pilot_id' => 'id']);
 	}
 
 	public function afterSave($insert, $changedAttributes)

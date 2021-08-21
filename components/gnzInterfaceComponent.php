@@ -311,7 +311,8 @@ class gnzInterfaceComponent extends Component
 
 	private function refreshToken()
 	{
-
+		// Should not need to refresh a token once generated.
+		// Run this Function Manually after editing the Username and Password.
 		$client = new Client(['baseUrl'=> $this->oauthUrl]);
 		$response = $client->createRequest()
 		->setMethod('POST')
@@ -321,8 +322,8 @@ class gnzInterfaceComponent extends Component
 			'grant_type' => 'password',
 			'client_id' => '8',
 			'client_secret' => 'OmNvTS31RWkqORjhqHGDfurZie9EnaDxk9pfFNko',
-			'username' => 'rob@lymac.co.nz',
-			'password' => 'passW0rd123',
+			'username' => 'user@email.address',
+			'password' => 'UserPassword',
 			'scope' => '*',
 		])
 		->send();

@@ -78,9 +78,9 @@ $config = [
 			'crudFormLayout' => 'horizontal',
 			//'crudIndexGridClass' => 'kartik\grid\GridView',
 			'crudProviders' => [
-				\schmunk42\giiant\generators\crud\providers\core\OptsProvider::className(),
-				\schmunk42\giiant\generators\crud\providers\core\CallbackProvider::className(),
-				\schmunk42\giiant\generators\crud\providers\core\RelationProvider::className(),
+				\schmunk42\giiant\generators\crud\providers\core\OptsProvider::class,
+				\schmunk42\giiant\generators\crud\providers\core\CallbackProvider::class,
+				\schmunk42\giiant\generators\crud\providers\core\RelationProvider::class,
 			],
 			'tablePrefix' => '',
 			'tables' => [

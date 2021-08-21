@@ -67,7 +67,7 @@ abstract class Club extends \yii\db\ActiveRecord
      */
     public function getContests()
     {
-        return $this->hasMany(\app\models\Contest::className(), ['club_id' => 'id']);
+        return $this->hasMany(\app\models\Contest::class, ['club_id' => 'id']);
     }
 
 

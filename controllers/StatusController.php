@@ -26,7 +26,7 @@ class StatusController extends \app\controllers\base\StatusController
 			parent::behaviors(),
 			[
 				'access' => [
-					'class' => AccessControl::className(),
+					'class' => AccessControl::class,
 					'rules' => [
 						[
 							'allow' => true,
@@ -44,8 +44,8 @@ class StatusController extends \app\controllers\base\StatusController
 	{
 		return ArrayHelper::merge(parent::actions(), [
 			'editstatus' => [                                       // identifier for your editable action
-				'class' => EditableColumnAction::className(),     	// action class name
-				'modelClass' => Status::className(),                // the update model class
+				'class' => EditableColumnAction::class,     	// action class name
+				'modelClass' => Status::class,                // the update model class
 			]
 		]);
 	}

@@ -12,10 +12,15 @@ use Yii;
  * @property integer $id
  * @property integer $contest_id
  * @property string $name
+ * @property string $address1
+ * @property string $address2
+ * @property string $address3
+ * @property string $postcode
  * @property string $role
  * @property string $telephone
  *
  * @property \app\models\Contest $contest
+ * @property \app\models\Pilot[] $pilots
  * @property string $aliasModel
  */
 abstract class Person extends \yii\db\ActiveRecord
@@ -23,6 +28,16 @@ abstract class Person extends \yii\db\ActiveRecord
 
 
 
+    /**
+    * ENUM field values
+    */
+    const ROLE_PILOT = 'Pilot';
+    const ROLE_COPILOT = 'CoPilot';
+    const ROLE_VOLUNTEER = 'Volunteer';
+    const ROLE_VISITOR = 'Visitor';
+    const ROLE_OFFICIAL = 'Official';
+    const ROLE_NONE = 'None';
+    var $enum_labels = false;
     /**
      * @inheritdoc
      */
@@ -37,12 +52,21 @@ abstract class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['contest_id', 'name', 'telephone'], 'required'],
+            [['contest_id', 'name'], 'required'],
             [['contest_id'], 'integer'],
-            [['telephone'], 'string'],
-            [['name'], 'string', 'max' => 80],
-            [['role'], 'string', 'max' => 40],
-            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::className(), 'targetAttribute' => ['contest_id' => 'id']]
+            [['role', 'telephone'], 'string'],
+            [['name', 'address1', 'address2', 'address3'], 'string', 'max' => 80],
+            [['postcode'], 'string', 'max' => 12],
+            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::class, 'targetAttribute' => ['contest_id' => 'id']],
+            ['role', 'in', 'range' => [
+                    self::ROLE_PILOT,
+                    self::ROLE_COPILOT,
+                    self::ROLE_VOLUNTEER,
+                    self::ROLE_VISITOR,
+                    self::ROLE_OFFICIAL,
+                    self::ROLE_NONE,
+                ]
+            ]
         ];
     }
 
@@ -54,9 +78,13 @@ abstract class Person extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'contest_id' => 'Contest Name',
-            'name' => 'Persons Name',
+            'name' => 'Name',
+            'address1' => 'Address Line 1',
+            'address2' => 'Address Line 2',
+            'address3' => 'Address Line 3',
+            'postcode' => 'Postcode',
             'role' => 'Contest Role',
-            'telephone' => 'Mobile Contact Number for SMS',
+            'telephone' => 'Mobile Number',
         ];
     }
 
@@ -68,9 +96,13 @@ abstract class Person extends \yii\db\ActiveRecord
         return array_merge(parent::attributeHints(), [
             'id' => 'ID',
             'contest_id' => 'Contest Name',
-            'name' => 'Persons Name',
+            'name' => 'Name',
+            'address1' => 'Address Line 1',
+            'address2' => 'Address Line 2',
+            'address3' => 'Address Line 3',
+            'postcode' => 'Postcode',
             'role' => 'Contest Role',
-            'telephone' => 'Mobile Contact Number for SMS',
+            'telephone' => 'Mobile Number',
         ]);
     }
 
@@ -79,7 +111,15 @@ abstract class Person extends \yii\db\ActiveRecord
      */
     public function getContest()
     {
-        return $this->hasOne(\app\models\Contest::className(), ['id' => 'contest_id']);
+        return $this->hasOne(\app\models\Contest::class, ['id' => 'contest_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPilots()
+    {
+        return $this->hasMany(\app\models\Pilot::class, ['person_id' => 'id']);
     }
 
 
@@ -93,5 +133,34 @@ abstract class Person extends \yii\db\ActiveRecord
         return new \app\models\query\PersonQuery(get_called_class());
     }
 
+
+    /**
+     * get column role enum value label
+     * @param string $value
+     * @return string
+     */
+    public static function getRoleValueLabel($value){
+        $labels = self::optsRole();
+        if(isset($labels[$value])){
+            return $labels[$value];
+        }
+        return $value;
+    }
+
+    /**
+     * column role ENUM value labels
+     * @return array
+     */
+    public static function optsRole()
+    {
+        return [
+            self::ROLE_PILOT => 'Pilot',
+            self::ROLE_COPILOT => 'Co Pilot',
+            self::ROLE_VOLUNTEER => 'Volunteer',
+            self::ROLE_VISITOR => 'Visitor',
+            self::ROLE_OFFICIAL => 'Official',
+            self::ROLE_NONE => 'None',
+        ];
+    }
 
 }

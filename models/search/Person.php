@@ -18,8 +18,8 @@ class Person extends PersonModel
 public function rules()
 {
 return [
-[['id'], 'integer'],
-            [['name', 'role', 'telephone'], 'safe'],
+[['id', 'contest_id'], 'integer'],
+            [['name', 'address1', 'address2', 'address3', 'postcode', 'role', 'telephone'], 'safe'],
 ];
 }
 
@@ -57,9 +57,14 @@ return $dataProvider;
 
 $query->andFilterWhere([
             'id' => $this->id,
+            'contest_id' => $this->contest_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
+            ->andFilterWhere(['like', 'address1', $this->address1])
+            ->andFilterWhere(['like', 'address2', $this->address2])
+            ->andFilterWhere(['like', 'address3', $this->address3])
+            ->andFilterWhere(['like', 'postcode', $this->postcode])
             ->andFilterWhere(['like', 'role', $this->role])
             ->andFilterWhere(['like', 'telephone', $this->telephone]);
 

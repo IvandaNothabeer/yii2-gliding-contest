@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = 'IGC File';
 	<div class="row justify-content-center align-items-top">
 		<div class=panel-body>
 			<div class = col-md-2>
-				<?= $form->field($model, 'date')->widget(DatePicker::className(), 
+				<?= $form->field($model, 'date')->widget(DatePicker::class, 
 					[
 						'type' => DatePicker::TYPE_COMPONENT_PREPEND,
 						'pluginOptions' => [
@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = 'IGC File';
 			</div>
 			<div class = col-md-2>
 				<?php
-				echo $form->field($model, 'pilot_id')->widget(DepDrop::classname(), [
+				echo $form->field($model, 'pilot_id')->widget(DepDrop::class, [
 					'options'=>['id'=>'pilot_id'],
 					//'data' => \yii\helpers\ArrayHelper::map(app\models\Pilot::find()->all(), 'id', 'name'),
 					'pluginOptions'=>[
@@ -84,7 +84,7 @@ $this->params['breadcrumbs'][] = 'IGC File';
 				<?= '' //$form->field($model, 'file')->fileInput(['class'=>'form-control'])->label('IGC File') ?>
 				<?php
 
-				echo $form->field($model, 'file')->widget(FileInput::classname(), [
+				echo $form->field($model, 'file')->widget(FileInput::class, [
 					//'options' => ['accept' => 'image/*'],
 					'pluginOptions'=>[
 						'allowedFileExtensions'=>['igc'],

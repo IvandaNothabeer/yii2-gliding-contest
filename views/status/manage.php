@@ -77,7 +77,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 		<?= GridView::widget([
 			'dataProvider' => $dataProvider,
 			'pager' => [
-				'class' => yii\widgets\LinkPager::className(),
+				'class' => yii\widgets\LinkPager::class,
 				'firstPageLabel' => 'First',
 				'lastPageLabel' => 'Last',
 			],
