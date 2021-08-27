@@ -3,13 +3,13 @@
 namespace app\models;
 
 use Yii;
-use \app\models\base\Towplane as BaseTowplane;
+use \app\models\base\MasterTowplane as BaseMasterTowplane;
 use yii\helpers\ArrayHelper;
 
 /**
- * This is the model class for table "towplanes".
+ * This is the model class for table "masterTowplanes".
  */
-class Towplane extends BaseTowplane
+class MasterTowplane extends BaseMasterTowplane
 {
 
     public function behaviors()
@@ -32,7 +32,6 @@ class Towplane extends BaseTowplane
         );
     }
 
-
     /**
      * @inheritdoc
      */
@@ -40,7 +39,6 @@ class Towplane extends BaseTowplane
     {
         return [
             'id' => 'ID',
-            'contest_id' => 'Contest',
             'rego' => 'Towplane Registration',
             'description' => 'Description',
             'name' => 'Owner Name',

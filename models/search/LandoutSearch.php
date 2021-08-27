@@ -19,7 +19,7 @@ public function rules()
 {
 return [
 [['id', 'pilot_id'], 'integer'],
-            [['date','landed_at', 'departed_at', 'returned_at', 'address', 'trailer', 'plate', 'crew', 'crew_phone', 'notes', 'status'], 'safe'],
+            [['name','telephone','rego_short','date','landed_at', 'departed_at', 'returned_at', 'address', 'trailer', 'plate', 'crew', 'crew_phone', 'notes', 'status'], 'safe'],
             [['lat', 'lng'], 'number'],
 ];
 }

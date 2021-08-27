@@ -7,10 +7,9 @@ namespace app\models\base;
 use Yii;
 
 /**
- * This is the base-model class for table "towplanes".
+ * This is the base-model class for table "masterTowplanes".
  *
  * @property integer $id
- * @property integer $contest_id
  * @property string $rego
  * @property string $description
  * @property string $name
@@ -19,13 +18,9 @@ use Yii;
  * @property string $address3
  * @property string $postcode
  * @property string $telephone
- *
- * @property \app\models\Launch[] $launches
- * @property \app\models\Retrieve[] $retrieves
- * @property \app\models\Contest $contest
  * @property string $aliasModel
  */
-abstract class Towplane extends \yii\db\ActiveRecord
+abstract class MasterTowplane extends \yii\db\ActiveRecord
 {
 
 
@@ -35,7 +30,7 @@ abstract class Towplane extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'towplanes';
+        return 'masterTowplanes';
     }
 
     /**
@@ -44,13 +39,11 @@ abstract class Towplane extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['contest_id', 'rego', 'description', 'name', 'address1'], 'required'],
-            [['contest_id'], 'integer'],
+            [['rego', 'description', 'name', 'address1'], 'required'],
             [['rego'], 'string', 'max' => 4],
             [['description', 'name', 'address1', 'address2', 'address3'], 'string', 'max' => 80],
             [['postcode'], 'string', 'max' => 8],
-            [['telephone'], 'string', 'max' => 12],
-            [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::class, 'targetAttribute' => ['contest_id' => 'id']]
+            [['telephone'], 'string', 'max' => 12]
         ];
     }
 
@@ -61,7 +54,6 @@ abstract class Towplane extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'contest_id' => 'Contest',
             'rego' => 'Towplane Registration',
             'description' => 'Description',
             'name' => 'Name',
@@ -79,7 +71,6 @@ abstract class Towplane extends \yii\db\ActiveRecord
     public function attributeHints()
     {
         return array_merge(parent::attributeHints(), [
-            'contest_id' => 'Contest',
             'rego' => 'Towplane Registration',
             'description' => 'Description',
             'name' => 'Name',
@@ -91,39 +82,15 @@ abstract class Towplane extends \yii\db\ActiveRecord
         ]);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getLaunches()
-    {
-        return $this->hasMany(\app\models\Launch::class, ['towplane_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRetrieves()
-    {
-        return $this->hasMany(\app\models\Retrieve::class, ['towplane_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getContest()
-    {
-        return $this->hasOne(\app\models\Contest::class, ['id' => 'contest_id']);
-    }
-
 
     
     /**
      * @inheritdoc
-     * @return \app\models\query\TowplaneQuery the active query used by this AR class.
+     * @return \app\models\query\MasterTowplaneQuery the active query used by this AR class.
      */
     public static function find()
     {
-        return new \app\models\query\TowplaneQuery(get_called_class());
+        return new \app\models\query\MasterTowplaneQuery(get_called_class());
     }
 
 

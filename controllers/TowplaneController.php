@@ -37,7 +37,7 @@ class TowplaneController extends \app\controllers\base\TowplaneController
 					'rules' => [
 						[
 							'allow' => true,
-							'actions' => ['manage', 'report'],
+							'actions' => ['manage', 'report', 'master'],
 							'roles' => ['AppTowplaneEdit', 'AppTowplaneFull']
 						],
 					],
@@ -104,6 +104,11 @@ class TowplaneController extends \app\controllers\base\TowplaneController
 
 		// return the pdf output as per the destination setting
 		return $pdf->render(); 
+	}
+
+	public function actionMaster($rego)
+	{
+		return $this->asJson(\app\models\MasterTowplane::findOne(['rego'=>$rego]));
 	}
 
 }
