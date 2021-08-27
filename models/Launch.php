@@ -38,6 +38,9 @@ class Launch extends BaseLaunch
 	{
 		parent::beforeSave($insert);
 
+		if ($this->towplane->rego =='SELF')
+			return true;
+			
 		if ($insert)
 			$transaction = new Transaction();
 		else

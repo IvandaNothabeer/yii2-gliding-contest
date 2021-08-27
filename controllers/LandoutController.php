@@ -81,8 +81,8 @@ class LandoutController extends \app\controllers\base\LandoutController
 	{
 		$model = new Landout;
 		$model->date = date('Y-m-d');
-		$model->populateRelation('pilot', new \app\models\Pilot); // Populate related Record
-		$model->populateRelation('person', new \app\models\Person); // Populate related Record
+		//$model->populateRelation('pilot', new \app\models\Pilot); // Populate related Record
+		//$model->populateRelation('pilot->person', new \app\models\Person); // Populate related Record
 
 		try {
 			if ($model->load($_POST) && $model->save()) {

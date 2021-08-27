@@ -11,6 +11,9 @@ use Yii;
  *
  * @property integer $id
  * @property integer $pilot_id
+ * @property string $rego_short
+ * @property string $name
+ * @property string $telephone
  * @property string $date
  * @property string $landed_at
  * @property string $departed_at
@@ -54,15 +57,16 @@ abstract class Landout extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pilot_id', 'date', 'landed_at'], 'required'],
             [['pilot_id'], 'integer'],
+            [['rego_short', 'name', 'telephone', 'date', 'landed_at'], 'required'],
             [['date', 'landed_at', 'departed_at', 'returned_at'], 'safe'],
             [['lat', 'lng'], 'number'],
             [['address', 'notes', 'status'], 'string'],
-            [['trailer', 'crew'], 'string', 'max' => 80],
+            [['rego_short'], 'string', 'max' => 2],
+            [['name', 'trailer', 'crew'], 'string', 'max' => 80],
+            [['telephone', 'crew_phone'], 'string', 'max' => 16],
             [['plate'], 'string', 'max' => 10],
-            [['crew_phone'], 'string', 'max' => 16],
-            [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::class, 'targetAttribute' => ['pilot_id' => 'id']],
+            [['pilot_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Pilot::className(), 'targetAttribute' => ['pilot_id' => 'id']],
             ['status', 'in', 'range' => [
                     self::STATUS_AWAITING_CREW,
                     self::STATUS_CREW_DEPARTED,
@@ -80,6 +84,9 @@ abstract class Landout extends \yii\db\ActiveRecord
         return [
             'id' => 'Land Out',
             'pilot_id' => 'Pilot',
+            'rego_short' => 'Glider Registration',
+            'name' => 'Pilot Name',
+            'telephone' => 'Pilot Phone',
             'date' => 'Landout Date',
             'landed_at' => 'Landout Time',
             'departed_at' => 'Crew Departed At',
@@ -97,11 +104,38 @@ abstract class Landout extends \yii\db\ActiveRecord
     }
 
     /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'id' => 'Land Out',
+            'pilot_id' => 'Pilot',
+            'rego_short' => 'Glider Registration',
+            'name' => 'Pilot Name',
+            'telephone' => 'Pilot Phone',
+            'date' => 'Landout Date',
+            'landed_at' => 'Landout Time',
+            'departed_at' => 'Crew Departed At',
+            'returned_at' => 'Pilot Returned At',
+            'lat' => 'Latitude',
+            'lng' => 'Longitude',
+            'address' => 'Address',
+            'trailer' => 'Trailer Details',
+            'plate' => 'Car Plate',
+            'crew' => 'Crew Name',
+            'crew_phone' => 'Crew Phone',
+            'notes' => 'Notes',
+            'status' => 'Status',
+        ]);
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getPilot()
     {
-        return $this->hasOne(\app\models\Pilot::class, ['id' => 'pilot_id']);
+        return $this->hasOne(\app\models\Pilot::className(), ['id' => 'pilot_id']);
     }
 
 

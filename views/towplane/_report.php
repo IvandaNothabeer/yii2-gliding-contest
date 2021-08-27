@@ -106,7 +106,7 @@ use kartik\grid\GridView;
 							],
 							*/
 							'pilot.rego',
-							'pilot.name',
+							'pilot.person.name',
 							//'amount',
 							//[
 							//	'class' => \kartik\grid\DataColumn::class,

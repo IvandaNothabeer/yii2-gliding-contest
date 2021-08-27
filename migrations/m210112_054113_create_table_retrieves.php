@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m210112_053944_create_table_launches extends Migration
+class m210112_054113_create_table_retrieves extends Migration
 {
     public function up()
     {
@@ -12,24 +12,26 @@ class m210112_053944_create_table_launches extends Migration
         }
 
         $this->createTable(
-            '{{%launches}}',
+            '{{%retrieves}}',
             [
                 'id' => $this->primaryKey(),
                 'towplane_id' => $this->integer()->notNull()->comment('Towplane'),
                 'pilot_id' => $this->integer()->notNull()->comment('Glider'),
-                'date' => $this->date()->notNull()->comment('Launch Date'),
-                'transaction_id' => $this->integer()->comment('Account Transaction ID'),
+                'date' => $this->date()->notNull()->comment('Retrieve Date'),
+                'duration' => $this->integer()->notNull()->comment('Retrive Duration'),
+                'price' => $this->decimal(6, 2)->notNull()->comment('Retrieve Cost'),
+                'transaction_id' => $this->integer()->comment('Transaction'),
             ],
             $tableOptions
         );
 
-        $this->createIndex('pilot_id', '{{%launches}}', ['pilot_id']);
-        $this->createIndex('towplane_id', '{{%launches}}', ['towplane_id']);
-        $this->createIndex('transaction_id', '{{%launches}}', ['transaction_id']);
+        $this->createIndex('pilot_id', '{{%retrieves}}', ['pilot_id']);
+        $this->createIndex('towplane_id', '{{%retrieves}}', ['towplane_id']);
+        $this->createIndex('transaction_id', '{{%retrieves}}', ['transaction_id']);
 
         $this->addForeignKey(
-            'launches_ibfk_1',
-            '{{%launches}}',
+            'retrieves_ibfk_1',
+            '{{%retrieves}}',
             ['pilot_id'],
             '{{%pilots}}',
             ['id'],
@@ -37,8 +39,8 @@ class m210112_053944_create_table_launches extends Migration
             'RESTRICT'
         );
         $this->addForeignKey(
-            'launches_ibfk_2',
-            '{{%launches}}',
+            'retrieves_ibfk_2',
+            '{{%retrieves}}',
             ['towplane_id'],
             '{{%towplanes}}',
             ['id'],
@@ -46,8 +48,8 @@ class m210112_053944_create_table_launches extends Migration
             'RESTRICT'
         );
         $this->addForeignKey(
-            'launches_ibfk_3',
-            '{{%launches}}',
+            'retrieves_ibfk_3',
+            '{{%retrieves}}',
             ['transaction_id'],
             '{{%transactions}}',
             ['id'],
@@ -58,6 +60,6 @@ class m210112_053944_create_table_launches extends Migration
 
     public function down()
     {
-        $this->dropTable('{{%launches}}');
+        $this->dropTable('{{%retrieves}}');
     }
 }

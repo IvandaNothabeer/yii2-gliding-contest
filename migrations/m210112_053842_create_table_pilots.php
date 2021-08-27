@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m210112_054000_create_table_pilots extends Migration
+class m210112_053842_create_table_pilots extends Migration
 {
     public function up()
     {

@@ -4,18 +4,18 @@ use yii\helpers\Html;
 
 /**
 * @var yii\web\View $this
-* @var app\models\Towplane $model
+* @var app\models\MasterTowplane $model
 */
 
-$this->title = Yii::t('models', 'Contest Towplane');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'Contest Towplane'), 'url' => ['index']];
+$this->title = Yii::t('models', 'Towplane');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'Towplane'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => (string)$model->rego, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Edit';
 ?>
-<div class="giiant-crud towplane-update">
+<div class="giiant-crud master-towplane-update">
 
     <h1>
-        <?= Yii::t('models', 'Contest Towplane') ?>
+        <?= Yii::t('models', 'Towplane') ?>
         <small>
                         <?= Html::encode($model->rego) ?>
         </small>

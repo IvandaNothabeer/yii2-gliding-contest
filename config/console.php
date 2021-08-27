@@ -39,6 +39,13 @@ $config = [
 				],
 			],
 		],
+		'mailer' => [
+			'class' => 'yii\swiftmailer\Mailer',
+			// send all mails to a file by default. You have to set
+			// 'useFileTransport' to false and configure a transport
+			// for the mailer to send real emails.
+			'useFileTransport' => true,
+		],
 	],
 	'modules' => [
 		'user' => [
@@ -108,8 +115,8 @@ $config = [
 		],
 		'migration' => [
 			'class' => 'bizley\migration\controllers\MigrationController',
-			'excludeTables' => ['auth_assignment', 'auth_item', 'auth_item_child', 'auth_rule'],
-			'skipMigrations' => ['Person_access']
+			'excludeTables' => ['auth_assignment','auth_item','auth_item_child','auth_rule','social_account','token', 'profile','user'],
+			'skipMigrations' => ['Person_access','MasterTowplane_access']
 		],
 	],
 ];

@@ -2,7 +2,7 @@
 
 use yii\db\Migration;
 
-class m210112_054035_create_table_towplanes extends Migration
+class m210112_053935_create_table_towplanes extends Migration
 {
     public function up()
     {
