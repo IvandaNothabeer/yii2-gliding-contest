@@ -31,3 +31,8 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+
+
+#vscode settings
+.vscode/settings.json
+.vscode/launch.json
