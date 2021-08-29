@@ -72,12 +72,22 @@ $this->params['breadcrumbs'][] = 'View';
     <?= DetailView::widget([
     'model' => $model,
     'attributes' => [
-            'action',
+        'action',
         'model',
         'stamp',
-        'model_id',
+        //'model_id',
+        [
+            'attribute' => 'model_id',
+            'label' => 'Glider',
+            'value' => app\models\Status::findOne($model->model_id)->pilot->rego,
+        ],
         'field',
-        'user_id',
+        //'user_id',
+        [
+            'attribute' => 'user_id',
+            'label' => 'Updated By',
+            'value' => app\models\User::findOne($model->user_id)->getAttribute('username'),
+        ],       
         'old_value:ntext',
         'new_value:ntext',
     ],

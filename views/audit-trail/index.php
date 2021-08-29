@@ -139,9 +139,9 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
                 [
                     'attribute' => 'model_id',
                     'label' => 'Glider',
-                    'filter' => yii\helpers\ArrayHelper::map(app\models\Pilot::find()->all(), 'id', 'rego'),
+                    'filter' => yii\helpers\ArrayHelper::map(app\models\Status::find()->all(), 'id', 'pilot.rego'),
                     'value' => function ($model, $index, $widget) {
-                        return app\models\Pilot::findOne($model->model_id)->rego;
+                        return app\models\Status::findOne($model->model_id)->pilot->rego;
                     }
                 ],
                 'field',
