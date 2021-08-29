@@ -61,6 +61,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 		?>
 			<div class="pull-left">
 				<?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Update Glider Status', ['manage'], ['class' => 'btn btn-success']) ?>
+				<?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> ' . 'Status Update History', ['/audit-trail'], ['class' => 'btn btn-primary']) ?>
 			</div>
 		<?php
 		}

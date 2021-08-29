@@ -18,6 +18,7 @@ class Status extends BaseStatus
 			parent::behaviors(),
 			[
 				# custom behaviors
+				'sammaye\audittrail\LoggableBehavior'
 			]
 		);
 	}
