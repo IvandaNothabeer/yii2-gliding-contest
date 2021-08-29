@@ -107,7 +107,8 @@ $config = [
 			'class' => \yii\console\controllers\MigrateController::class,
 			'migrationPath' => [
 				'@app/migrations',
-				'@yii/rbac/migrations', // Just in case you forgot to run it on console (see next note)
+				'@yii/rbac/migrations', 
+				'@vendor/sammaye/yii2-audittrail/migrations',
 			],
 			'migrationNamespaces' => [
 				'Da\User\Migration',
