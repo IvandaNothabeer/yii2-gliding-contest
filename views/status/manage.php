@@ -59,6 +59,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	<div class="clearfix crud-navigation">
 		<div class="pull-left">
 			<?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Tracking Updates', ['/track'], ['class' => 'btn btn-success']) ?>
+			<?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> ' . 'Status Update History', ['/audit-trail'], ['class' => 'btn btn-primary']) ?>
 		</div>
 		<?php
 		if(\Yii::$app->user->can('app_status_create', ['route' => true])){

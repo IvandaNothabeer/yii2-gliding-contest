@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "182d36113d3f4b13072b20e96d802746",
+    "content-hash": "ab0602fd4398dc815fdd48153fc2633d",
     "packages": [
         {
             "name": "2amigos/yii2-selectize-widget",
@@ -4016,6 +4016,54 @@
                 "wiki": "https://github.com/richardfan1126/yii2-js-register/wiki"
             },
             "time": "2016-06-29T17:28:49+00:00"
+        },
+        {
+            "name": "sammaye/yii2-audittrail",
+            "version": "1.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Sammaye/yii2-audittrail.git",
+                "reference": "e5fcf902022f8345b72aeaaefdbdc447858df945"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Sammaye/yii2-audittrail/zipball/e5fcf902022f8345b72aeaaefdbdc447858df945",
+                "reference": "e5fcf902022f8345b72aeaaefdbdc447858df945",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": ">=2.0"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "sammaye\\audittrail\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Sammaye",
+                    "homepage": "http://sammaye.wordpress.com/"
+                }
+            ],
+            "description": "A port of audit trail",
+            "keywords": [
+                "Audit",
+                "audit trail",
+                "audittrail",
+                "extension",
+                "trail",
+                "yii2"
+            ],
+            "support": {
+                "issues": "https://github.com/Sammaye/yii2-audittrail/issues",
+                "source": "https://github.com/Sammaye/yii2-audittrail/tree/1.3.0"
+            },
+            "time": "2019-10-02T09:13:23+00:00"
         },
         {
             "name": "schmunk42/retry",
