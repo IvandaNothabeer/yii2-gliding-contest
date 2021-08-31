@@ -23,3 +23,4 @@ To set up a development Environment ...
 - Configure an empty Database in \config\db.php
 - Run Migrations with .\Yii migrate
 - Login with admin / admin
+- Configure GNZ Access details in \components\gnzInterfaceComponent.php and execute getAccessToken() to create link to GNZ Database
