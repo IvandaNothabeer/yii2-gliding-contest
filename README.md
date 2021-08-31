@@ -19,6 +19,7 @@ Yii 2 Gliding Contest is a Web Based Tool for managing GNZ Gliding Contests
 To set up a development Environment ...
 
 - Clone Repository
+- composer update
 - Configure an empty Database in \config\db.php
 - Run Migrations with .\Yii migrate
 - Login with admin / admin
