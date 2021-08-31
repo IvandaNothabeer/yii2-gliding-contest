@@ -2,7 +2,7 @@
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://avatars0.githubusercontent.com/u/993323" height="100px">
     </a>
-    <h1 align="center">Yii 2 Basic Project Template</h1>
+    <h1 align="center">Yii 2 Gliding Contest</h1>
     <br>
 </p>
 
@@ -15,3 +15,10 @@ Yii 2 Gliding Contest is a Web Based Tool for managing GNZ Gliding Contests
 - Contest launches
 - Contest Retrieves
 - Pilot Accounts
+
+To set up a development Environment ...
+
+- Clone Repository
+- Configure an empty Database in \config\db.php
+- Run Migrations with .\Yii migrate
+- Login with admin / admin
