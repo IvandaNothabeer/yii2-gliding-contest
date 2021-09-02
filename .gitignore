@@ -44,3 +44,4 @@ runtime
 web/assets
 web/assets/*
 bfg.jar
+config/custom.params.php
