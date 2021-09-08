@@ -82,13 +82,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			</div>
 		</div>
 		<div class="col-lg-2">
-			<h2>SMS List</h2>
-			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['/sms/synch-sms', 'contest_id'=>\yii::$app->user->identity->profile->contest_id]) ?>">Create the SMS Contact List &raquo;</a></p>
+			<h2>SMS Text Messages</h2>
+			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['/sms']) ?>">Send an SMS &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<?php
-					$lists = \yii\helpers\ArrayHelper::map(\yii::$app->sms->getLists(),'list_id','list_name'); ?>
-					<?php foreach ($lists as $key=>$value) echo ($value == @\app\models\Contest::find()->one()->name) ? "<li class='list-group-item'>$value</li>" : "" ?>
 				</div>
 			</div>
 		</div>
