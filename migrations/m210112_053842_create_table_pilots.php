@@ -27,7 +27,7 @@ class m210112_053842_create_table_pilots extends Migration
                 'rego_short' => $this->string(2)->comment('Glider Contest ID'),
                 'entry_date' => $this->dateTime()->comment('Entry Date'),
                 'trailer' => $this->string(80)->comment('Car & Trailer'),
-                'plate' => $this->string(10)->comment('Car Plate'),
+                'plate' => $this->string(20)->comment('Car Plate'),
                 'crew' => $this->string(80)->comment('Crew Name'),
                 'crew_phone' => $this->string(16)->comment('Crew Phone'),
             ],

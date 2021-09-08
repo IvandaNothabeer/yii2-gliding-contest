@@ -54,7 +54,7 @@ abstract class Pilot extends \yii\db\ActiveRecord
             [['rego'], 'string', 'max' => 6],
             [['rego_short'], 'string', 'max' => 2],
             [['trailer', 'crew'], 'string', 'max' => 80],
-            [['plate'], 'string', 'max' => 10],
+            [['plate'], 'string', 'max' => 20],
             [['crew_phone'], 'string', 'max' => 16],
             [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::class, 'targetAttribute' => ['contest_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Person::class, 'targetAttribute' => ['person_id' => 'id']]
