@@ -51,4 +51,25 @@ class Towplane extends BaseTowplane
             'telephone' => 'Phone',
         ];
     }
+
+    public static function find()
+	{
+		if (\Yii::$app->request->isConsoleRequest)
+			return parent::find();
+
+		if (\Yii::$app->user->isGuest){
+			$contest = 0;	
+		}
+		else{
+			$contest = \yii::$app->user->identity->profile->contest_id;
+		}
+
+		return parent::find()->andWhere(['contest_id' => $contest]);
+
+	}
+
+	public static function findEvery()
+	{
+		return parent::find();
+	}
 }

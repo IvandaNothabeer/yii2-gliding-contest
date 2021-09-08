@@ -9,10 +9,15 @@ return [
     'bsVersion' => '3.x',
     
     'clickSendUser' => 'user@localhost.com',
-    'ClickSendKey'	=> 'key',
+    'clickSendKey'	=> 'key',
 
     'gnzUser' => 'user@localhost.com',
     'gnzPassword' => 'password',
-    'gnzSecret' => 'key'
+    'gnzSecret' => 'key',
+
+    'mqttServer' => '127.0.0.1',
+    'mqttPort' => 1883,
+    'mqttClientId' => 'ContestManager'
+
     
 ];

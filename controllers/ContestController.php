@@ -103,7 +103,7 @@ class ContestController extends \app\controllers\base\ContestController
 			}
 		}
 
-		return $this->redirect(Url::previous());
+		return $this->goBack();
 
 	}
 
