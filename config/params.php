@@ -7,9 +7,6 @@ return [
     'senderName' => 'Example.com mailer',
     
     'bsVersion' => '3.x',
-    
-    'clickSendUser' => 'user@localhost.com',
-    'clickSendKey'	=> 'key',
 
     'gnzUser' => 'user@localhost.com',
     'gnzPassword' => 'password',
