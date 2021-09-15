@@ -56,6 +56,8 @@ class SmsController extends Controller
 
 		$gateway = Yii::$app->sms;
 
+		//$messages = $gateway->receive();
+
 		$model = new SmsForm();
 
 		if ($model->load(Yii::$app->request->post())){

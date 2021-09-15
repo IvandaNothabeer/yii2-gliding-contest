@@ -18,12 +18,13 @@ use libphonenumber;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
-
+use PhpMqtt\Client\ConnectionSettings;
 use PhpMqtt\Client\MqttClient;
 
 class smsInterfaceComponent extends Component
 {
 	private $mqtt;
+	private $smsMessages;
 
 	function __construct()
 	{
@@ -31,10 +32,14 @@ class smsInterfaceComponent extends Component
 			$server = Yii::$app->params['mqttServer'];
 			$port = Yii::$app->params['mqttPort'];
 			$clientId = Yii::$app->params['mqttClientId'];
+			$user = Yii::$app->params['mqttUser'];
+			$password = Yii::$app->params['mqttPassword'];
 
 			$this->mqtt = new MqttClient($server, $port, $clientId);
 
-			$this->mqtt->connect();
+			$settings = (new ConnectionSettings)->setUsername($user)->setPassword($password);
+			$this->mqtt->connect($settings);
+
 		} catch (Exception $e) {
 			Yii::$app->session->setFlash('error', 'Failed to connect to SMS Gateway');
 		}
@@ -70,7 +75,23 @@ class smsInterfaceComponent extends Component
 	{
 
 		$sms = json_encode(['number' => $number, 'message' => $message]);
-		$this->mqtt->publish('sms/message', $sms, 0);
+		$this->mqtt->publish('sms/send', $sms, 0);
+	}
+
+	public function receive()
+	{
+		$this->mqtt->publish('sms/receive/request', 'feed-me');
+		$this->mqtt->subscribe('sms/receive/reply', function ($topic, $message){ 
+			$this->smsMessages = $message;
+			$this->mqtt->interrupt();
+		}, MqttClient::QOS_EXACTLY_ONCE);
+		$this->mqtt->loop(true,false,10);
+		return $this->smsMessages;
+	}
+
+	private function on_receive()
+	{
+
 	}
 
 	private function sanitizeE164($number)

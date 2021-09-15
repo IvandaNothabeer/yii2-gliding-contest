@@ -23,7 +23,7 @@ class SmsForm extends Model
 		return [
 			// to and message are required
 			[['to', 'message'], 'required'],
-			['message', 'string', 'max'=> 160]
+			['message', 'string', 'max'=> 600]
 		];
 	}
 
