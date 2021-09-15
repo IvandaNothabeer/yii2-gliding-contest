@@ -14,7 +14,9 @@ return [
 
     'mqttServer' => '127.0.0.1',
     'mqttPort' => 1883,
-    'mqttClientId' => 'ContestManager'
+    'mqttClientId' => 'ContestManager',
+    'mqttUser' => '',
+    'mqttPassword' => ''
 
     
 ];
