@@ -29,7 +29,7 @@ else {
 		<div class="row align-content-center">
 			<div class="col-lg-2">
 				<h2>Launches</h2>
-				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/launch/create') ?>">Todays Launches &raquo;</a></p>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/launch/create') ?>">Todays Launches &raquo;</a></p>
 				<div class="list-group">
 					<?php $launches = \yii\helpers\ArrayHelper::map(\app\models\Launch::find()->where(['date' => date('Y-m-d')])->all(),'id','pilot.rego_short'); ?>
 					<?php foreach ($launches as $key=>$value) echo  "<li class='list-group-item'>$value</li>"?>
@@ -37,7 +37,7 @@ else {
 			</div>
 			<div class="col-lg-2">
 				<h2>Status</h2>
-				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/status/manage') ?>">Glider Status &raquo;</a></p>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/status/manage') ?>">Glider Status &raquo;</a></p>
 				<div class="list-group">
 					<?php $launches = \yii\helpers\ArrayHelper::map(\app\models\Status::find()->all(),'pilot.rego_short', 'status'); ?>
 					<?php foreach ($launches as $key=>$value) echo  "<li class='list-group-item'>$key  -  $value</li>"?>
@@ -45,7 +45,7 @@ else {
 			</div>
 			<div class="col-lg-2">
 				<h2>Tracking</h2>
-				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/track') ?>">Tracking Updates &raquo;</a></p>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/track') ?>">Tracking Updates &raquo;</a></p>
 				<?php
 				$tracks = Yii::$app->gnz->getContestTracks(date('Y-m-d'), @\yii::$app->user->identity->profile->contest_id ?? 0);
 				$tracks = \yii\helpers\ArrayHelper::map($tracks,'rego', 'status');
@@ -54,15 +54,15 @@ else {
 			</div>
 			<div class="col-lg-2">
 				<h2>Landouts</h2>
-				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/landout') ?>">Landouts &raquo;</a></p>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/landout') ?>">Landouts &raquo;</a></p>
 			</div>
 			<div class="col-lg-2">
 				<h2>Retrieves</h2>
-				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/retrieve') ?>">Aero Retreives &raquo;</a></p>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/retrieve') ?>">Aero Retreives &raquo;</a></p>
 			</div>
 			<div class="col-lg-2">
 				<h2>Accounts</h2>
-				<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/transaction/manage') ?>">Accounts &raquo;</a></p>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/transaction/manage') ?>">Accounts &raquo;</a></p>
 				<div class="list-group">
 					<?php $accounts = \yii\helpers\ArrayHelper::map(\app\models\Person::find()->orderBy('name')->all(),'id', 'name'); ?>
 					<?php foreach ($accounts as $key=>$value) echo  "<a href=".Url::toRoute(['/transaction/manage', 'person_id'=>$key])." class='list-group-item list-group-item-action'>$value</a>"?>
