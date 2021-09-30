@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<div class="row align-content-center">
 		<div class="col-md-2">
 			<h2>Contests</h2>
-			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/contest/create') ?>">Create A Contest &raquo;</a></p>
+			<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/contest/create') ?>">Create A Contest &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<?php $contests = \yii\helpers\ArrayHelper::map(\app\models\Contest::findEvery()->all(),'id','name'); ?>
@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 		<div class="col-lg-2">
 			<h2>Prices</h2>
-			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/transaction-type') ?>">Setup the Prices &raquo;</a></p>
+			<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/transaction-type') ?>">Setup the Prices &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<?php $prices = \yii\helpers\ArrayHelper::map(\app\models\TransactionType::find()->all(),'name','price', 'id'); ?>
@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 		<div class="col-lg-2">
 			<h2>Towplanes</h2>
-			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute('/towplane/create') ?>">Setup the Towplanes &raquo;</a></p>
+			<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/towplane/create') ?>">Setup the Towplanes &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<?php $towplanes = \yii\helpers\ArrayHelper::map(\app\models\Towplane::find()->all(),'rego','name', 'id'); ?>
@@ -59,7 +59,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 		<div class="col-lg-2">
 			<h2>Pilots</h2>
-			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['/contest/import', 'id'=>\yii::$app->user->identity->profile->contest_id]) ?>">Import the Pilot Entries &raquo;</a></p>
+			<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute(['/contest/import', 'id'=>\yii::$app->user->identity->profile->contest_id]) ?>">Import the Pilot Entries &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<?php $pilots = \yii\helpers\ArrayHelper::map(\app\models\Pilot::find()->all(),'rego_short','name', 'id'); ?>
@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 		<div class="col-lg-2">
 			<h2>People</h2>
-			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['/person/create', 'Person' => ['contest_id'=>\yii::$app->user->identity->profile->contest_id]]) ?>">Add Extra People &raquo;</a></p>
+			<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute(['/person/create', 'Person' => ['contest_id'=>\yii::$app->user->identity->profile->contest_id]]) ?>">Add Extra People &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<?php $people = \yii\helpers\ArrayHelper::map(\app\models\Person::find()->all(),'role','name', 'id'); ?>
@@ -83,7 +83,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		</div>
 		<div class="col-lg-2">
 			<h2>SMS Text Messages</h2>
-			<p><a class="btn btn-lg btn-info" href="<?= Url::toRoute(['/sms']) ?>">Send an SMS &raquo;</a></p>
+			<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute(['/sms']) ?>">Send an SMS &raquo;</a></p>
 			<div class="panel panel-default">
 				<div class="panel-body">
 				</div>

@@ -79,7 +79,7 @@ $this->params['breadcrumbs'][] = 'View';
         [
             'attribute' => 'model_id',
             'label' => 'Glider',
-            'value' => app\models\Status::findOne($model->model_id)->pilot->rego,
+            'value' => @app\models\Status::findOne($model->model_id)->pilot->rego,
         ],
         'field',
         //'user_id',
