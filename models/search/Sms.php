@@ -5,12 +5,13 @@ namespace app\models\search;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Price as PriceModel;
+use app\models\Sms as SmsModel;
+use Codeception\Lib\Console\Message;
 
 /**
-* Price represents the model behind the search form about `\app\models\Price`.
+* Sms represents the model behind the search form about `\app\models\Sms`.
 */
-class Price extends PriceModel
+class Sms extends SmsModel
 {
 /**
 * @inheritdoc
@@ -18,9 +19,13 @@ class Price extends PriceModel
 public function rules()
 {
 return [
-[['id', 'contest_id', 'type_id'], 'integer'],
+    [['from', 'sender_id'], 'integer'],
+    [['sent', 'received'], 'safe'],
+    [['message'], 'string'],
+    [['sender'], 'string', 'max' => 80]
 ];
 }
+
 
 /**
 * @inheritdoc
@@ -40,7 +45,7 @@ return Model::scenarios();
 */
 public function search($params)
 {
-$query = PriceModel::find();
+$query = SmsModel::find();
 
 $dataProvider = new ActiveDataProvider([
 'query' => $query,
@@ -55,10 +60,15 @@ return $dataProvider;
 }
 
 $query->andFilterWhere([
-            'id' => $this->id,
-            'contest_id' => $this->contest_id,
-            'type_id' => $this->type_id,
-        ]);
+            'from' => $this->from,
+            'sender_id' => $this->sender_id,
+            'sent' => $this->sent,
+            'received' => $this->received,
+            'sender' => $this->sender,
+]);
+
+$query->andFilterWhere(['like', 'message', $this->message]);
+
 
 return $dataProvider;
 }
