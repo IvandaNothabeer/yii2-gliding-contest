@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
 
 use app\models\Contest;
 use app\models\Person;
+use app\models\Sms;
 
 use Exception;
 use libphonenumber;
@@ -59,7 +60,7 @@ class smsInterfaceComponent extends Component
 
 		foreach ($numbers as $number) {
 			$send_to = $this->sanitizeE164($number);
-			$this->Send($send_to, $message);
+			$this->send($send_to, $message);
 		}
 	}
 
@@ -68,30 +69,59 @@ class smsInterfaceComponent extends Component
 
 		$number = Person::findOne($person_id)->telephone;
 		$send_to = $this->sanitizeE164($number);
-		$this->Send($send_to, $message);
+		$this->send($send_to, $message);
 	}
 
-	private function Send($number, $message)
+	public function receiveSms()
+	{
+		$messages = $this->receive();
+
+		foreach ($messages as $message)
+		{
+			$sms = new Sms();
+			$sms->from = $message->From;
+			$sms->sent = $message->Sent;
+			$sms->received = $message->Received;
+
+			if ($sms->save())
+			{
+			$file = json_encode(['file'=>$message->fileName]);
+			$this->mqtt->publish('sms/receive/delete', $file, 0);
+			}
+
+		}
+	}
+
+	private function send($number, $message)
 	{
 
 		$sms = json_encode(['number' => $number, 'message' => $message]);
 		$this->mqtt->publish('sms/send', $sms, 0);
 	}
 
-	public function receive()
+	private function receive()
 	{
-		$this->mqtt->publish('sms/receive/request', 'feed-me');
+		// Subscribe to Replies
 		$this->mqtt->subscribe('sms/receive/reply', function ($topic, $message){ 
 			$this->smsMessages = $message;
 			$this->mqtt->interrupt();
 		}, MqttClient::QOS_EXACTLY_ONCE);
-		$this->mqtt->loop(true,false,10);
-		return $this->smsMessages;
-	}
 
-	private function on_receive()
-	{
+		// Create Timeout Event on Loop handler
+		$this->mqtt->registerLoopEventHandler(function (MqttClient $client, float $elapsedTime) {
+            // After 10 seconds, we quit the loop.
+            if ($elapsedTime > 10) {
+                $client->interrupt();
+            }
+        });
 
+		// Publish the Feed Request
+		$this->mqtt->publish('sms/receive/request', 'feed-me');
+
+		// Wait for the Feed
+		$this->mqtt->loop(true);
+		
+		return json_decode($this->smsMessages);
 	}
 
 	private function sanitizeE164($number)
@@ -100,7 +130,9 @@ class smsInterfaceComponent extends Component
 		$phoneUtil = PhoneNumberUtil::getInstance();
 		try {
 			$clean = $phoneUtil->parse($number, 'NZ');
-			return $phoneUtil->format($clean, PhoneNumberFormat::E164);
+			$clean = $phoneUtil->format($clean, PhoneNumberFormat::E164);
+			$clean = substr($clean, 1);
+			return $clean;
 		} catch (NumberParseException $e) {
 			return '';
 		}

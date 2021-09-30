@@ -10,13 +10,13 @@ use yii\helpers\Url;
 use yii\filters\AccessControl;
 use dmstr\bootstrap\Tabs;
 
-//use app\models\Contest;
 use app\models\SmsForm;
-
+use app\models\Sms;
+use app\models\search\Sms as SmsSearch;
 
 
 /**
- * ClubController implements the CRUD actions for Sms Interface.
+ * SmsController implements the CRUD actions for Sms Interface.
  */
 class SmsController extends Controller
 {
@@ -39,7 +39,7 @@ class SmsController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index'],
+						'actions' => ['index', 'view'],
 						'roles' => ['AppContestFull'],
 					],
 				],
@@ -48,7 +48,7 @@ class SmsController extends Controller
 	}
 
 	/**
-	 * Lists all Club models.
+	 * Send an SMS Message.
 	 * @return mixed
 	 */
 	public function actionIndex()
@@ -56,9 +56,14 @@ class SmsController extends Controller
 
 		$gateway = Yii::$app->sms;
 
-		//$messages = $gateway->receive();
+		//$messages = $gateway->receiveSms();
 
 		$model = new SmsForm();
+
+		$sms = new Sms();
+		$searchModel  = new SmsSearch;
+		$dataProvider = $searchModel->search($_GET);
+		$dataProvider->pagination = ['pageSize' => 12];
 
 		if ($model->load(Yii::$app->request->post())){
 			($model->to==0) 
@@ -68,11 +73,11 @@ class SmsController extends Controller
 		}
 
 
-		return $this->render('index', ['model' => $model,]);
+		return $this->render('index', ['model' => $model, 'sms'=>$sms, 'searchModel'=>$searchModel, 'dataProvider'=>$dataProvider]);
 	}
 
 	/**
-	 * Displays a single Club model.
+	 * View Received Messages.
 	 * @param integer $id
 	 *
 	 * @return mixed

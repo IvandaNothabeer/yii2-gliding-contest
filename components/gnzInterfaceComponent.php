@@ -96,16 +96,16 @@ class gnzInterfaceComponent extends Component
 
 		if ($response->isOk) {
 			foreach($response->data['data'] as $key=>$values) {
-				if ($values['entry_type']=='pilot' and $values['entry_status']=='entered')
+				if (@$values['entry_type']=='pilot' and @$values['entry_status']=='entered')
 				{
 					$pilot_details = $this->getPilotDetails($values['member_id']);
 					$this->pilotList[] = [
-						'gnz_id' 		=> $values['id'],
-						'name' 			=> $values['first_name'].' '.$values['last_name'],
-						'rego' 			=> $values['aircraft']['rego'],
-						'rego_short' 	=> substr($values['aircraft']['contest_id'],-2),
-						'entry_date' 	=> $values['created_at'],
-						'telephone'     => $values['mobile'],
+						'gnz_id' 		=> @$values['id'],
+						'name' 			=> @$values['first_name'].' '.@$values['last_name'],
+						'rego' 			=> @$values['aircraft']['rego'],
+						'rego_short' 	=> substr(@$values['aircraft']['contest_id'],-2),
+						'entry_date' 	=> @$values['created_at'],
+						'telephone'     => @$values['mobile'],
 						'address1'		=> @$pilot_details['address_1'],
 						'address2'		=> @$pilot_details['address_2'],
 						'address3'		=> @$pilot_details['city'],
@@ -355,7 +355,7 @@ class gnzInterfaceComponent extends Component
 		foreach ($array as $k => $v){
 			if (is_array($v)){
 				$str.=str_repeat(" ",$i*2)."[$k]".PHP_EOL;
-				$str.=put_ini_file("",$v, $i+1);
+				$str.=$this->put_ini_file("",$v, $i+1);
 			}else
 				$str.=str_repeat(" ",$i*2)."$k = $v".PHP_EOL;
 		}
