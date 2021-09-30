@@ -45,3 +45,4 @@ web/assets
 web/assets/*
 bfg.jar
 config/custom.params.php
+composer.lock
