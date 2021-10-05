@@ -46,6 +46,12 @@ $config = [
 			// for the mailer to send real emails.
 			'useFileTransport' => true,
 		],
+		'gnz' => [
+			'class' => 'app\components\gnzInterfaceComponent',
+		],
+		'sms' => [
+			'class' => 'app\components\smsInterfaceComponent',
+		],
 	],
 	'modules' => [
 		'user' => [
