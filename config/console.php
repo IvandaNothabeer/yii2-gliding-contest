@@ -6,7 +6,10 @@ $db = require __DIR__ . '/db.php';
 $config = [
 	'id' => 'basic-console',
 	'basePath' => dirname(__DIR__),
-	'bootstrap' => ['log'],
+	'bootstrap' => [
+		'log',
+		'queue'
+	],
 	'controllerNamespace' => 'app\commands',
 	'aliases' => [
 		'@bower' => '@vendor/bower-asset',
@@ -52,6 +55,13 @@ $config = [
 		'sms' => [
 			'class' => 'app\components\smsInterfaceComponent',
 		],
+		'queue' => [
+			'queue' => [
+				'class' => \yii\queue\file\Queue::class,
+				'path' => '@runtime/queue',
+			],
+            // Other driver options
+        ],
 	],
 	'modules' => [
 		'user' => [
