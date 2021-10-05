@@ -9,7 +9,7 @@ namespace app\controllers\api;
 use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 
-class ItemController extends \yii\rest\ActiveController
+class TransactionTypeController extends \yii\rest\ActiveController
 {
 	public $modelClass = '\app\models\Item';
 
