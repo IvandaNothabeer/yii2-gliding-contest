@@ -6,16 +6,12 @@ namespace app\components;
 
 use Yii;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
-use yii\httpclient\Client;
 use yii\helpers\ArrayHelper;
 
-use app\models\Contest;
 use app\models\Person;
 use app\models\Sms;
 
 use Exception;
-use libphonenumber;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;

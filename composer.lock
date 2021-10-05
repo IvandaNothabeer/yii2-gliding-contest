@@ -6344,16 +6344,16 @@
         },
         {
             "name": "unclead/yii2-multiple-input",
-            "version": "2.24.0",
+            "version": "2.26.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/unclead/yii2-multiple-input.git",
-                "reference": "fa4a69a96643b532ea2b49f86bdd6aeb6cd201a7"
+                "reference": "6c6d00e69ddf93f6eea89da07ec7de372dc2dae3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/fa4a69a96643b532ea2b49f86bdd6aeb6cd201a7",
-                "reference": "fa4a69a96643b532ea2b49f86bdd6aeb6cd201a7",
+                "url": "https://api.github.com/repos/unclead/yii2-multiple-input/zipball/6c6d00e69ddf93f6eea89da07ec7de372dc2dae3",
+                "reference": "6c6d00e69ddf93f6eea89da07ec7de372dc2dae3",
                 "shasum": ""
             },
             "require": {
@@ -6393,7 +6393,7 @@
                 "issues": "https://github.com/unclead/yii2-multiple-input/issues?state=open",
                 "source": "https://github.com/unclead/yii2-multiple-input"
             },
-            "time": "2021-01-09T10:53:24+00:00"
+            "time": "2021-10-01T10:05:32+00:00"
         },
         {
             "name": "yii2mod/yii2-editable",
@@ -8242,16 +8242,16 @@
         },
         {
             "name": "phpdocumentor/type-resolver",
-            "version": "1.5.0",
+            "version": "1.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpDocumentor/TypeResolver.git",
-                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f"
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/30f38bffc6f24293dadd1823936372dfa9e86e2f",
-                "reference": "30f38bffc6f24293dadd1823936372dfa9e86e2f",
+                "url": "https://api.github.com/repos/phpDocumentor/TypeResolver/zipball/a12f7e301eb7258bb68acd89d4aefa05c2906cae",
+                "reference": "a12f7e301eb7258bb68acd89d4aefa05c2906cae",
                 "shasum": ""
             },
             "require": {
@@ -8286,9 +8286,9 @@
             "description": "A PSR-5 based resolver of Class names, Types and Structural Element Names",
             "support": {
                 "issues": "https://github.com/phpDocumentor/TypeResolver/issues",
-                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.0"
+                "source": "https://github.com/phpDocumentor/TypeResolver/tree/1.5.1"
             },
-            "time": "2021-09-17T15:28:14+00:00"
+            "time": "2021-10-02T14:08:47+00:00"
         },
         {
             "name": "phpspec/prophecy",
