@@ -11,7 +11,8 @@ use yii\grid\GridView;
  * @var app\models\search\AuditTrail $searchModel
  */
 
-$this->title = 'Status Update';
+$this->title = 'History';
+$this->params['breadcrumbs'][] = ['label' => 'Status Update', 'url' => ['/status/index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 

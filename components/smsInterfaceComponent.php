@@ -76,17 +76,33 @@ class smsInterfaceComponent extends Component
 	{
 		$messages = $this->receive();
 
-		foreach ($messages as $message)
+		foreach ($messages as $filename => $message)
 		{
 			$sms = new Sms();
-			$sms->from = $message->From;
-			$sms->sent = $message->Sent;
-			$sms->received = $message->Received;
+
+			$header = true;
+			foreach($message as $row)
+			{
+				// New Line indicates end of header
+				if ($row == "\n") $header = false;
+
+				if ($header)
+				{
+					if (str_contains($row, 'From: ')) $sms->from = str_replace('From: ', '',$row);
+					if (str_contains($row, 'Sent: ')) $sms->sent = str_replace('Sent: ', '',$row);
+					if (str_contains($row, 'Received: ')) $sms->received = str_replace('Received: ', '',$row);
+				}
+				else
+				{
+					$sms->message .= $row;
+				}
+
+			}
 
 			if ($sms->save())
 			{
-			$file = json_encode(['file'=>$message->fileName]);
-			$this->mqtt->publish('sms/receive/delete', $file, 0);
+				$file = json_encode(['file'=>$filename]);
+				$this->mqtt->publish('sms/receive/delete', $file, 0);
 			}
 
 		}

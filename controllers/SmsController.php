@@ -39,7 +39,7 @@ class SmsController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index', 'view'],
+						'actions' => ['index', 'view', 'delete'],
 						'roles' => ['AppContestFull'],
 					],
 				],
@@ -55,8 +55,6 @@ class SmsController extends Controller
 	{
 
 		$gateway = Yii::$app->sms;
-
-		//$messages = $gateway->receiveSms();
 
 		$model = new SmsForm();
 
@@ -86,4 +84,27 @@ class SmsController extends Controller
 	{
 
 	}
+
+	public function actionDelete($id)
+	{
+			try {
+				$this->findModel($id)->delete();
+			} catch (\Exception $e) {
+				$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
+				\Yii::$app->getSession()->addFlash('error', $msg);
+				return $this->redirect(Url::previous());
+			}
+			
+			$this->redirect(['index']);
+	}
+
+	protected function findModel($id)
+    {
+        if (($model = Sms::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new HttpException(404, 'The requested page does not exist.');
+        }
+    }
+
 }
