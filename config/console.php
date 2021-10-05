@@ -56,10 +56,8 @@ $config = [
 			'class' => 'app\components\smsInterfaceComponent',
 		],
 		'queue' => [
-			'queue' => [
-				'class' => \yii\queue\file\Queue::class,
-				'path' => '@runtime/queue',
-			],
+			'class' => \yii\queue\file\Queue::class,
+			'path' => '@runtime/queue',
             // Other driver options
         ],
 	],
