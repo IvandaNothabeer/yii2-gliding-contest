@@ -47,7 +47,7 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
             <?= $form->field($model, 'to')->dropDownList(
                 array_merge(
                     [0 => 'Everyone'],
-                    \Yii\helpers\ArrayHelper::map(app\models\Person::find()->all(), 'number', 'name')
+                    \Yii\helpers\ArrayHelper::map(app\models\Person::find()->all(), 'telephone', 'name')
                 ),
                 ['autofocus' => true]
             ) ?>
