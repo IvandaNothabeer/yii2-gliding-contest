@@ -64,10 +64,8 @@ class smsInterfaceComponent extends Component
 		}
 	}
 
-	public function sendSMStoOne($person_id, $message )
+	public function sendSMStoOne($number, $message )
 	{
-
-		$number = Person::findOne($person_id)->telephone;
 		$send_to = $this->sanitizeE164($number);
 		$this->send($send_to, $message);
 	}
