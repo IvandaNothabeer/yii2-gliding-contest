@@ -44,5 +44,8 @@ runtime
 web/assets
 web/assets/*
 bfg.jar
-config/custom.params.php
 composer.lock
+config/custom.params.php
+config/custom.db.php
+config/params.php
+config/db.php
