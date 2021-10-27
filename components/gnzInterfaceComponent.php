@@ -100,20 +100,20 @@ class gnzInterfaceComponent extends Component
 				{
 					$pilot_details = $this->getPilotDetails($values['member_id']);
 					$this->pilotList[] = [
-						'gnz_id' 		=> @$values['id'],
-						'name' 			=> @$values['first_name'].' '.@$values['last_name'],
-						'rego' 			=> @$values['aircraft']['rego'],
-						'rego_short' 	=> substr(@$values['aircraft']['contest_id'],-2),
-						'entry_date' 	=> @$values['created_at'],
-						'telephone'     => @$values['mobile'],
-						'address1'		=> @$pilot_details['address_1'],
-						'address2'		=> @$pilot_details['address_2'],
-						'address3'		=> @$pilot_details['city'],
-						'postcode'		=> @$pilot_details['zip_post'],
-						'trailer'		=> @$values['car_details'],
-						'plate'			=> @$values['car_plate'],
-						'crew'			=> @$values['crew_name'],
-						'crew_phone'	=> @$values['crew_phone'],
+						'gnz_id' 		=> $values['id'] ?? 0,
+						'name' 			=> $values['first_name'].' '.$values['last_name'],
+						'rego' 			=> $values['aircraft']['rego']  ?? '---',
+						'rego_short' 	=> substr($values['aircraft']['contest_id']  ?? '---',-2),
+						'entry_date' 	=> $values['created_at'] ?? null,
+						'telephone'     => $values['mobile'] ?? '000',
+						'address1'		=> $pilot_details['address_1'] ?? '--',
+						'address2'		=> $pilot_details['address_2'] ?? '--',
+						'address3'		=> $pilot_details['city'] ?? '--',
+						'postcode'		=> $pilot_details['zip_post'] ?? '0000',
+						'trailer'		=> $values['car_details'] ?? 'missing',
+						'plate'			=> $values['car_plate'] ?? 'missing',
+						'crew'			=> $values['crew_name'] ?? 'none',
+						'crew_phone'	=> $values['crew_mobile'] ?? '000',
 					];
 				}
 			}

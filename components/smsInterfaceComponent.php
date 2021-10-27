@@ -15,8 +15,11 @@ use Exception;
 use libphonenumber\NumberParseException;
 use libphonenumber\PhoneNumberFormat;
 use libphonenumber\PhoneNumberUtil;
+use phpDocumentor\Reflection\DocBlock\Tags\Return_;
 use PhpMqtt\Client\ConnectionSettings;
 use PhpMqtt\Client\MqttClient;
+
+use yii\console\ExitCode;
 
 class smsInterfaceComponent extends Component
 {
@@ -38,8 +41,16 @@ class smsInterfaceComponent extends Component
 			$this->mqtt->connect($settings);
 
 		} catch (Exception $e) {
-			Yii::$app->session->setFlash('error', 'Failed to connect to SMS Gateway');
-		}
+			if (isset(Yii::$app->session->id)) 
+			{
+				Yii::$app->session->setFlash('error', 'Failed to connect to SMS Gateway');
+			} 
+			else
+			{
+				echo 'Failed to Connect to SMS Gateway';
+				return ExitCode::UNAVAILABLE;
+			}
+		}	 
 	}
 
 	function __destruct()
@@ -70,35 +81,48 @@ class smsInterfaceComponent extends Component
 	{
 		$messages = $this->receive();
 
-		foreach ($messages as $filename => $message)
-		{
-			$sms = new Sms();
-
-			$header = true;
-			foreach($message as $row)
+		try{
+			foreach ($messages as $filename => $message)
 			{
-				// New Line indicates end of header
-				if ($row == "\n") $header = false;
+				$sms = new Sms();
 
-				if ($header)
+				$header = true;
+				foreach($message as $row)
 				{
-					if (str_contains($row, 'From: ')) $sms->from = str_replace('From: ', '',$row);
-					if (str_contains($row, 'Sent: ')) $sms->sent = str_replace('Sent: ', '',$row);
-					if (str_contains($row, 'Received: ')) $sms->received = str_replace('Received: ', '',$row);
+					// New Line indicates end of header
+					if ($row == "\n") $header = false;
+
+					if ($header)
+					{
+						if (str_contains($row, 'From: ')) $sms->from = str_replace('From: ', '',$row);
+						if (str_contains($row, 'Sent: ')) $sms->sent = str_replace('Sent: ', '',$row);
+						if (str_contains($row, 'Received: ')) $sms->received = str_replace('Received: ', '',$row);
+					}
+					else
+					{
+						$sms->message .= $row;
+					}
+
 				}
-				else
+
+				if ($sms->save())
 				{
-					$sms->message .= $row;
+					$file = json_encode(['file'=>$filename]);
+					$this->mqtt->publish('sms/receive/delete', $file, 0);
 				}
 
 			}
-
-			if ($sms->save())
+		}
+		catch (Exception $e) {
+			if (isset(Yii::$app->session->id)) 
 			{
-				$file = json_encode(['file'=>$filename]);
-				$this->mqtt->publish('sms/receive/delete', $file, 0);
+				Yii::$app->session->setFlash('error', 'No Response Received from SMS Gateway');
+			} 
+			else
+			{
+				echo 'No Response from SMS Modem';
+				return ExitCode::TEMPFAIL;
 			}
-
 		}
 	}
 

@@ -14,9 +14,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="giiant-crud towplane-create">
 
     <h1>
-        <?= Yii::t('models', 'Contest Towplane') ?>
+        <?= Yii::t('models', 'Add Towplane to Contest') ?>
         <small>
-                        <?= Html::encode($model->rego) ?>
+                <?= Html::encode($model->rego) ?>
         </small>
     </h1>
 
