@@ -76,30 +76,29 @@ class ContestController extends \app\controllers\base\ContestController
 	public function actionImport($id)
 	{
 		$gnz_id = Contest::findOne(['id'=>$id])->gnz_id;
-		$pilots = Yii::$app->gnz->getPilotList($gnz_id);
+		$entries = Yii::$app->gnz->getPilotList($gnz_id);
 
-		if ($pilots){
-			foreach ($pilots as $pilot){
-				$model = Person::find()->joinWith(['pilots'])->where(['persons.contest_id'=>$id, 'pilots.gnz_id'=>$pilot['gnz_id']])->one();
-				if (!$model){
-					$model = new Person;
-					$model->attributes = $pilot;
-					$model->role = Person::ROLE_PILOT;
-					$model->contest_id = $id;
-					if (!$model->save()){
-						foreach($model->errors as $e) \Yii::$app->session->addFlash('error', "$model->name : ". implode(' ',$e));	
-					}
-					else{
-						$person_id = $model->id;
-						$model = new Pilot;
-						$model->attributes = $pilot;
-						$model->person_id = $person_id;
-						$model->contest_id = $id;
-						if (!$model->save()){
-							foreach($model->errors as $e) \Yii::$app->session->addFlash('error', "$model->rego : ". implode(' ',$e));	
-						}	
-					}
+		if ($entries){
+			foreach ($entries as $entry){
+
+				$person = Person::find()->joinWith(['pilots'])->where(['persons.contest_id'=>$id, 'pilots.gnz_id'=>$entry['gnz_id']])->one() ?? new Person;
+				$pilot = Pilot::find()->where(['gnz_id'=>$entry['gnz_id']])->one() ?? new Pilot();
+
+				$person->attributes = $entry;
+				$person->role = Person::ROLE_PILOT;
+				$person->contest_id = $id;
+				if (!$person->save()){
+					foreach($person->errors as $e) \Yii::$app->session->addFlash('error', "$person->name : ". implode(' ',$e));	
 				}
+
+				$person_id = $person->id;
+				$pilot->attributes = $entry;
+				$pilot->person_id = $person_id;
+				$pilot->contest_id = $id;
+				if (!$pilot->save()){
+					foreach($pilot->errors as $e) \Yii::$app->session->addFlash('error', "$pilot->rego : ". implode(' ',$e));	
+				}
+
 			}
 		}
 

@@ -3,16 +3,18 @@
 /* @var $this yii\web\View */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
-$this->title = 'About';
+$this->title = 'GNZ Contest Manager';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        This is the About page. You may modify the following file to customize its content:
-    </p>
+    <div class="col-lg-4">
+				<h5>Start by Registering an Account</h5>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/user/register') ?>">Sign Me Up &raquo;</a></p>
+	</div>
 
-    <code><?= __FILE__ ?></code>
+
 </div>
