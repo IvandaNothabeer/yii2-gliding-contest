@@ -102,7 +102,7 @@ class ContestController extends \app\controllers\base\ContestController
 			}
 		}
 
-		return $this->goBack();
+		return $this->render('/site/setup');
 
 	}
 

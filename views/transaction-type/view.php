@@ -161,7 +161,7 @@ $this->params['breadcrumbs'][] = 'View';
     'class' => yii\grid\DataColumn::class,
     'attribute' => 'pilot_id',
     'value' => function ($model) {
-        if ($rel = $model->pilot) {
+        if (property_exists($model, 'pilot')??$rel = $model->pilot) {
             return Html::a($rel->person->name, ['pilot/view', 'id' => $rel->id,], ['data-pjax' => 0]);
         } else {
             return '';

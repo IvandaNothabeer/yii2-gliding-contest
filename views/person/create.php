@@ -27,6 +27,11 @@ $this->params['breadcrumbs'][] = $this->title;
             \yii\helpers\Url::previous(),
             ['class' => 'btn btn-default']) ?>
         </div>
+
+        <div class="pull-right">
+            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> ' . 'Return To Setup', ['site/setup'], ['class' => 'btn btn-success']) ?>
+        </div>
+        
     </div>
 
     <hr />

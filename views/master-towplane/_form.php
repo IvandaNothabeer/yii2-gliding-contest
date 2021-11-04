@@ -39,13 +39,15 @@ use yii\helpers\StringHelper;
 
         <p>
             
-
+        <div class="col-md-6">
 <!-- attribute rego -->
 			<?= $form->field($model, 'rego')->textInput(['maxlength' => true]) ?>
 
 <!-- attribute description -->
 			<?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
 
+        </div>
+        <div class="col-md-6">
 <!-- attribute name -->
 			<?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
@@ -64,6 +66,7 @@ use yii\helpers\StringHelper;
 <!-- attribute telephone -->
 			<?= $form->field($model, 'telephone')->textInput(['maxlength' => true]) ?>
         </p>
+        </div>
         <?php $this->endBlock(); ?>
         
         <?=
