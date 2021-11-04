@@ -88,6 +88,9 @@ if(\Yii::$app->user->can('app_master-towplane_create', ['route' => true])){
             ]
             );
             ?>
+    
+            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> ' . 'Return To Setup', ['site/setup'], ['class' => 'btn btn-success']) ?>
+
         </div>
     </div>
 
