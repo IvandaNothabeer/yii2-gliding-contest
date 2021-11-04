@@ -22,12 +22,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="clearfix crud-navigation">
         <div class="pull-left">
+
+            <?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Create a Towplane', ['master-towplane/create'], ['class' => 'btn btn-success']) ?>
+
             <?=             Html::a(
     'Cancel',
     \yii\helpers\Url::previous(),
     ['class' => 'btn btn-default']
 ) ?>
         </div>
+
+        
+        <div class="pull-right">
+            <?= Html::a('<span class="glyphicon glyphicon-arrow-left"></span> ' . 'Return To Setup', ['site/setup'], ['class' => 'btn btn-success']) ?>
+        </div>
+
     </div>
 
     <hr />
