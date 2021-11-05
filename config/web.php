@@ -143,6 +143,13 @@ $config = [
 			// other settings
 		],
 	],
+	'container' => [
+        'definitions' => [
+            yii\grid\DataColumn::class => [
+				'filterInputOptions' => ['placeholder' => 'Search', 'class' => 'form-control'],
+            ],
+        ],
+    ],
 	'params' => $params,
 	'language' => 'en-NZ',
 	'sourceLanguage' => 'en-US',
