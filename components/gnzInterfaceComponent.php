@@ -3,7 +3,7 @@
 
 namespace app\components;
 
-
+use Exception;
 use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
@@ -173,6 +173,7 @@ class gnzInterfaceComponent extends Component
 		$accessToken = $this->getAccessToken();
 
 		$client = new Client(['baseUrl'=> $this->baseUrl]);
+		try {
 		$response = $client->createRequest()
 		->setMethod('GET')
 		->setFormat(Client::FORMAT_JSON)
@@ -182,7 +183,10 @@ class gnzInterfaceComponent extends Component
 			'Authorization' => 'Bearer '.$accessToken,
 		])
 		->send();
-
+		}
+		catch (Exception $e) {
+			return false;
+		}
 		if ($response->isOk) 
 			return $response->data['data'];
 
