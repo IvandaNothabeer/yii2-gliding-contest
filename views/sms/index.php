@@ -55,7 +55,9 @@ $actionColumnTemplateString = '<div class="action-buttons">' . $actionColumnTemp
             <?= $form->field($model, 'message')->textarea(['rows' => 3]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Send', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+                <?= Html::submitButton('Send', ['class' => 'btn btn-primary', 'name' => 'contact-button', 'data' => [
+                    'confirm' => 'Are you sure want to Send this message?'
+                ]]) ?>
             </div>
 
             <?php ActiveForm::end(); ?>
