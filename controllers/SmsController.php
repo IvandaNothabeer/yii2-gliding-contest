@@ -63,15 +63,15 @@ class SmsController extends Controller
 		$dataProvider = $searchModel->search($_GET);
 		$dataProvider->pagination = ['pageSize' => 12];
 
-		if ($model->load(Yii::$app->request->post())){
-			($model->to==0) 
-			? $gateway->sendSMStoAll(null, $model->message)
-			: $gateway->sendSMStoOne($model->to, $model->message);
+		if ($model->load(Yii::$app->request->post())) {
+			($model->to == 0)
+				? $gateway->sendSMStoAll(null, $model->message)
+				: $gateway->sendSMStoOne($model->to, $model->message);
 			Yii::$app->session->setFlash('success', 'Message Sent');
 		}
 
 
-		return $this->render('index', ['model' => $model, 'sms'=>$sms, 'searchModel'=>$searchModel, 'dataProvider'=>$dataProvider]);
+		return $this->render('index', ['model' => $model, 'sms' => $sms, 'searchModel' => $searchModel, 'dataProvider' => $dataProvider]);
 	}
 
 	/**
@@ -82,29 +82,34 @@ class SmsController extends Controller
 	 */
 	public function actionView($id)
 	{
+		\Yii::$app->session['__crudReturnUrl'] = Url::previous();
+		Url::remember();
+		Tabs::rememberActiveState();
 
+		return $this->render('view', [
+			'model' => $this->findModel($id),
+		]);
 	}
 
 	public function actionDelete($id)
 	{
-			try {
-				$this->findModel($id)->delete();
-			} catch (\Exception $e) {
-				$msg = (isset($e->errorInfo[2]))?$e->errorInfo[2]:$e->getMessage();
-				\Yii::$app->getSession()->addFlash('error', $msg);
-				return $this->redirect(Url::previous());
-			}
-			
-			$this->redirect(['index']);
+		try {
+			$this->findModel($id)->delete();
+		} catch (\Exception $e) {
+			$msg = (isset($e->errorInfo[2])) ? $e->errorInfo[2] : $e->getMessage();
+			\Yii::$app->getSession()->addFlash('error', $msg);
+			return $this->redirect(Url::previous());
+		}
+
+		$this->redirect(['index']);
 	}
 
 	protected function findModel($id)
-    {
-        if (($model = Sms::findOne($id)) !== null) {
-            return $model;
-        } else {
-            throw new HttpException(404, 'The requested page does not exist.');
-        }
-    }
-
+	{
+		if (($model = Sms::findOne($id)) !== null) {
+			return $model;
+		} else {
+			throw new HttpException(404, 'The requested page does not exist.');
+		}
+	}
 }
