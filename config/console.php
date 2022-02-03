@@ -53,8 +53,8 @@ $config = [
                 'encryption' => 'tls',
                 'host' => 'smtp.gmail.com',
                 'port' => '587',
-                'username' => \Yii::$app->params['adminEmail'],
-                'password' => \Yii::$app->params['gmailPassword'],
+                'username' => $params['adminEmail'],
+                'password' => $params['gmailPassword'],
             ],
 		],
 		'gnz' => [
