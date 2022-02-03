@@ -16,7 +16,7 @@ use richardfan\widget\JSRegister;
 */
 
 $this->title = Yii::t('models', 'Glider Tracking');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'Track'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'GPS Tracks'), 'url' => ['index']];
 //$this->params['breadcrumbs'][] = ['label' => (string)$model->name, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = 'Updates';
 ?>
@@ -30,21 +30,14 @@ $this->params['breadcrumbs'][] = 'Updates';
 <div class="giiant-crud item-update">
 
 	<h1>
-		<?= Yii::t('models', 'Glider Tracking Updates') ?>
+		<?= Yii::t('models', 'GPS Tracking') ?>
 	</h1>
 
 	<div class="clearfix crud-navigation">
 		<div class="pull-left">
-			<?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Status Updates', ['/status/manage'], ['class' => 'btn btn-success']) ?>
+			<?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> ' . 'Ops Normal Updates', ['/status/manage'], ['class' => 'btn btn-success']) ?>
 		</div>
 		<?php
-		if(\Yii::$app->user->can('app_status_create', ['route' => true])){
-		?>
-			<div class="pull-right">
-				<?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Reset All to Grid', ['status/reset-grid'], ['class' => 'btn btn-warning', 'onclick'=> 'return confirm (This Will Reset All the Gliders back to Gridded)']) ?>
-			</div>
-		<?php
-		}
 		?>
 	</div>
 

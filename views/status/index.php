@@ -11,7 +11,7 @@ use yii\helpers\ArrayHelper;
 * @var app\models\search\Status $searchModel
 */
 
-$this->title = Yii::t('models', 'Status');
+$this->title = Yii::t('models', 'Ops Normal');
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -50,7 +50,7 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	<?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
 	<h1>
-		<?= Yii::t('models', 'Status') ?>
+		<?= Yii::t('models', 'Ops Normal') ?>
 		<small>
 			Glider Status Updates
 		</small>

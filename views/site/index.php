@@ -36,16 +36,16 @@ else {
 				</div>
 			</div>
 			<div class="col-lg-2">
-				<h2>Status</h2>
-				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/status/manage') ?>">Glider Status &raquo;</a></p>
+				<h2>Ops Normal</h2>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/status/manage') ?>">Ops Normal Updates &raquo;</a></p>
 				<div class="list-group">
 					<?php $launches = \yii\helpers\ArrayHelper::map(\app\models\Status::find()->all(),'pilot.rego_short', 'status'); ?>
 					<?php foreach ($launches as $key=>$value) echo  "<li class='list-group-item'>$key  -  $value</li>"?>
 				</div>
 			</div>
 			<div class="col-lg-2">
-				<h2>Tracking</h2>
-				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/track') ?>">Tracking Updates &raquo;</a></p>
+				<h2>GPS Tracking</h2>
+				<p><a class="btn btn-lg btn-primary" href="<?= Url::toRoute('/track') ?>">GPS Tracking Updates &raquo;</a></p>
 				<?php
 				$tracks = Yii::$app->gnz->getContestTracks(date('Y-m-d'), @\yii::$app->user->identity->profile->contest_id ?? 0);
 				$tracks = \yii\helpers\ArrayHelper::map($tracks,'rego', 'status');

@@ -15,7 +15,7 @@ use app\models\Status;
 */
 
 $this->title = Yii::t('models', 'Manage');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'Status'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('models', 'Ops Normal'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 
@@ -54,12 +54,12 @@ $actionColumnTemplateString = '<div class="action-buttons">'.$actionColumnTempla
 	<?php \yii\widgets\Pjax::begin(['id'=>'pjax-main', 'enableReplaceState'=> false, 'linkSelector'=>'#pjax-main ul.pagination a, th a', 'clientOptions' => ['pjax:success'=>'function(){alert("yo")}']]) ?>
 
 	<h1>
-		<?= Yii::t('models', 'Glider Status Recording') ?>
+		<?= Yii::t('models', 'Ops Normal Recording') ?>
 	</h1>
 	<div class="clearfix crud-navigation">
 		<div class="pull-left">
-			<?= Html::a('<span class="glyphicon glyphicon-plus"></span> ' . 'Tracking Updates', ['/track'], ['class' => 'btn btn-success']) ?>
-			<?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> ' . 'Status Update History', ['/audit-trail'], ['class' => 'btn btn-primary']) ?>
+			<?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> ' . 'GPS Tracking', ['/track'], ['class' => 'btn btn-success']) ?>
+			<?= Html::a('<span class="glyphicon glyphicon-eye-open"></span> ' . 'Ops Normal History', ['/audit-trail'], ['class' => 'btn btn-primary']) ?>
 		</div>
 		<?php
 		if(\Yii::$app->user->can('app_status_create', ['route' => true])){

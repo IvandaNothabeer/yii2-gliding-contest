@@ -51,10 +51,10 @@ $config = [
             'transport' => [
                 'class' => 'Swift_SmtpTransport',
                 'encryption' => 'tls',
-                'host' => 'localhost',
-                'port' => '465',
-                'username' => 'your_username',
-                'password' => 'your_password',
+                'host' => 'smtp.gmail.com',
+                'port' => '587',
+                'username' => \Yii::$app->params['adminEmail'],
+                'password' => \Yii::$app->params['gmailPassword'],
             ],
 		],
 		'gnz' => [
