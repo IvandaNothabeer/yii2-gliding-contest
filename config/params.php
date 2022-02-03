@@ -2,9 +2,10 @@
 
 return [
 
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'adminEmail' => 'user@localhost.com',
+    'senderEmail' => 'user@localhost.com',
+    'senderName' => 'GNZ Contest Manager',
+    'gmailPassword' => '',
     
     'bsVersion' => '3.x',
 
@@ -15,8 +16,8 @@ return [
     'mqttServer' => '127.0.0.1',
     'mqttPort' => 1883,
     'mqttClientId' => 'ContestManager',
-    'mqttUser' => '',
-    'mqttPassword' => ''
+    'mqttUser' => 'mqttUser',
+    'mqttPassword' => 'mqttPassword'
 
     
 ];
