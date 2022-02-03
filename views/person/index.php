@@ -155,9 +155,10 @@ if(\Yii::$app->user->can('app_person_create', ['route' => true])){
 			                }    
 			            ],
 			'telephone:ntext',
-			'address1',
-			'address2',
-			'address3',
+            'email',
+			//'address1',
+			//'address2',
+			//'address3',
 			/*'postcode',*/
                 ]
         ]); ?>

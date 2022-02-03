@@ -89,6 +89,7 @@ $this->params['breadcrumbs'][] = 'View';
                 'value'=>\app\models\Person::getRoleValueLabel($model->role),
             ],
         'telephone:ntext',
+        'email',
         'address1',
         'address2',
         'address3',

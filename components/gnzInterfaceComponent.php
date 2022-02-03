@@ -114,6 +114,7 @@ class gnzInterfaceComponent extends Component
 						'plate'			=> $values['car_plate'] ?? 'missing',
 						'crew'			=> $values['crew_name'] ?? 'none',
 						'crew_phone'	=> $values['crew_mobile'] ?? '000',
+						'email'			=> $values['email'] ?? 'none@noreply.com',
 					];
 				}
 			}

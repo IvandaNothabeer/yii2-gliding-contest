@@ -73,7 +73,8 @@ use yii\helpers\StringHelper;
 			<?= $form->field($model, 'postcode')->textInput(['maxlength' => true]) ?>
 			<!-- attribute telephone -->
 			<?= $form->field($model, 'telephone')->textInput(['maxlength' => true]) ?>
-
+			<!-- attribute email -->
+			<?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 			</div>
 
 		</p>

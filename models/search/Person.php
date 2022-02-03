@@ -19,7 +19,7 @@ public function rules()
 {
 return [
 [['id', 'contest_id'], 'integer'],
-            [['name', 'address1', 'address2', 'address3', 'postcode', 'role', 'telephone'], 'safe'],
+            [['name', 'address1', 'address2', 'address3', 'postcode', 'role', 'telephone', 'email'], 'safe'],
 ];
 }
 
@@ -66,7 +66,8 @@ $query->andFilterWhere([
             ->andFilterWhere(['like', 'address3', $this->address3])
             ->andFilterWhere(['like', 'postcode', $this->postcode])
             ->andFilterWhere(['like', 'role', $this->role])
-            ->andFilterWhere(['like', 'telephone', $this->telephone]);
+            ->andFilterWhere(['like', 'telephone', $this->telephone])
+            ->andFilterWhere(['like', 'email', $this->email]);
 
 return $dataProvider;
 }

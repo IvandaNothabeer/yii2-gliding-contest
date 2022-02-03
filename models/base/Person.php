@@ -55,6 +55,7 @@ abstract class Person extends \yii\db\ActiveRecord
             [['contest_id', 'name'], 'required'],
             [['contest_id'], 'integer'],
             [['role', 'telephone'], 'string'],
+            [['email'], 'string', 'max' => 100],
             [['name', 'address1', 'address2', 'address3'], 'string', 'max' => 80],
             [['postcode'], 'string', 'max' => 12],
             [['contest_id'], 'exist', 'skipOnError' => true, 'targetClass' => \app\models\Contest::class, 'targetAttribute' => ['contest_id' => 'id']],
@@ -85,6 +86,7 @@ abstract class Person extends \yii\db\ActiveRecord
             'postcode' => 'Postcode',
             'role' => 'Contest Role',
             'telephone' => 'Mobile Number',
+            'email' => 'E-Mail', 
         ];
     }
 
@@ -103,6 +105,7 @@ abstract class Person extends \yii\db\ActiveRecord
             'postcode' => 'Postcode',
             'role' => 'Contest Role',
             'telephone' => 'Mobile Number',
+            'email' => 'E-Mail', 
         ]);
     }
 
