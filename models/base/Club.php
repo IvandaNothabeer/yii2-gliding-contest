@@ -16,6 +16,10 @@ use Yii;
  * @property string $address3
  * @property string $postcode
  * @property string $telephone
+ * @property string $email
+ * @property string $bankname
+ * @property string $bankno
+ * @property string $gstno
  *
  * @property \app\models\Contest[] $contests
  * @property string $aliasModel
@@ -42,7 +46,9 @@ abstract class Club extends \yii\db\ActiveRecord
             [['name', 'address1'], 'required'],
             [['name', 'address1', 'address2', 'address3'], 'string', 'max' => 80],
             [['postcode'], 'string', 'max' => 8],
-            [['telephone'], 'string', 'max' => 16]
+            [['telephone', 'bankno', 'gstno'], 'string', 'max' => 16],
+            [['email'], 'string', 'max' => 100],
+            [['bankname'], 'string', 'max' => 40]
         ];
     }
 
@@ -59,7 +65,30 @@ abstract class Club extends \yii\db\ActiveRecord
             'address3' => 'Address Line 3',
             'postcode' => 'Post Code',
             'telephone' => 'Telephone',
+            'email' => 'E Mail',
+            'bankname' => 'Bank Name',
+            'bankno' => 'Account Number',
+            'gstno' => 'GST Number',
         ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeHints()
+    {
+        return array_merge(parent::attributeHints(), [
+            'name' => 'Club Name',
+            'address1' => 'Address Line 1',
+            'address2' => 'Address Line 2',
+            'address3' => 'Address Line 3',
+            'postcode' => 'Post Code',
+            'telephone' => 'Telephone',
+            'email' => 'E Mail',
+            'bankname' => 'Bank Name',
+            'bankno' => 'Account Number',
+            'gstno' => 'GST Number',
+        ]);
     }
 
     /**
@@ -67,7 +96,7 @@ abstract class Club extends \yii\db\ActiveRecord
      */
     public function getContests()
     {
-        return $this->hasMany(\app\models\Contest::class, ['club_id' => 'id']);
+        return $this->hasMany(\app\models\Contest::className(), ['club_id' => 'id']);
     }
 
 
