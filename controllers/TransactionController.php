@@ -182,9 +182,10 @@ class TransactionController extends \app\controllers\base\TransactionController
 
 		// return the pdf output as per the destination setting
 		if ($sendmail) {
-			$fileName = Yii::getAlias('@runtime/' . preg_replace( '/[^a-z0-9]+/', '-', strtolower( $contest->name ) ) . '.pdf');
+			$fileName = Yii::getAlias('@app/runtime/mail/' . preg_replace( '/[^a-z0-9]+/', '-', strtolower( $contest->name ) ) . '.pdf');
 			$pdf->destination = pdf::DEST_FILE;
 			$pdf->filename = $fileName;
+			$pdf->render();
 
 			Yii::$app->mailer->compose()
 				->setFrom(\Yii::$app->params['senderEmail'])
