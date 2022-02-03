@@ -125,7 +125,7 @@ class TransactionController extends \app\controllers\base\TransactionController
 		return $this->redirect(Yii::$app->request->referrer);
 	}
 
-	public function actionReport($person_id, $sendMail = false)
+	public function actionReport($person_id, $sendmail = false)
 	{
 
 		$person =  Person::findOne(['id' => $person_id]);
@@ -181,20 +181,23 @@ class TransactionController extends \app\controllers\base\TransactionController
 		]);
 
 		// return the pdf output as per the destination setting
-		if ($sendMail) {
+		if ($sendmail) {
 			$fileName = Yii::getAlias('@runtime/' . $contest->name . '.pdf');
 			$pdf->destination = pdf::DEST_FILE;
 			$pdf->filename = $fileName;
 
 			Yii::$app->mailer->compose()
 				->setFrom(\Yii::$app->params['senderEmail'])
-				//->setTo($person->email)
-				->setTo('info@lymac.co.nz')
+				->setTo($person->email)
 				->setSubject("Contest Invoice for $contest->name")
-				->setTextBody('Plain text content')
-				->setHtmlBody('<b>HTML content</b>')
+				->setTextBody('Please find your invoice Attached')
+				->setHtmlBody('<b>Please find your invoice attached</b>')
 				->attach($fileName)
 				->send();
+
+				Yii::$app->session->addFlash('success', "Account Has been Sent to $person->email");
+				$this->redirect(['manage','person_id' => $person_id]);
+
 		}
 		return $pdf->render();
 	}

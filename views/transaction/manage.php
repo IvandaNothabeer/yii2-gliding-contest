@@ -59,6 +59,11 @@ $this->params['breadcrumbs'][] = 'Manage';
 					['report', 'person_id' => $person_id],
 					['class' => 'btn btn-primary']
 				) ?>
+				<?= Html::a(
+					'<span class="glyphicon glyphicon-envelope"></span> ' . 'Email Invoice',
+					['report', 'person_id' => $person_id, 'sendmail'=>'true'],
+					['class' => 'btn btn-warning']
+				) ?>
 			</div>
 		</div>
 	</div>
