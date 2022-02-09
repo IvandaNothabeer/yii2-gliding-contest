@@ -46,9 +46,10 @@ abstract class Club extends \yii\db\ActiveRecord
             [['name', 'address1'], 'required'],
             [['name', 'address1', 'address2', 'address3'], 'string', 'max' => 80],
             [['postcode'], 'string', 'max' => 8],
-            [['telephone', 'bankno', 'gstno'], 'string', 'max' => 16],
+            [['telephone'], 'string', 'max' => 16],
             [['email'], 'string', 'max' => 100],
-            [['bankname'], 'string', 'max' => 40]
+            [['bankname'], 'string', 'max' => 40],
+            [['bankno', 'gstno'], 'string', 'max' => 20]
         ];
     }
 
