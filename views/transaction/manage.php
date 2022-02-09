@@ -131,8 +131,10 @@ $this->params['breadcrumbs'][] = 'Manage';
 							console.log(qty);
 							$("#details-{multiple_index_t0}").val(data.detail);
 							$("#item_price-{multiple_index_t0}").val(data.price);
-							$("#transaction-{multiple_index_t0}-amount-disp").val(data.price * qty);
-							$("#transaction-{multiple_index_t0}-amount").val(data.price * qty);
+							//$("#transaction-{multiple_index_t0}-amount-disp").val(data.price * qty);
+							//$("#transaction-{multiple_index_t0}-amount").val(data.price * qty);
+							$("#amount-{multiple_index_t0}-disp").val(data.price * qty);
+							$("#amount-{multiple_index_t0}").val(data.price * qty);
 							},"json");
 							'
 						]
@@ -158,11 +160,14 @@ $this->params['breadcrumbs'][] = 'Manage';
 							'id' => 'quantity-{multiple_index_t0}',
 							'type' => 'number',
 							'min' => 0,
-							'onchange' => '
+							'oninput' => '
 							var price = $("#item_price-{multiple_index_t0}").val();
-							var qty = $("#quantity-{multiple_index_t0}").val(); 
-							$("#transaction-{multiple_index_t0}-amount-disp").val(price * qty);
-							$("#transaction-{multiple_index_t0}-amount").val(price * qty);
+							var qty = $("#quantity-{multiple_index_t0}").val();
+							var total = qty * price;
+							//$("#transaction-{multiple_index_t0}-amount-disp").val(price * qty);
+							//$("#transaction-{multiple_index_t0}-amount").val(price * qty);
+							$("#amount-{multiple_index_t0}-disp").val(total);
+							$("#amount-{multiple_index_t0}").val(total);
 							',
 						],
 						'columnOptions' => [
@@ -177,11 +182,14 @@ $this->params['breadcrumbs'][] = 'Manage';
 						'options' => [
 							'id' => 'item_price-{multiple_index_t0}',
 							'type' => 'number',
-							'onchange' => '
+							'oninput' => '
 							var price = $("#item_price-{multiple_index_t0}").val();
-							var qty = $("#quantity-{multiple_index_t0}").val(); 
-							$("#transaction-{multiple_index_t0}-amount-disp").val(price * qty);
-							$("#transaction-{multiple_index_t0}-amount").val(price * qty);
+							var qty = $("#quantity-{multiple_index_t0}").val();
+							var total = qty * price; 
+							//$("#transaction-{multiple_index_t0}-amount-disp").val(price * qty);
+							//$("#transaction-{multiple_index_t0}-amount").val(price * qty);
+							$("#amount-{multiple_index_t0}-disp").val(total);
+							$("#amount-{multiple_index_t0}").val(total);
 							',
 						],
 						'columnOptions' => [
