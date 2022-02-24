@@ -95,6 +95,11 @@ use kartik\grid\GridView;
 				</tr>
 				<tr>
 					<td>
+						<p>Bank Reference : Your Name</p>
+					</td>
+				</tr>>
+				<tr>
+					<td>
 						<p>Club Email : <?= $club->email ?></p>
 					</td>
 				</tr>>
