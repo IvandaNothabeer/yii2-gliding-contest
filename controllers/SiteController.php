@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Token;
 
 class SiteController extends Controller
 {
@@ -134,6 +135,43 @@ class SiteController extends Controller
 	public function actionSetup()
 	{
 		return $this->render('setup');
+	}
+
+		/**
+	* Update Access Token.
+	*
+	* @return Response|string
+	*/
+	public function actionToken()
+	{
+		$model = new Token();
+		if ($model->load(Yii::$app->request->post()) ) {
+
+			$access_token = ['access_token'=>$model->token];
+			$ini_file = Yii::getAlias('@runtime/gnz_access_token.ini');
+			$this->put_ini_file($ini_file , $access_token);
+
+			return $this->refresh();
+		}
+		return $this->render('token', [
+			'model' => $model,
+		]);
+	}
+
+	private function put_ini_file($file, $array, $i = 0)
+	{
+		$str="";
+		foreach ($array as $k => $v){
+			if (is_array($v)){
+				$str.=str_repeat(" ",$i*2)."[$k]".PHP_EOL;
+				$str.=$this->put_ini_file("",$v, $i+1);
+			}else
+				$str.=str_repeat(" ",$i*2)."$k = $v".PHP_EOL;
+		}
+		if($file)
+			return file_put_contents($file,$str);
+		else
+			return $str;
 	}
 
 }

@@ -121,6 +121,7 @@ class gnzInterfaceComponent extends Component
 			return $this->pilotList;
 		}
 		else{
+			Yii::$app->session->addFlash('error', "Failed to Retrieve Pilot Entry List");
 			return false;			
 		}
 	}
@@ -143,6 +144,7 @@ class gnzInterfaceComponent extends Component
 		if ($response->isOk) 
 			return $response->data['data'];
 
+		Yii::$app->session->addFlash('error', "Failed to Retrieve Details for Pilot");
 		return false;
 
 	}
@@ -318,6 +320,9 @@ class gnzInterfaceComponent extends Component
 	{
 		// Should not need to refresh a token once generated.
 		// Run this Function Manually after editing the Username and Password.
+		
+		//Obsolete - USe Personal Access Token Instead 
+
 		$client = new Client(['baseUrl'=> $this->oauthUrl]);
 		$response = $client->createRequest()
 		->setMethod('POST')
@@ -325,7 +330,7 @@ class gnzInterfaceComponent extends Component
 		->setUrl("token")
 		->setData([
 			'grant_type' => 'password',
-			'client_id' => '8',
+			'client_id' => '10',
 			'client_secret' => Yii::$app->params['gnzSecret'],
 			'username' => Yii::$app->params['gnzUser'],
 			'password' => Yii::$app->params['gnzPassword'],
@@ -340,6 +345,7 @@ class gnzInterfaceComponent extends Component
 			$this->put_ini_file($ini_file , $response->data);
 			return $response->data['access_token']; 
 		}
+		Yii::$app->session->addFlash('error', "Failed to refresh Security Access Token");
 		return false;
 
 	}
@@ -348,9 +354,11 @@ class gnzInterfaceComponent extends Component
 	{
 		//return $this->refreshToken();
 
+
 		$ini_file = Yii::getAlias('@runtime/gnz_access_token.ini');
 		$ini_array = parse_ini_file($ini_file, true);
 		return $ini_array['access_token'];
+
 	}
 
 

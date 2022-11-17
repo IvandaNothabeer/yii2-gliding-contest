@@ -93,7 +93,8 @@ AppAsset::register($this);
 							['label'=>'Users', 'url' => ['/user/admin']],
 							['label'=>'Roles', 'url' => ['/user/role/index']],
 							['label'=>'Permissions', 'url' => ['/user/permission/index']],
-							['label'=>'Rules', 'url' => ['/user/rules/index']],								
+							['label'=>'Rules', 'url' => ['/user/rules/index']],	
+							['label'=>'GNZ Access Token', 'url' => ['/site/token']],								
 						],
 					],
 					Yii::$app->user->isGuest ? (
