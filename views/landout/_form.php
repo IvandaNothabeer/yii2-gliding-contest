@@ -102,7 +102,7 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 
 		<div class="row">
 			<div class="col-md-1">
-				<?= $form->field($model,'rego_short')->hint(false) ?>
+				<?= $form->field($model,'rego_short')->hint(false)->label('Glider Reg') ?>
 			</div>
 			<div class="col-md-3">
 				<?= $form->field($model,'name')->hint(false) ?>
@@ -425,7 +425,7 @@ $this->registerJsFile('https://unpkg.com/leaflet-simple-map-screenshoter');
 		var ddd = $("#landout-lng").val();
 		var dms = ddd_to_dms(ddd);	
 		var dmd = ddd_to_dmd(ddd);
-		$('#dmslon').val(dmd);
+		$('#dmslon').val(dms);
 		$('#dmdlon').val(dmd);
 		$('#dddlon').val(ddd);
 		refresh_map($('#dddlat').val(),ddd)
